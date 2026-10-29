@@ -1,0 +1,19 @@
+setting,source,alpha,ari,global_fails_in,pred_loss_in_failing_bins,oracle_loss_in_failing_bins,S1,fppi_gap_mean,fppi_gap_std,S2,pred_bins_infeasible,pred_bins_max_loss
+run1 v8s_640/class/all,A,0.1,0.0738425,"fog,rain,sand,snow","fog:0.214,rain:0.145,sand:0.185,snow:0.127","fog:0.214,rain:0.145,sand:0.185,snow:0.127",False,0.0271825,0.0859587,True,1,0.211258
+run1 v8s_640/class/all,A,0.2,0.0738425,"fog,sand","fog:0.243,sand:0.205","fog:0.214,sand:0.195",False,4.37143,3.07619,True,0.175,0.214158
+run1 v8s_640/class/all,B,0.1,0.101706,"fog,rain,sand,snow","fog:0.214,rain:0.145,sand:0.185,snow:0.127","fog:0.214,rain:0.145,sand:0.185,snow:0.127",False,0.0271825,0.0859587,True,1,0.196429
+run1 v8s_640/class/all,B,0.2,0.101706,"fog,sand","fog:0.239,sand:0.201","fog:0.214,sand:0.195",False,5.84365,3.35952,False,0.2,0.205906
+run2 v8x_1280/group/clean,A,0.1,0.0638487,fog,fog:0.144,fog:0.135,False,8.4,5.68126,False,0.7,0.116208
+run2 v8x_1280/group/clean,A,0.2,0.0638487,fog,fog:0.240,fog:0.187,False,-0.223094,0.809529,True,0,0.199253
+run2 v8x_1280/group/clean,B,0.1,0.096609,fog,fog:0.140,fog:0.135,False,9.48789,4.59837,False,0.675,0.113527
+run2 v8x_1280/group/clean,B,0.2,0.096609,fog,fog:0.233,fog:0.187,False,-0.208072,0.479288,True,0,0.197281
+run2 v8x_640/group/clean,A,0.1,0.0638487,fog,fog:0.120,fog:0.085,False,-0.444619,1.30732,True,0,0.102372
+run2 v8x_640/group/clean,A,0.2,0.0638487,fog,fog:0.237,fog:0.193,False,0.0511211,0.0652137,True,0,0.206748
+run2 v8x_640/group/clean,B,0.1,0.096609,fog,fog:0.118,fog:0.085,False,-0.440807,1.6986,True,0,0.100163
+run2 v8x_640/group/clean,B,0.2,0.096609,fog,fog:0.234,fog:0.193,False,0.0923767,0.0863014,True,0,0.198838
+run1 v8s_640/class/all,B-argmax (exploratory),0.1,0.216667,"fog,rain,sand,snow","fog:0.214,rain:0.145,sand:0.185,snow:0.127","fog:0.214,rain:0.145,sand:0.185,snow:0.127",False,-0.00178571,0.00564692,True,0.975,0.186612
+run1 v8s_640/class/all,B-argmax (exploratory),0.2,0.216667,"fog,sand","fog:0.229,sand:0.203","fog:0.214,sand:0.195",False,3.36429,4.09401,True,0.275,0.209601
+run2 v8x_1280/group/clean,B-argmax (exploratory),0.1,0.243825,fog,fog:0.140,fog:0.135,False,4.01502,3.92204,True,0.5,0.114515
+run2 v8x_1280/group/clean,B-argmax (exploratory),0.2,0.243825,fog,fog:0.226,fog:0.187,False,-0.306278,0.656409,True,0,0.188078
+run2 v8x_640/group/clean,B-argmax (exploratory),0.1,0.243825,fog,fog:0.112,fog:0.085,False,1.97646,1.81527,True,0,0.092078
+run2 v8x_640/group/clean,B-argmax (exploratory),0.2,0.243825,fog,fog:0.234,fog:0.193,False,0.13296,0.113686,True,0,0.198374

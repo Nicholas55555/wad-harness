@@ -1,0 +1,6 @@
+group,features,log_loss_increase
+context (20 features of model 1),20,0.18165
+class probabilities,10,0.091293
+neck feature components,32,0.022316
+box-side uncertainty (DFL),5,0.003627
+pyramid level,1,0.00088526

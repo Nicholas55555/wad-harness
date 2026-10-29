@@ -1,0 +1,136 @@
+dataset,group,method,target_recall,false_regions_per_image,false_area_share
+BDD100K,all,max (= ordinary threshold),0.6,0.10841,0.0063514
+BDD100K,all,max (= ordinary threshold),0.7,0.26477,0.011557
+BDD100K,all,max (= ordinary threshold),0.75,0.37565,0.014877
+BDD100K,all,max (= ordinary threshold),0.8,0.64091,0.022779
+BDD100K,all,max (= ordinary threshold),0.85,0.9953,0.033112
+BDD100K,day,max (= ordinary threshold),0.6,0.042518,0.0047836
+BDD100K,day,max (= ordinary threshold),0.7,0.095372,0.0074319
+BDD100K,day,max (= ordinary threshold),0.75,0.16608,0.0109
+BDD100K,day,max (= ordinary threshold),0.8,0.24477,0.01457
+BDD100K,day,max (= ordinary threshold),0.85,0.45901,0.024087
+BDD100K,all,sum of confidences,0.6,0.20952,0.006103
+BDD100K,all,sum of confidences,0.7,0.36378,0.0096632
+BDD100K,all,sum of confidences,0.75,0.55068,0.013772
+BDD100K,all,sum of confidences,0.8,0.79407,0.018797
+BDD100K,all,sum of confidences,0.85,1.2653,0.028301
+BDD100K,day,sum of confidences,0.6,0.13155,0.0048613
+BDD100K,day,sum of confidences,0.7,0.23726,0.0087954
+BDD100K,day,sum of confidences,0.75,0.31548,0.011198
+BDD100K,day,sum of confidences,0.8,0.38454,0.013852
+BDD100K,day,sum of confidences,0.85,0.70543,0.022718
+BDD100K,all,noisy-OR,0.6,0.14042,0.0052347
+BDD100K,all,noisy-OR,0.7,0.39394,0.011082
+BDD100K,all,noisy-OR,0.75,0.56044,0.014606
+BDD100K,all,noisy-OR,0.8,0.76428,0.018983
+BDD100K,all,noisy-OR,0.85,1.2925,0.029299
+BDD100K,day,noisy-OR,0.6,0.077754,0.0045634
+BDD100K,day,noisy-OR,0.7,0.16467,0.0075564
+BDD100K,day,noisy-OR,0.75,0.22034,0.009253
+BDD100K,day,noisy-OR,0.8,0.34085,0.013689
+BDD100K,day,noisy-OR,0.85,0.69298,0.023516
+BDD100K,night,max (= ordinary threshold),0.6,0.34855,0.0075183
+BDD100K,night,max (= ordinary threshold),0.7,0.61805,0.012193
+BDD100K,night,max (= ordinary threshold),0.75,0.86929,0.016619
+BDD100K,night,max (= ordinary threshold),0.8,1.1808,0.022756
+BDD100K,night,max (= ordinary threshold),0.85,1.534,0.03003
+BDD100K,night,sum of confidences,0.6,0.53431,0.0073107
+BDD100K,night,sum of confidences,0.7,0.7545,0.010287
+BDD100K,night,sum of confidences,0.75,1.0775,0.014248
+BDD100K,night,sum of confidences,0.8,1.4263,0.019203
+BDD100K,night,sum of confidences,0.85,1.9358,0.028542
+BDD100K,night,noisy-OR,0.6,0.45734,0.0067775
+BDD100K,night,noisy-OR,0.7,0.72372,0.01036
+BDD100K,night,noisy-OR,0.75,1.1226,0.015114
+BDD100K,night,noisy-OR,0.8,1.4193,0.019338
+BDD100K,night,noisy-OR,0.85,1.8304,0.026869
+BDD100K,rain_night,max (= ordinary threshold),0.6,0.46853,0.0086586
+BDD100K,rain_night,max (= ordinary threshold),0.7,0.87413,0.013302
+BDD100K,rain_night,max (= ordinary threshold),0.75,1.1993,0.016467
+BDD100K,rain_night,max (= ordinary threshold),0.8,1.8671,0.026112
+BDD100K,rain_night,max (= ordinary threshold),0.85,2.3706,0.034408
+BDD100K,rain_night,sum of confidences,0.6,0.57692,0.0071141
+BDD100K,rain_night,sum of confidences,0.7,1.0035,0.010859
+BDD100K,rain_night,sum of confidences,0.75,1.507,0.014416
+BDD100K,rain_night,sum of confidences,0.8,2.2552,0.021691
+BDD100K,rain_night,sum of confidences,0.85,2.965,0.032336
+BDD100K,rain_night,noisy-OR,0.6,0.58741,0.0073328
+BDD100K,rain_night,noisy-OR,0.7,1.0874,0.01225
+BDD100K,rain_night,noisy-OR,0.75,1.5944,0.014907
+BDD100K,rain_night,noisy-OR,0.8,2.2238,0.02049
+BDD100K,rain_night,noisy-OR,0.85,2.965,0.031995
+DAWN,all,max (= ordinary threshold),0.6,0.048369,0.0073643
+DAWN,all,max (= ordinary threshold),0.7,0.10236,0.008848
+DAWN,all,max (= ordinary threshold),0.75,0.14736,0.01008
+DAWN,all,max (= ordinary threshold),0.8,0.24522,0.012092
+DAWN,all,max (= ordinary threshold),0.85,0.37233,0.014041
+DAWN,fog,max (= ordinary threshold),0.6,0.054688,0.0055224
+DAWN,fog,max (= ordinary threshold),0.7,0.16406,0.0070696
+DAWN,fog,max (= ordinary threshold),0.75,0.21094,0.0092957
+DAWN,fog,max (= ordinary threshold),0.8,0.41016,0.011432
+DAWN,fog,max (= ordinary threshold),0.85,0.58203,0.014852
+DAWN,all,sum of confidences,0.6,0.10349,0.0072119
+DAWN,all,sum of confidences,0.7,0.17773,0.0094117
+DAWN,all,sum of confidences,0.75,0.2036,0.010075
+DAWN,all,sum of confidences,0.8,0.31946,0.012095
+DAWN,all,sum of confidences,0.85,0.49944,0.014388
+DAWN,fog,sum of confidences,0.6,0.10547,0.0054295
+DAWN,fog,sum of confidences,0.7,0.17969,0.0068702
+DAWN,fog,sum of confidences,0.75,0.28125,0.009059
+DAWN,fog,sum of confidences,0.8,0.42969,0.011191
+DAWN,fog,sum of confidences,0.85,0.68359,0.014419
+DAWN,all,noisy-OR,0.6,0.071991,0.0070812
+DAWN,all,noisy-OR,0.7,0.13723,0.0091367
+DAWN,all,noisy-OR,0.75,0.19348,0.010067
+DAWN,all,noisy-OR,0.8,0.28796,0.011579
+DAWN,all,noisy-OR,0.85,0.46344,0.014104
+DAWN,fog,noisy-OR,0.6,0.070312,0.0053723
+DAWN,fog,noisy-OR,0.7,0.17969,0.0069333
+DAWN,fog,noisy-OR,0.75,0.26562,0.0080203
+DAWN,fog,noisy-OR,0.8,0.42188,0.011094
+DAWN,fog,noisy-OR,0.85,0.6875,0.014624
+DAWN,rain,max (= ordinary threshold),0.6,0.069519,0.0081658
+DAWN,rain,max (= ordinary threshold),0.7,0.12834,0.0106
+DAWN,rain,max (= ordinary threshold),0.75,0.17647,0.011688
+DAWN,rain,max (= ordinary threshold),0.8,0.28342,0.014596
+DAWN,rain,max (= ordinary threshold),0.85,0.4385,0.016291
+DAWN,rain,sum of confidences,0.6,0.12834,0.009183
+DAWN,rain,sum of confidences,0.7,0.19251,0.011315
+DAWN,rain,sum of confidences,0.75,0.26203,0.011796
+DAWN,rain,sum of confidences,0.8,0.34759,0.01432
+DAWN,rain,sum of confidences,0.85,0.46524,0.016624
+DAWN,rain,noisy-OR,0.6,0.10695,0.0088206
+DAWN,rain,noisy-OR,0.7,0.14973,0.010963
+DAWN,rain,noisy-OR,0.75,0.22995,0.011883
+DAWN,rain,noisy-OR,0.8,0.34759,0.014554
+DAWN,rain,noisy-OR,0.85,0.44385,0.016572
+DAWN,sand,max (= ordinary threshold),0.6,0.041152,0.0049447
+DAWN,sand,max (= ordinary threshold),0.7,0.078189,0.0056405
+DAWN,sand,max (= ordinary threshold),0.75,0.098765,0.0061872
+DAWN,sand,max (= ordinary threshold),0.8,0.16461,0.006662
+DAWN,sand,max (= ordinary threshold),0.85,0.2428,0.0079748
+DAWN,sand,sum of confidences,0.6,0.08642,0.0048509
+DAWN,sand,sum of confidences,0.7,0.11523,0.0055013
+DAWN,sand,sum of confidences,0.75,0.16872,0.0063665
+DAWN,sand,sum of confidences,0.8,0.21399,0.0068962
+DAWN,sand,sum of confidences,0.85,0.33745,0.0079478
+DAWN,sand,noisy-OR,0.6,0.061728,0.0048025
+DAWN,sand,noisy-OR,0.7,0.098765,0.0054422
+DAWN,sand,noisy-OR,0.75,0.1358,0.0060485
+DAWN,sand,noisy-OR,0.8,0.20988,0.0068013
+DAWN,sand,noisy-OR,0.85,0.34156,0.0079047
+DAWN,snow,max (= ordinary threshold),0.6,0.039409,0.011367
+DAWN,snow,max (= ordinary threshold),0.7,0.083744,0.01364
+DAWN,snow,max (= ordinary threshold),0.75,0.13793,0.016257
+DAWN,snow,max (= ordinary threshold),0.8,0.21675,0.018325
+DAWN,snow,max (= ordinary threshold),0.85,0.29557,0.020109
+DAWN,snow,sum of confidences,0.6,0.11823,0.011083
+DAWN,snow,sum of confidences,0.7,0.16256,0.0143
+DAWN,snow,sum of confidences,0.75,0.17241,0.016368
+DAWN,snow,sum of confidences,0.8,0.31034,0.017776
+DAWN,snow,sum of confidences,0.85,0.46798,0.020722
+DAWN,snow,noisy-OR,0.6,0.073892,0.010936
+DAWN,snow,noisy-OR,0.7,0.12315,0.014312
+DAWN,snow,noisy-OR,0.75,0.15764,0.016307
+DAWN,snow,noisy-OR,0.8,0.31527,0.01813
+DAWN,snow,noisy-OR,0.85,0.41379,0.020434

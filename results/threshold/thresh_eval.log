@@ -1,0 +1,9 @@
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+                                                    criterion                                                     value   met
+                                        P1 BDD100K, alpha 0.2 learned 27.82 vs global 28.00 FPPI (1% fewer), miss 0.198 False
+                                           P2 DAWN, alpha 0.2   learned 2.34 vs global 2.38 FPPI (2% fewer), miss 0.195 False
+P3 BDD100K rain_night, per-weather calibrated dial, alpha 0.2    miss 0.195; 108.0 vs per-weather thresholds 117.1 FPPI  True
+dataset   tau  spearman_miss  spearman_fp  mean_pred_miss  mean_true_miss  mean_pred_fp  mean_true_fp
+BDD100K 0.226          0.567        0.467           4.643           5.068         1.673         1.790
+   DAWN 0.226          0.270        0.506           2.088           2.111         0.758         1.299
+EXIT 0

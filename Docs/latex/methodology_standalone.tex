@@ -1,0 +1,38 @@
+% Compile test for methodology.tex with the same preamble as the Overleaf literature review (+ preamble_additions.tex).
+% Build locally:  tectonic methodology_standalone.tex   (or upload everything in this folder to Overleaf)
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}\usepackage{microtype}}{\usepackage[expansion=false]{microtype}}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,backgrounds,calc,shapes.geometric}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\setlist{nosep}
+\usepackage[section]{placeins}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\input{preamble_additions}
+\graphicspath{{../figures/phase3/}}
+
+\title{Weather Adaptive Autonomous Driving:\\Methodology (Phase 3 draft)}
+\author{Nicholas Taylor \and Zander Picon}
+\date{\today}
+
+\begin{document}
+\maketitle
+\setcounter{section}{2}   % so the section number matches its place after Introduction and Related Work
+\input{methodology}
+
+\bibliographystyle{unsrtnat}
+\bibliography{refs_litreview,refs_methodology}
+\end{document}

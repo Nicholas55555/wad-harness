@@ -1,0 +1,78 @@
+=== full run 2026-10-14T00:37:34-04:00
+--- thresh_yolo train --curves 2026-10-14T00:37:34-04:00
+best epoch 22, validation cost 1.019 (1 = the validation images' best single threshold)
+--- thresh_yolo check --curves 2026-10-14T00:38:06-04:00
+                                                criterion value   met
+            E1 BDD100K, lam 10: cost <= 0.97x best single 1.005 False
+               E2 DAWN, lam 10: cost <= 0.97x best single 0.990 False
+E3 BDD100K, lam 10: Spearman with oracle threshold >= 0.3 0.217 False
+dataset  images   lam                              policy  cost_vs_best_single  cost_vs_train_chosen_single  oracle  spearman_vs_oracle  within_one_step_of_oracle  distinct_thresholds
+BDD100K    8090   1.0         v3: YOLOv8x features (this)                1.005                        1.002   0.853               0.132                      0.623                   11
+BDD100K    8090   1.0              v2: confidence profile                1.005                        1.003   0.853               0.075                      0.634                   11
+BDD100K    8090   1.0 v1: own pixel CNN, curve prediction                1.001                        0.998   0.853               0.056                      0.638                    7
+BDD100K    8090   3.0         v3: YOLOv8x features (this)                1.001                        1.001   0.855               0.173                      0.443                   12
+BDD100K    8090   3.0              v2: confidence profile                1.008                        1.008   0.855               0.196                      0.456                   13
+BDD100K    8090   3.0 v1: own pixel CNN, curve prediction                1.002                        1.002   0.855               0.214                      0.428                    6
+BDD100K    8090  10.0         v3: YOLOv8x features (this)                1.005                        1.005   0.833               0.217                      0.276                   17
+BDD100K    8090  10.0              v2: confidence profile                1.010                        1.010   0.833               0.255                      0.292                   16
+BDD100K    8090  10.0 v1: own pixel CNN, curve prediction                1.004                        1.004   0.833               0.198                      0.264                    7
+BDD100K    8090  30.0         v3: YOLOv8x features (this)                1.022                        1.022   0.814               0.236                      0.178                   20
+BDD100K    8090  30.0              v2: confidence profile                1.014                        1.014   0.814               0.274                      0.196                   22
+BDD100K    8090  30.0 v1: own pixel CNN, curve prediction                0.997                        0.997   0.814               0.185                      0.161                    8
+BDD100K    8090 100.0         v3: YOLOv8x features (this)                1.028                        1.028   0.810               0.199                      0.131                   24
+BDD100K    8090 100.0              v2: confidence profile                1.017                        1.017   0.810               0.251                      0.125                   24
+BDD100K    8090 100.0 v1: own pixel CNN, curve prediction                0.997                        0.997   0.810               0.216                      0.127                   11
+   DAWN     889   1.0         v3: YOLOv8x features (this)                1.054                        1.054   0.720              -0.107                      0.576                   11
+   DAWN     889   1.0              v2: confidence profile                0.972                        0.972   0.720               0.133                      0.679                    9
+   DAWN     889   1.0 v1: own pixel CNN, curve prediction                1.027                        1.027   0.720               0.006                      0.681                    6
+   DAWN     889   3.0         v3: YOLOv8x features (this)                0.994                        0.994   0.709              -0.100                      0.452                   11
+   DAWN     889   3.0              v2: confidence profile                0.996                        0.996   0.709               0.150                      0.529                   12
+   DAWN     889   3.0 v1: own pixel CNN, curve prediction                1.017                        1.017   0.709              -0.002                      0.486                    7
+   DAWN     889  10.0         v3: YOLOv8x features (this)                0.990                        0.987   0.707               0.030                      0.337                   17
+   DAWN     889  10.0              v2: confidence profile                0.997                        0.994   0.707               0.250                      0.403                   12
+   DAWN     889  10.0 v1: own pixel CNN, curve prediction                1.040                        1.036   0.707              -0.021                      0.339                    6
+   DAWN     889  30.0         v3: YOLOv8x features (this)                1.025                        1.001   0.718               0.122                      0.245                   19
+   DAWN     889  30.0              v2: confidence profile                1.082                        1.057   0.718               0.255                      0.325                   15
+   DAWN     889  30.0 v1: own pixel CNN, curve prediction                1.049                        1.025   0.718               0.019                      0.226                    7
+   DAWN     889 100.0         v3: YOLOv8x features (this)                1.030                        1.024   0.751               0.127                      0.153                   19
+   DAWN     889 100.0              v2: confidence profile                1.094                        1.088   0.751               0.340                      0.242                   21
+   DAWN     889 100.0 v1: own pixel CNN, curve prediction                1.051                        1.045   0.751               0.068                      0.109                   10
+--- thresh_yolo train 2026-10-14T00:38:16-04:00
+best epoch 36, validation cost 1.047 (1 = the validation images' best single threshold)
+--- thresh_yolo check 2026-10-14T00:38:40-04:00
+                                                criterion value   met
+            E1 BDD100K, lam 10: cost <= 0.97x best single 1.068 False
+               E2 DAWN, lam 10: cost <= 0.97x best single 1.161 False
+E3 BDD100K, lam 10: Spearman with oracle threshold >= 0.3 0.149 False
+dataset  images   lam                              policy  cost_vs_best_single  cost_vs_train_chosen_single  oracle  spearman_vs_oracle  within_one_step_of_oracle  distinct_thresholds
+BDD100K    8090   1.0         v3: YOLOv8x features (this)                1.013                        1.010   0.853               0.145                      0.617                   19
+BDD100K    8090   1.0              v2: confidence profile                1.005                        1.003   0.853               0.075                      0.634                   11
+BDD100K    8090   1.0 v1: own pixel CNN, curve prediction                1.001                        0.998   0.853               0.056                      0.638                    7
+BDD100K    8090   3.0         v3: YOLOv8x features (this)                1.045                        1.045   0.855               0.134                      0.411                   23
+BDD100K    8090   3.0              v2: confidence profile                1.008                        1.008   0.855               0.196                      0.456                   13
+BDD100K    8090   3.0 v1: own pixel CNN, curve prediction                1.002                        1.002   0.855               0.214                      0.428                    6
+BDD100K    8090  10.0         v3: YOLOv8x features (this)                1.068                        1.068   0.833               0.149                      0.275                   30
+BDD100K    8090  10.0              v2: confidence profile                1.010                        1.010   0.833               0.255                      0.292                   16
+BDD100K    8090  10.0 v1: own pixel CNN, curve prediction                1.004                        1.004   0.833               0.198                      0.264                    7
+BDD100K    8090  30.0         v3: YOLOv8x features (this)                1.084                        1.084   0.814               0.166                      0.188                   33
+BDD100K    8090  30.0              v2: confidence profile                1.014                        1.014   0.814               0.274                      0.196                   22
+BDD100K    8090  30.0 v1: own pixel CNN, curve prediction                0.997                        0.997   0.814               0.185                      0.161                    8
+BDD100K    8090 100.0         v3: YOLOv8x features (this)                1.068                        1.068   0.810               0.206                      0.131                   28
+BDD100K    8090 100.0              v2: confidence profile                1.017                        1.017   0.810               0.251                      0.125                   24
+BDD100K    8090 100.0 v1: own pixel CNN, curve prediction                0.997                        0.997   0.810               0.216                      0.127                   11
+   DAWN     889   1.0         v3: YOLOv8x features (this)                1.032                        1.032   0.720              -0.166                      0.614                   14
+   DAWN     889   1.0              v2: confidence profile                0.972                        0.972   0.720               0.133                      0.679                    9
+   DAWN     889   1.0 v1: own pixel CNN, curve prediction                1.027                        1.027   0.720               0.006                      0.681                    6
+   DAWN     889   3.0         v3: YOLOv8x features (this)                1.059                        1.059   0.709              -0.160                      0.514                   17
+   DAWN     889   3.0              v2: confidence profile                0.996                        0.996   0.709               0.150                      0.529                   12
+   DAWN     889   3.0 v1: own pixel CNN, curve prediction                1.017                        1.017   0.709              -0.002                      0.486                    7
+   DAWN     889  10.0         v3: YOLOv8x features (this)                1.161                        1.157   0.707              -0.121                      0.397                   21
+   DAWN     889  10.0              v2: confidence profile                0.997                        0.994   0.707               0.250                      0.403                   12
+   DAWN     889  10.0 v1: own pixel CNN, curve prediction                1.040                        1.036   0.707              -0.021                      0.339                    6
+   DAWN     889  30.0         v3: YOLOv8x features (this)                1.222                        1.194   0.718              -0.019                      0.306                   26
+   DAWN     889  30.0              v2: confidence profile                1.082                        1.057   0.718               0.255                      0.325                   15
+   DAWN     889  30.0 v1: own pixel CNN, curve prediction                1.049                        1.025   0.718               0.019                      0.226                    7
+   DAWN     889 100.0         v3: YOLOv8x features (this)                1.227                        1.220   0.751               0.066                      0.251                   27
+   DAWN     889 100.0              v2: confidence profile                1.094                        1.088   0.751               0.340                      0.242                   21
+   DAWN     889 100.0 v1: own pixel CNN, curve prediction                1.051                        1.045   0.751               0.068                      0.109                   10
+=== end 2026-10-14T00:38:53-04:00

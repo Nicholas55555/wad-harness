@@ -1,0 +1,735 @@
+<meta charset="utf-8">
+<title>Trade-off Dial for YOLOv8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an instrument panel. One control strip (condition, mode, dial), then the dashcam frame
+   beside the condition-wide readouts and the precision-recall chart. */
+:root {
+  --bg: #f3f5f6;
+  --surface: #ffffff;
+  --ink: #15212b;
+  --muted: #5b6874;
+  --line: #d9dfe3;
+  --accent: #2c58a8;
+  --accent-soft: #e3ebf8;
+  --real: #1b8a5a;
+  --false: #c43d3d;
+  --missed: #c38610;
+  --curve-alt: #8a959f;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1418; --surface: #172027; --ink: #e2e8ec; --muted: #9aa7b1; --line: #2a3640;
+    --accent: #86aaf0; --accent-soft: #1d2b40; --real: #4cc38a; --false: #f07a72; --missed: #e9b44c; --curve-alt: #75828c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1418; --surface: #172027; --ink: #e2e8ec; --muted: #9aa7b1; --line: #2a3640;
+  --accent: #86aaf0; --accent-soft: #1d2b40; --real: #4cc38a; --false: #f07a72; --missed: #e9b44c; --curve-alt: #75828c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }  /* also when the page is opened as a plain file */
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--font-body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 24px 40px; display: grid; gap: 18px; }
+header h1 { font: 600 2rem/1.1 var(--font-display); letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+header p { margin: 6px 0 0; color: var(--muted); max-width: 68ch; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.controls { display: grid; gap: 14px; padding: 16px 18px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; }
+.label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.seg button { font: 500 0.92rem var(--font-body); color: var(--ink); background: transparent; border: 0; padding: 7px 14px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+.seg button:focus-visible, .chip:focus-visible, input[type=range]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dial { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; }
+.dial output { font: 600 1.6rem var(--font-display); min-width: 7ch; text-align: right; font-variant-numeric: tabular-nums; }
+.slider { display: grid; gap: 4px; min-width: 0; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.ticks { position: relative; height: 1.2em; font: 0.75rem var(--font-mono); color: var(--muted); }
+.ticks span { position: absolute; top: 0; transform: translateX(-50%); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: 500 0.85rem var(--font-body); color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.chip[aria-pressed="true"] { border-color: var(--accent); }
+.main { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.frame { padding: 14px; display: grid; gap: 10px; }
+.frame-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center; }
+canvas { width: 100%; height: auto; display: block; border-radius: 6px; background: var(--bg); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--muted); }
+.key { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 18px; height: 10px; border: 2px solid; border-radius: 2px; }
+.sw.real { border-color: var(--real); } .sw.false { border-color: var(--false); border-width: 1px; } .sw.missed { border-color: var(--missed); border-style: dashed; }
+.counts { font: 0.9rem var(--font-mono); font-variant-numeric: tabular-nums; }
+.framescore { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 10px; }
+.framescore .gap { font-size: 0.9rem; }
+.framescore .gap b { font-family: var(--font-mono); font-weight: 500; }
+.framescore .why, .framescore .ctx { font-size: 0.88rem; color: var(--muted); }
+.framescore .why b, .framescore .ctx b { color: var(--ink); font-weight: 500; font-family: var(--font-mono); }
+.framescore svg { width: 100%; height: auto; display: block; }
+.framescore svg text { fill: var(--muted); font: 11px var(--font-mono); }
+tr.drawn td { box-shadow: inset 3px 0 0 var(--accent); }
+.side { display: grid; gap: 18px; }
+.readout { padding: 16px 18px; display: grid; gap: 12px; }
+.rule { font-size: 0.95rem; }
+.rule b { font-family: var(--font-mono); font-weight: 500; }
+.tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.tile { border-top: 2px solid var(--accent); padding-top: 6px; grid-column: span 2; }
+.tile.f { grid-column: span 3; border-top-color: var(--curve-alt); }
+.fbrow { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.fbpick { font-size: 0.88rem; color: var(--muted); min-width: 0; flex: 1 1 320px; }
+.fbpick b { color: var(--ink); font-weight: 500; font-family: var(--font-mono); }
+.linkbtn { font: 500 0.85rem var(--font-body); color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 999px; padding: 3px 10px; cursor: pointer; margin-left: 6px; }
+.linkbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tile .v { font: 600 1.7rem/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 0.78rem; color: var(--muted); }
+.est { font-size: 0.85rem; color: var(--muted); }
+.est b { color: var(--ink); font-weight: 500; font-family: var(--font-mono); }
+.vs { font-size: 0.85rem; color: var(--muted); display: grid; gap: 4px; }
+.vs b { color: var(--ink); font-weight: 500; font-family: var(--font-mono); }
+.chart { padding: 14px 16px 10px; }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart text { fill: var(--muted); font: 11px var(--font-mono); }
+.note { font-size: 0.82rem; color: var(--muted); max-width: 80ch; }
+.lower { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; align-items: start; }
+.cutview, .presets-table { padding: 14px 16px; display: grid; gap: 8px; }
+.cutview svg { width: 100%; height: auto; display: block; }
+.cutview text { fill: var(--muted); font: 11px var(--font-mono); }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+tr.on td { background: var(--accent-soft); }
+td.mono { font-family: var(--font-mono); }
+@media (max-width: 860px) { .main, .lower { grid-template-columns: minmax(0, 1fr); } .dial { grid-template-columns: 1fr; } .dial output { text-align: left; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Trade-off Dial for YOLOv8</h1>
+    <p>Instead of a fixed confidence cut-off, set the trade-off you want: how many false alarms you accept to avoid one missed
+      object (λ), or how many times more recall counts than precision (β, as in Fβ). Then choose how it is applied: one confidence
+      threshold for every box, or a cut on each detection's chance of being real. Every setting was fitted on BDD100K train images;
+      here it is graded on dashcam frames it never saw.</p>
+  </header>
+
+  <section class="panel controls" aria-label="Controls">
+    <div class="row">
+      <span class="label">Condition</span>
+      <div class="seg" id="cond" role="group" aria-label="Condition"></div>
+      <span class="label">Dial in</span>
+      <div class="seg" id="units" role="group" aria-label="Dial units">
+        <button type="button" data-units="lam" aria-pressed="true">False alarms per miss (λ)</button>
+        <button type="button" data-units="beta" aria-pressed="false">F-score weight (β)</button>
+      </div>
+      <span class="label">Apply as</span>
+      <div class="seg" id="mode" role="group" aria-label="Mode">
+        <button type="button" id="mode-one" data-mode="one" aria-pressed="true">One threshold</button>
+        <button type="button" id="mode-det" data-mode="det" aria-pressed="false">Per detection</button>
+      </div>
+    </div>
+    <div class="dial" id="lam-row">
+      <span class="label" id="dial-label">False alarms accepted per avoided miss (λ)</span>
+      <div class="slider">
+        <input type="range" id="lam" min="0" max="63" step="1" value="0" aria-labelledby="dial-label">
+        <div class="ticks" id="ticks" aria-hidden="true"></div>
+      </div>
+      <output id="lam-out" for="lam">λ = 10</output>
+    </div>
+    <div class="chips" id="presets" role="group" aria-label="Presets"></div>
+    <div class="dial">
+      <span class="label" id="beta-label">F-score: weight on recall (β)</span>
+      <div class="slider">
+        <input type="range" id="beta" min="0" max="40" step="1" value="20" aria-labelledby="beta-label">
+        <div class="ticks" id="beta-ticks" aria-hidden="true"></div>
+      </div>
+      <output id="beta-out" for="beta">β = 1</output>
+    </div>
+    <div class="fbrow">
+      <div class="chips" id="beta-presets" role="group" aria-label="F-score presets"></div>
+      <div class="fbpick" id="fb-pick"></div>
+    </div>
+  </section>
+
+  <div class="main">
+    <section class="panel frame" aria-label="Example frame">
+      <div class="frame-head">
+        <div class="seg" id="ex" role="group" aria-label="Example image"></div>
+        <div class="counts" id="img-counts"></div>
+      </div>
+      <canvas id="cv" width="960" height="540" aria-label="Dashcam frame with detection boxes"></canvas>
+      <div class="legend">
+        <span class="key"><span class="sw real"></span>kept, real object</span>
+        <span class="key"><span class="sw false"></span>kept, false alarm</span>
+        <span class="key"><span class="sw missed"></span>object missed at this setting</span>
+        <label class="key"><input type="checkbox" id="show-dropped"> show dropped boxes</label>
+      </div>
+      <div class="framescore" aria-label="This frame: the dial against the best possible">
+        <div class="frame-head">
+          <div class="label" id="fs-title">This frame: the dial vs the best possible with hindsight</div>
+          <div class="seg" id="drawsel" role="group" aria-label="Boxes drawn on the frame">
+            <button type="button" data-draw="dial" aria-pressed="true">Draw the dial's boxes</button>
+            <button type="button" data-draw="f1" aria-pressed="false">Frame's best F1</button>
+            <button type="button" data-draw="fb" aria-pressed="false">Frame's best Fβ</button>
+          </div>
+        </div>
+        <div class="tablewrap"><table id="fstable"></table></div>
+        <div class="gap" id="fs-gap"></div>
+        <div class="why" id="fs-why"></div>
+        <svg id="fscurve" viewBox="0 0 720 170" role="img" aria-label="F1 and F-beta on this frame at every threshold, with the dial and the frame's best marked"></svg>
+        <div class="ctx" id="fs-ctx"></div>
+        <p class="note" id="fs-note"></p>
+      </div>
+    </section>
+
+    <div class="side">
+      <section class="panel readout" aria-label="Condition-wide results">
+        <div class="rule" id="rule"></div>
+        <div class="tiles">
+          <div class="tile"><div class="v" id="t-recall">–</div><div class="l">recall: objects found</div></div>
+          <div class="tile"><div class="v" id="t-prec">–</div><div class="l">precision: kept boxes that are real</div></div>
+          <div class="tile"><div class="v" id="t-fppi">–</div><div class="l">false alarms per image</div></div>
+          <div class="tile f"><div class="v" id="t-f1">–</div><div class="l">F1: recall and precision weighted equally</div></div>
+          <div class="tile f"><div class="v" id="t-fb">–</div><div class="l" id="t-fb-l">Fβ</div></div>
+        </div>
+        <div class="est" id="calib"></div>
+        <div class="est" id="est"></div>
+        <div class="vs" id="vs"></div>
+      </section>
+      <section class="panel chart" aria-label="Precision and recall chart">
+        <div class="label" style="margin-bottom:4px">Every setting, this condition</div>
+        <svg id="pr" viewBox="0 0 360 270" role="img" aria-label="Precision against recall for both ways of applying the dial"></svg>
+      </section>
+      <section class="panel chart" aria-label="F-score at every dial setting">
+        <div class="label" style="margin-bottom:4px" id="fb-title">Fβ at every setting</div>
+        <svg id="fbc" viewBox="0 0 360 240" role="img" aria-label="F-score against the dial setting for both options, on train and on this condition"></svg>
+      </section>
+    </div>
+  </div>
+
+  <div class="lower">
+    <section class="panel cutview" aria-label="What the dial cuts">
+      <div class="frame-head">
+        <div class="label" id="cut-title">What the dial cuts</div>
+        <div class="counts" id="cut-counts"></div>
+      </div>
+      <svg id="hist" viewBox="0 0 720 230" role="img" aria-label="Detections, real and false, with the dial's cut"></svg>
+      <p class="note" id="cut-note"></p>
+    </section>
+    <section class="panel presets-table" aria-label="Results at the presets">
+      <div class="label" id="ptable-title">At the presets, this condition</div>
+      <div class="tablewrap"><table id="ptable"></table></div>
+    </section>
+  </div>
+
+  <p class="note" id="note"></p>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const $ = (id) => document.getElementById(id);
+const state = { c: 0, ex: 0, mode: "one", units: "lam", li: 0, bi: 0, dropped: false, draw: "dial" };
+const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const pct = (x) => (100 * x).toFixed(1) + "%";
+const num = (x) => x.toLocaleString();
+const fmtLam = (l) => (Math.abs(l - Math.round(l)) < 1e-9 ? String(Math.round(l)) : l < 10 ? String(Number(l.toPrecision(2))) : Math.round(l).toString());
+const fmtBeta = (b) => (Math.abs(b - Math.round(b)) < 1e-6 ? String(Math.round(b)) : String(Number(b.toPrecision(2))));
+const ratio = (m) => `×${m.cost_vs_one.toFixed(3)}` + (m.ci_lo == null || m.ci_lo === m.ci_hi ? "" : ` (95%: ${m.ci_lo.toFixed(3)}–${m.ci_hi.toFixed(3)})`);
+const fci = (m) => `${fscore(m, beta()).toFixed(3)} (95%: ${m.fbeta_ci_lo.toFixed(3)}–${m.fbeta_ci_hi.toFixed(3)})`;  // point value exact from counts
+const img = new Image();
+
+const beta = () => DATA.betas[state.bi];
+const fname = () => `F${fmtBeta(beta())}`;
+function fscore(m, b) {  // F-beta = (1 + b^2) P R / (b^2 P + R): recall counts b times as much as precision
+  const b2 = b * b;
+  if (m.tp != null) return m.tp > 0 ? (1 + b2) * m.tp / (b2 * cond().objects + m.tp + m.fp) : 0;  // exact, from counts
+  const p = m.precision, r = m.recall;
+  if (!(p > 0 && r > 0)) return 0;
+  return (1 + b2) * p * r / (b2 * p + r);
+}
+function nearestIn(arr, v) {
+  let best = 0;
+  arr.forEach((x, i) => { if (Math.abs(Math.log(x / v)) < Math.abs(Math.log(arr[best] / v))) best = i; });
+  return best;
+}
+const nearest = (lam) => nearestIn(DATA.lams, lam);
+const nearestB = (b) => nearestIn(DATA.betas, b);
+function cond() { return DATA.conditions[state.c]; }
+const lamRow = () => cond().dial[state.li];
+const fRow = () => cond().fdial[state.bi];
+const cur = () => (state.units === "lam" ? lamRow() : fRow());
+const trainRows = (mode) => DATA.train[mode].map(([r, p]) => ({ recall: r, precision: p }));
+const lamEq = (mode) => fRow()[mode === "one" ? "lam_one" : "lam_det"];  // the F-beta dial's choice on the lam dial (train)
+
+function ticks(id, values, arr, fmt) {
+  const n = arr.length - 1;
+  values.forEach((t) => {
+    const s = document.createElement("span");
+    s.textContent = fmt(t);
+    s.style.left = `calc(8px + (100% - 16px) * ${nearestIn(arr, t) / n})`;
+    $(id).appendChild(s);
+  });
+}
+
+function buildControls() {
+  DATA.conditions.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.id = "cond-" + c.key; b.textContent = c.label + (c.dataset === "DAWN" ? " (DAWN)" : "");
+    b.addEventListener("click", () => { state.c = i; state.ex = 0; loadImage(); render(); });
+    $("cond").appendChild(b);
+  });
+  DATA.presets.forEach((p) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.dataset.lam = p.lam;
+    b.textContent = `${p.label} · λ ${fmtLam(p.lam)}`;
+    b.addEventListener("click", () => { state.li = nearest(p.lam); $("lam").value = state.li; render(); });
+    $("presets").appendChild(b);
+  });
+  DATA.fpresets.forEach((p) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.dataset.beta = p.beta;
+    b.textContent = p.label;
+    b.addEventListener("click", () => { state.bi = nearestB(p.beta); $("beta").value = state.bi; render(); });
+    $("beta-presets").appendChild(b);
+  });
+  $("lam").max = DATA.lams.length - 1; $("lam").value = state.li;
+  $("beta").max = DATA.betas.length - 1; $("beta").value = state.bi;
+  ticks("ticks", [0.3, 1, 3, 10, 30, 100, 300], DATA.lams, fmtLam);
+  ticks("beta-ticks", [0.25, 0.5, 1, 2, 4], DATA.betas, fmtBeta);
+  $("lam").addEventListener("input", (e) => { state.li = +e.target.value; render(); });
+  $("beta").addEventListener("input", (e) => { state.bi = +e.target.value; render(); });
+  document.querySelectorAll("#mode button").forEach((b) => b.addEventListener("click", () => { state.mode = b.dataset.mode; render(); }));
+  document.querySelectorAll("#units button").forEach((b) => b.addEventListener("click", () => { state.units = b.dataset.units; render(); }));
+  $("fb-pick").addEventListener("click", (e) => {
+    if (!e.target.closest(".linkbtn")) return;
+    state.units = "lam"; state.li = nearest(lamEq(state.mode)); $("lam").value = state.li; render();
+  });
+  $("show-dropped").addEventListener("change", (e) => { state.dropped = e.target.checked; draw(); });
+  document.querySelectorAll("#drawsel button").forEach((x) => x.addEventListener("click", () => { state.draw = x.dataset.draw; draw(); }));
+}
+
+function buildExamples() {
+  const ex = $("ex"); ex.innerHTML = "";
+  cond().examples.forEach((e, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.id = "ex-" + i; b.textContent = "Frame " + (i + 1);
+    b.setAttribute("aria-pressed", String(i === state.ex));
+    b.addEventListener("click", () => { state.ex = i; loadImage(); render(); });
+    ex.appendChild(b);
+  });
+}
+
+function loadImage() {
+  buildExamples();
+  img.onload = () => { const cv = $("cv"); cv.width = img.naturalWidth; cv.height = img.naturalHeight; draw(); };
+  img.src = cond().examples[state.ex].src;
+}
+
+// ---- one frame: counts, F scores and the best setting with hindsight (the frame's own labels)
+const val = (b) => (state.mode === "one" ? b[4] : b[5]);  // what the option thresholds: score or model chance
+function frameCounts(e, kept) {
+  let tp = 0, fp = 0;
+  e.boxes.forEach((b, i) => { if (kept[i]) { if (b[6] === 1) tp += 1; else fp += 1; } });
+  return { tp, fp, n: e.objects.length };
+}
+function fOf(c, b) {  // F_beta from counts; missed objects include those no box ever found
+  const b2 = b * b;
+  return c.tp > 0 ? (1 + b2) * c.tp / ((1 + b2) * c.tp + b2 * (c.n - c.tp) + c.fp) : 0;
+}
+function frameBest(e, b) {
+  // every rule 'keep value >= t' over the frame's distinct values (and keeping nothing); the highest F_beta
+  const order = e.boxes.map((x, i) => i).sort((i, j) => val(e.boxes[j]) - val(e.boxes[i]));
+  let tp = 0, fp = 0, best = { t: Infinity, tp: 0, fp: 0, f: 0 };
+  order.forEach((i, k) => {
+    if (e.boxes[i][6] === 1) tp += 1; else fp += 1;
+    const next = order[k + 1];
+    if (next !== undefined && val(e.boxes[next]) === val(e.boxes[i])) return;  // cannot split equal values
+    const f = fOf({ tp, fp, n: e.objects.length }, b);
+    if (f > best.f + 1e-12) best = { t: val(e.boxes[i]), tp, fp, f };
+  });
+  return { ...best, n: e.objects.length, kept: e.boxes.map((x) => val(x) >= best.t) };
+}
+
+function keepFn() {
+  const r = cur();
+  return state.mode === "one" ? (b) => b[4] >= r.tau : (b) => b[5] >= r.cut;
+}
+
+function draw() {
+  if (!img.complete || !img.naturalWidth) return;
+  const cv = $("cv"), g = cv.getContext("2d");
+  g.drawImage(img, 0, 0);
+  const e = cond().examples[state.ex], keep = keepFn();
+  const lw = Math.max(1.2, cv.width / 480);
+  const dialKept = e.boxes.map(keep);
+  const kept = state.draw === "dial" ? dialKept : frameBest(e, state.draw === "f1" ? 1 : beta()).kept;
+  if (state.dropped) {
+    g.strokeStyle = "rgba(200,210,220,0.35)"; g.lineWidth = lw * 0.5; g.setLineDash([]);
+    e.boxes.forEach((b, i) => { if (!kept[i]) g.strokeRect(b[0], b[1], b[2] - b[0], b[3] - b[1]); });
+  }
+  const order = e.boxes.map((b, i) => i).sort((a, b) => e.boxes[a][4] - e.boxes[b][4]);
+  order.forEach((i) => {
+    if (!kept[i]) return;
+    const b = e.boxes[i], real = b[6] === 1;
+    g.setLineDash([]); g.lineWidth = real ? lw * 1.6 : lw * 0.9;
+    g.strokeStyle = real ? css("--real") : css("--false");
+    g.strokeRect(b[0], b[1], b[2] - b[0], b[3] - b[1]);
+  });
+  let found = 0;
+  g.setLineDash([lw * 4, lw * 3]); g.lineWidth = lw * 1.3; g.strokeStyle = css("--missed");
+  e.objects.forEach((o) => {
+    const hit = o[4] >= 0 && kept[o[4]];
+    if (hit) { found += 1; return; }
+    g.strokeRect(o[0], o[1], o[2] - o[0], o[3] - o[1]);
+  });
+  g.setLineDash([]);
+  const nk = kept.filter(Boolean).length, nr = e.boxes.filter((b, i) => kept[i] && b[6] === 1).length;
+  $("img-counts").textContent = `this frame (${state.draw === "dial" ? "the dial" : state.draw === "f1" ? "its best F1" : `its best ${fname()}`}): ` +
+    `${nk} kept (${nr} real, ${nk - nr} false) · ${found}/${e.objects.length} objects found`;
+  frameScore(e, dialKept);
+}
+
+function iou(a, b) {
+  const w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]);
+  if (w <= 0 || h <= 0) return 0;
+  const inter = w * h;
+  return inter / ((a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter);
+}
+
+function breakdown(e, kept) {
+  // objects: found / dropped by this setting (a box exists) / never detected at any score (no setting helps)
+  let found = 0, dropped = 0, never = 0;
+  e.objects.forEach((o) => { if (o[4] < 0) never += 1; else if (kept[o[4]]) found += 1; else dropped += 1; });
+  // kept false alarms: on an object (a second box or another class), a loose box near one, or on background
+  let onObj = 0, loose = 0, bg = 0;
+  e.boxes.forEach((b, i) => {
+    if (!kept[i] || b[6] === 1) return;
+    const m = Math.max(0, ...e.objects.map((o) => iou(b, o)));
+    if (m >= 0.5) onObj += 1; else if (m >= 0.1) loose += 1; else bg += 1;
+  });
+  return { found, dropped, never, onObj, loose, bg };
+}
+
+function fCurve(e, b) {
+  // F at every rule 'keep value >= t' on this frame, as steps from the highest value down
+  const order = e.boxes.map((x, i) => i).sort((i, j) => val(e.boxes[j]) - val(e.boxes[i]));
+  const pts = [];
+  let tp = 0, fp = 0;
+  order.forEach((i, k) => {
+    if (e.boxes[i][6] === 1) tp += 1; else fp += 1;
+    const next = order[k + 1];
+    if (next !== undefined && val(e.boxes[next]) === val(e.boxes[i])) return;
+    pts.push([val(e.boxes[i]), fOf({ tp, fp, n: e.objects.length }, b)]);
+  });
+  return pts;
+}
+
+function drawFrameCurve(e, t0, b1, bb) {
+  const svg = $("fscurve"), W = 720, H = 170, L = 46, R = 14, T = 12, B = 32, one = state.mode === "one";
+  const lo = one ? 1e-3 : 1e-4, dec = Math.round(-Math.log10(lo)), b = beta();
+  const x = (v) => L + (W - L - R) * (Math.log10(Math.max(v, lo)) - Math.log10(lo)) / dec;
+  const y = (f) => T + (H - T - B) * (1 - f);
+  let s = "";
+  [0, 0.25, 0.5, 0.75, 1].forEach((v) => {
+    s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--line")}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+  });
+  for (let k = 0; k <= dec; k++) {
+    const t = Math.pow(10, k - dec);
+    s += `<text x="${x(t)}" y="${H - B + 16}" text-anchor="middle">${k === dec ? "1" : t.toFixed(dec - k)}</text>`;
+  }
+  s += `<text x="${(L + W - R) / 2}" y="${H - 2}" text-anchor="middle">${one ? "threshold on YOLOv8x's confidence" : "cut on the model's chance"} (keep boxes right of it)</text>`;
+  const step = (pts, col, w, dash) => {  // F as the threshold sweeps from 1 down to lo
+    let d = `M${x(1)} ${y(0)}`;
+    pts.forEach(([v, f]) => { d += `H${x(v).toFixed(1)}V${y(f).toFixed(1)}`; });
+    d += `H${x(lo)}`;
+    return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-dasharray="${dash}"/>`;
+  };
+  s += step(fCurve(e, 1), css("--curve-alt"), 1.8, "");
+  if (Math.abs(b - 1) > 1e-6) s += step(fCurve(e, b), css("--accent"), 1.8, "5 3");
+  s += `<line x1="${x(t0)}" x2="${x(t0)}" y1="${T}" y2="${H - B}" stroke="${css("--ink")}" stroke-width="1.5"/>`;
+  s += `<text x="${x(t0) + 4}" y="${T + 10}" fill="${css("--ink")}">dial</text>`;
+  const mark = (best, col) => (best.t === Infinity ? "" : `<circle cx="${x(best.t)}" cy="${y(best.f)}" r="5" fill="${col}"/>`);
+  s += mark(b1, css("--curve-alt")) + (Math.abs(b - 1) > 1e-6 ? mark(bb, css("--accent")) : "");
+  s += `<rect x="${W - R - 214}" y="${T + 2}" width="12" height="3" fill="${css("--curve-alt")}"/><text x="${W - R - 198}" y="${T + 7}">F1</text>`;
+  if (Math.abs(b - 1) > 1e-6) s += `<path d="M${W - R - 160} ${T + 3.5}h12" stroke="${css("--accent")}" stroke-width="2" stroke-dasharray="5 3"/><text x="${W - R - 144}" y="${T + 7}">${fname()}</text>`;
+  s += `<circle cx="${W - R - 92}" cy="${T + 4}" r="4" fill="${css("--muted")}"/><text x="${W - R - 84}" y="${T + 7}">frame's best</text>`;
+  svg.innerHTML = s;
+}
+
+function context(e, c0, b1, bb) {
+  // how this frame's gap compares with every frame of the condition at this setting
+  const lamU = state.units === "lam", g = cond().gaps, d = lamU ? g.lam[state.mode][state.li] : g.beta[state.mode][state.bi];
+  const fn = lamU ? "F1" : fname(), mine = lamU ? fOf(c0, 1) - b1.f : fOf(c0, beta()) - bb.f;
+  const q = d.q;  // 21 quantiles, 0..100%
+  let rank = 0;
+  for (let k = 0; k < q.length - 1; k++) {
+    if (mine >= q[k + 1]) rank = (k + 1) * 5;
+    else if (mine > q[k]) { rank = k * 5 + 5 * (mine - q[k]) / (q[k + 1] - q[k]); break; }
+  }
+  const verdict = rank >= 75 ? "closer to its best than most frames" : rank <= 25 ? "further from its best than most frames" : "a typical gap";
+  return `Across all ${num(g.frames)} frames of ${cond().label.toLowerCase()} with objects, at this setting: the median ${fn} gap to each frame's own best is ` +
+    `<b>${q[10].toFixed(3)}</b> (middle half ${q[5].toFixed(3)} to ${q[15].toFixed(3)}), <b>${pct(d.within05)}</b> of frames are within 0.05 of their best, and the ` +
+    `average per-frame ${fn} is <b>${d.mean_dial.toFixed(3)}</b> with the dial vs <b>${d.mean_best.toFixed(3)}</b> if every frame got its own best setting. ` +
+    `This frame's gap (${mine.toFixed(3)}) is ${verdict} (better than about ${Math.round(rank)}% of frames).` + aimNote();
+}
+
+function aimNote() {
+  // on the lam dial, F1 measures against a different goal unless lam is near F1's own equivalent
+  if (state.units !== "lam") return "";
+  const f1 = cond().fdial[nearestB(1)], lq = state.mode === "one" ? f1.lam_one : f1.lam_det, lam = lamRow().lam;
+  if (Math.abs(Math.log(lam / lq)) < Math.log(1.5)) return "";
+  return ` Part of this gap is a different goal, not an error: λ = ${fmtLam(lam)} aims for ${lam > lq ? "more recall" : "more precision"} than F1 rewards ` +
+    `(F1's equivalent is λ ≈ ${fmtLam(lq)}). For a like-for-like comparison, dial in Fβ units.`;
+}
+
+function frameScore(e, dialKept) {
+  const b = beta(), one = state.mode === "one", r = cur();
+  const c0 = frameCounts(e, dialKept), b1 = frameBest(e, 1), bb = frameBest(e, b);
+  const thr = (t) => (t === Infinity ? "keep none" : one ? t.toPrecision(3) : pct(t));
+  const row = (name, key, t, c) => {
+    const P = c.tp + c.fp ? pct(c.tp / (c.tp + c.fp)) : "–", R = c.n ? pct(c.tp / c.n) : "–";
+    return `<tr class="${state.draw === key ? "drawn" : ""}"><td>${name}</td><td class="mono">${thr(t)}</td><td class="mono">${c.tp + c.fp}</td>` +
+      `<td class="mono">${P}</td><td class="mono">${R}</td><td class="mono">${fOf(c, 1).toFixed(3)}</td><td class="mono">${fOf(c, b).toFixed(3)}</td></tr>`;
+  };
+  const setting = state.units === "lam" ? `λ ${fmtLam(r.lam)}` : `${fname()} dial`;
+  $("fstable").innerHTML = `<tr><th></th><th>${one ? "Thresh." : "Cut"}</th><th>Kept</th><th>Prec.</th><th>Recall</th><th>F1</th><th>${fname()}</th></tr>` +
+    row(`Dial (${setting})`, "dial", one ? r.tau : r.cut, c0) +
+    row("Best F1 here", "f1", b1.t, b1) +
+    row(Math.abs(b - 1) < 1e-6 ? "Best F1 here (β = 1)" : `Best ${fname()} here`, "fb", bb.t, bb);
+  $("fs-title").textContent = `This frame (${one ? "one threshold" : "per detection"}): the dial vs the best possible with hindsight`;
+  const d1 = fOf(c0, 1) - b1.f, db = fOf(c0, b) - bb.f;
+  const where = (best, t0) => (best.t === Infinity ? "keeping nothing" : best.t > t0 ? `a stricter ${one ? "threshold" : "cut"} (${thr(best.t)})` : best.t < t0 ? `a looser ${one ? "threshold" : "cut"} (${thr(best.t)})` : "the same setting");
+  const t0 = one ? r.tau : r.cut;
+  $("fs-gap").innerHTML = `How far off: F1 <b>${fOf(c0, 1).toFixed(3)}</b> vs <b>${b1.f.toFixed(3)}</b> possible (<b>${d1 >= 0 ? "+" : ""}${d1.toFixed(3)}</b>; best with ${where(b1, t0)})` +
+    (Math.abs(b - 1) < 1e-6 ? "." : `; ${fname()} <b>${fOf(c0, b).toFixed(3)}</b> vs <b>${bb.f.toFixed(3)}</b> (<b>${db >= 0 ? "+" : ""}${db.toFixed(3)}</b>; best with ${where(bb, t0)}).`);
+  $("fs-note").textContent = "The best rows pick, with hindsight, the " + (one ? "threshold" : "cut") + " that scores highest on this one frame using its own labels, which no " +
+    "deployed setting can know. Across a whole condition the dial comes close to the best single setting chosen that way (see the readout), and most of a single frame's gap is luck: " +
+    "which boxes at a given score happen to be real (about 90% of the per-image best's advantage on BDD100K, wad/threshold_noise.py). An object counts as found only if the box matched to it is kept.";
+  document.querySelectorAll("#drawsel button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.draw === state.draw)));
+  $("drawsel").querySelector('[data-draw="fb"]').textContent = `Frame's best ${fname()}`;
+  const shown = state.draw === "dial" ? dialKept : (state.draw === "f1" ? b1 : bb).kept, w = breakdown(e, shown);
+  const what = state.draw === "dial" ? "the dial" : state.draw === "f1" ? "the frame's best F1" : `the frame's best ${fname()}`;
+  $("fs-why").innerHTML = `Why, with ${what}: of ${e.objects.length} objects <b>${w.found}</b> found, <b>${w.dropped}</b> dropped by this setting (a looser one could keep them), ` +
+    `<b>${w.never}</b> never detected at any score (no setting can find them). False alarms kept: <b>${w.onObj}</b> on an object (a second box or another class; ` +
+    `harmless for braking), <b>${w.loose}</b> loose near an object, <b>${w.bg}</b> on background.`;
+  drawFrameCurve(e, t0, b1, bb);
+  $("fs-ctx").innerHTML = context(e, c0, b1, bb);
+}
+
+function chart() {
+  const svg = $("pr"), W = 360, H = 270, L = 42, R = 12, T = 12, B = 34;
+  const x = (r) => L + (W - L - R) * r, y = (p) => T + (H - T - B) * (1 - p);
+  const c = cond(), row = cur();
+  const line = (pts) => pts.map((p, i) => (i ? "L" : "M") + x(p[0]).toFixed(1) + " " + y(p[1]).toFixed(1)).join(" ");
+  let s = "";
+  [0, 0.25, 0.5, 0.75, 1].forEach((v) => {
+    s += `<line x1="${x(0)}" x2="${x(1)}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--line")}" stroke-width="1"/>`;
+    s += `<text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+    s += `<line y1="${y(0)}" y2="${y(1)}" x1="${x(v)}" x2="${x(v)}" stroke="${css("--line")}" stroke-width="1"/>`;
+    s += `<text x="${x(v)}" y="${H - B + 16}" text-anchor="middle">${v}</text>`;
+  });
+  s += `<text x="${(L + W - R) / 2}" y="${H - 4}" text-anchor="middle">recall</text>`;
+  s += `<text x="12" y="${(T + H - B) / 2}" text-anchor="middle" transform="rotate(-90 12 ${(T + H - B) / 2})">precision</text>`;
+  const oneCol = css("--curve-alt"), detCol = css("--accent"), noneCol = css("--missed");
+  s += `<path d="${line(c.pr_one)}" fill="none" stroke="${oneCol}" stroke-width="${state.mode === "one" ? 2.2 : 1.4}"/>`;
+  s += `<path d="${line(c.pr_det)}" fill="none" stroke="${detCol}" stroke-width="${state.mode === "det" ? 2.2 : 1.4}"/>`;
+  const dot = (m, col, active) => `<circle cx="${x(m.recall)}" cy="${y(m.precision)}" r="${active ? 6 : 4}" fill="${active ? col : css("--surface")}" stroke="${col}" stroke-width="2"/>`;
+  const cross = (m, col) => { const cx = x(m.recall), cy = y(m.precision), d = 5;
+    return `<path d="M${cx - d} ${cy - d}L${cx + d} ${cy + d}M${cx - d} ${cy + d}L${cx + d} ${cy - d}" stroke="${col}" stroke-width="2.2"/>`; };
+  s += cross(row.none, noneCol) + dot(row.one, oneCol, state.mode === "one") + dot(row.det, detCol, state.mode === "det");
+  s += `<rect x="${x(0.04)}" y="${y(0.24)}" width="12" height="3" fill="${oneCol}"/><text x="${x(0.04) + 18}" y="${y(0.24) + 5}">one threshold</text>`;
+  s += `<rect x="${x(0.04)}" y="${y(0.16)}" width="12" height="3" fill="${detCol}"/><text x="${x(0.04) + 18}" y="${y(0.16) + 5}">per detection</text>`;
+  s += `<path d="M${x(0.04) + 2} ${y(0.08) - 3}l8 8M${x(0.04) + 2} ${y(0.08) + 5}l8 -8" stroke="${noneCol}" stroke-width="2"/><text x="${x(0.04) + 18}" y="${y(0.08) + 5}">no tuning (0.25)</text>`;
+  svg.innerHTML = s;
+}
+
+function fbChart() {
+  const svg = $("fbc"), W = 360, H = 240, L = 42, R = 12, T = 12, B = 34;
+  const lams = DATA.lams, n = lams.length, lo = Math.log(lams[0]), hi = Math.log(lams[n - 1]), b = beta();
+  const x = (lam) => L + (W - L - R) * (Math.min(Math.max(Math.log(lam), lo), hi) - lo) / (hi - lo);
+  const series = [["one", "val", css("--curve-alt"), ""], ["det", "val", css("--accent"), ""],
+                  ["one", "train", css("--curve-alt"), "4 3"], ["det", "train", css("--accent"), "4 3"]];
+  const vals = series.map(([mode, where]) => (where === "val" ? cond().dial.map((d) => d[mode]) : trainRows(mode)).map((m) => fscore(m, b)));
+  let ymin = Math.min(...vals.flat()), ymax = Math.max(...vals.flat());
+  const pad = Math.max(0.02, (ymax - ymin) * 0.08);
+  ymin = Math.max(0, Math.floor((ymin - pad) * 20) / 20); ymax = Math.min(1, Math.ceil((ymax + pad) * 20) / 20);
+  const y = (v) => T + (H - T - B) * (1 - (v - ymin) / (ymax - ymin));
+  let s = "";
+  const step = ymax - ymin > 0.4 ? 0.1 : 0.05;
+  for (let v = Math.ceil(ymin / step) * step; v <= ymax + 1e-9; v += step) {
+    s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="${css("--line")}"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(2)}</text>`;
+  }
+  [0.3, 1, 3, 10, 30, 100, 300].forEach((t) => {
+    s += `<line y1="${T}" y2="${H - B}" x1="${x(t)}" x2="${x(t)}" stroke="${css("--line")}"/><text x="${x(t)}" y="${H - B + 16}" text-anchor="middle">${fmtLam(t)}</text>`;
+  });
+  s += `<text x="${(L + W - R) / 2}" y="${H - 3}" text-anchor="middle">dial λ (false alarms accepted per avoided miss)</text>`;
+  const curLam = state.units === "lam" ? lams[state.li] : lamEq(state.mode);
+  s += `<line x1="${x(curLam)}" x2="${x(curLam)}" y1="${T}" y2="${H - B}" stroke="${css("--accent")}" stroke-width="1.5"/>`;
+  series.forEach(([mode, where, col, dash], k) => {
+    const active = mode === state.mode;
+    const d = vals[k].map((v, i) => (i ? "L" : "M") + x(lams[i]).toFixed(1) + " " + y(v).toFixed(1)).join(" ");
+    s += `<path d="${d}" fill="none" stroke="${col}" stroke-width="${active ? (where === "val" ? 2.2 : 1.5) : 1.1}" stroke-dasharray="${dash}" opacity="${active ? 1 : 0.55}"/>`;
+  });
+  ["one", "det"].forEach((mode) => {  // the F-beta dial's choice (fitted on train), placed on the train curve
+    const lam = lamEq(mode), v = vals[mode === "one" ? 2 : 3][nearest(lam)], cx = x(lam), cy = y(v);
+    s += `<path d="M${cx} ${cy - 7}l5 8h-10z" fill="${mode === "one" ? css("--curve-alt") : css("--accent")}"/>`;
+  });
+  s += `<text x="${L + 6}" y="${T + 10}">solid: this condition · dashed: train · ▲ the ${fname()} dial's choice</text>`;
+  svg.innerHTML = s;
+  $("fb-title").textContent = `${fname()} at every λ setting, both options`;
+}
+
+function hist() {
+  const svg = $("hist"), W = 720, H = 230, L = 46, R = 12, T = 10, B = 34;
+  const one = state.mode === "one", row = cur(), c = cond();
+  const h = one ? c.hist_score : c.hist, n = h.real.length, cut = one ? row.tau : row.cut;
+  const lo = h.edges[0], dec = Math.round(-Math.log10(lo));
+  const lx = (p) => L + (W - L - R) * (Math.log10(p) - Math.log10(lo)) / dec;
+  const maxc = Math.max(1, ...h.real, ...h.false);
+  const ly = (v) => T + (H - T - B) * (1 - Math.log10(1 + v) / Math.log10(1 + maxc));
+  let s = "";
+  [1, 10, 100, 1000, 10000, 100000].filter((v) => v <= maxc * 1.01).forEach((v) => {
+    s += `<line x1="${L}" x2="${W - R}" y1="${ly(v)}" y2="${ly(v)}" stroke="${css("--line")}"/>`;
+    s += `<text x="${L - 6}" y="${ly(v) + 4}" text-anchor="end">${v >= 1000 ? v / 1000 + "k" : v}</text>`;
+  });
+  for (let k = 0; k <= dec; k++) {
+    const t = Math.pow(10, k - dec);
+    s += `<text x="${lx(t)}" y="${H - B + 16}" text-anchor="middle">${k === dec ? "1" : t.toFixed(dec - k)}</text>`;
+  }
+  s += `<text x="${(L + W - R) / 2}" y="${H - 3}" text-anchor="middle">${one ? "YOLOv8x confidence score" : "model's chance the detection is real"}</text>`;
+  const cutX = lx(Math.max(lo, cut));
+  s += `<rect x="${cutX}" y="${T}" width="${W - R - cutX}" height="${H - T - B}" fill="${css("--accent-soft")}"/>`;
+  const bw = (W - L - R) / n;
+  for (let i = 0; i < n; i++) {
+    const x0 = L + i * bw;
+    if (h.false[i]) s += `<rect x="${x0 + 1}" y="${ly(h.false[i])}" width="${bw / 2 - 1}" height="${ly(0) - ly(h.false[i])}" fill="${css("--false")}"/>`;
+    if (h.real[i]) s += `<rect x="${x0 + bw / 2}" y="${ly(h.real[i])}" width="${bw / 2 - 1}" height="${ly(0) - ly(h.real[i])}" fill="${css("--real")}"/>`;
+  }
+  s += `<line x1="${cutX}" x2="${cutX}" y1="${T}" y2="${H - B}" stroke="${css("--accent")}" stroke-width="2"/>`;
+  const setting = state.units === "lam" ? `λ ${fmtLam(row.lam)}` : fname();
+  const lab = one ? `threshold ${row.tau.toPrecision(3)} · ${setting}` : `cut ${pct(row.cut)} · ${setting}`;
+  const flip = cutX > W - R - 170;
+  s += `<text x="${flip ? cutX - 6 : cutX + 6}" y="${T + 12}" text-anchor="${flip ? "end" : "start"}" fill="${css("--accent")}">${lab}</text>`;
+  s += `<rect x="${L + 6}" y="${T + 6}" width="10" height="10" fill="${css("--real")}"/><text x="${L + 22}" y="${T + 15}">real</text>`;
+  s += `<rect x="${L + 62}" y="${T + 6}" width="10" height="10" fill="${css("--false")}"/><text x="${L + 78}" y="${T + 15}">false</text>`;
+  svg.innerHTML = s;
+  const m = row[state.mode];
+  $("cut-counts").textContent = `kept ${num(m.kept_real)} of ${num(c.real)} real and ${num(m.kept_false)} of ${num(c.false)} false detections`;
+  $("cut-title").textContent = one ? "What the one threshold cuts" : "What the per-detection cut removes";
+  $("cut-note").textContent = one
+    ? "Every detection in the condition down to confidence 0.001, placed by YOLOv8x's own score. The dial sets one threshold: boxes right of the line are kept, in every frame. Counts are on a log scale."
+    : "Every detection in the condition, placed by the per-detection model's chance that it is a real object. Detections right of the cut are kept. Counts are on a log scale.";
+}
+
+function calibText(nr, what) {
+  if (nr.real == null) return `No ${what} near the cut in this condition.`;
+  const rel = nr.real / nr.expected;
+  const verdict = rel > 1.25 ? "they are more often real than the dial assumes, so here it drops some boxes it should keep (it leans to precision)"
+    : rel < 0.8 ? "they are less often real than the dial assumes, so here it keeps some boxes it should drop (it leans to recall)"
+    : "the dial's assumption holds here";
+  return `Calibration at the cut: ${num(nr.n)} ${what} within ×1.5 of it are real <b>${pct(nr.real)}</b> of the time; the dial assumes <b>${pct(nr.expected)}</b>; ${verdict}.`;
+}
+
+function table() {
+  const c = cond(), one = state.mode === "one", m0 = state.mode;
+  let s;
+  if (state.units === "lam") {
+    s = `<tr><th>Setting</th><th>λ</th><th>${one ? "Threshold" : "Cut"}</th><th>Recall</th><th>Precision</th><th>False / image</th>` +
+      `<th>F1</th><th>Fβ (β = ${fmtBeta(beta())})</th><th>Real near cut (assumed)</th><th>${one ? "No tuning costs" : "Cost vs one threshold"}</th></tr>`;
+    DATA.presets.forEach((p) => {
+      const i = nearest(p.lam), r = c.dial[i], m = r[m0], nr = m.near, comp = one ? r.none : r.det;
+      s += `<tr class="${i === state.li ? "on" : ""}"><td>${p.label}</td><td class="mono">${fmtLam(r.lam)}</td><td class="mono">${one ? r.tau.toPrecision(3) : pct(r.cut)}</td>` +
+        `<td class="mono">${pct(m.recall)}</td><td class="mono">${pct(m.precision)}</td><td class="mono">${m.fppi.toFixed(2)}</td>` +
+        `<td class="mono">${fscore(m, 1).toFixed(3)}</td><td class="mono">${fscore(m, beta()).toFixed(3)}</td>` +
+        `<td class="mono">${nr.real == null ? "–" : `${pct(nr.real)} (${pct(nr.expected)})`}</td><td class="mono">×${comp.cost_vs_one.toFixed(3)}</td></tr>`;
+    });
+  } else {
+    s = `<tr><th>Setting</th><th>β</th><th>${one ? "Threshold" : "Cut"}</th><th>Same as λ</th><th>Recall</th><th>Precision</th><th>False / image</th>` +
+      `<th>F1</th><th>Fβ (95%)</th><th>Of the best constant here</th><th>Real near cut (assumed)</th></tr>`;
+    DATA.fpresets.forEach((p) => {
+      const i = nearestB(p.beta), r = c.fdial[i], m = r[m0], nr = m.near;
+      s += `<tr class="${i === state.bi ? "on" : ""}"><td>${p.label}</td><td class="mono">${fmtBeta(r.beta)}</td><td class="mono">${one ? r.tau.toPrecision(3) : pct(r.cut)}</td>` +
+        `<td class="mono">${fmtLam(one ? r.lam_one : r.lam_det)}</td><td class="mono">${pct(m.recall)}</td><td class="mono">${pct(m.precision)}</td><td class="mono">${m.fppi.toFixed(2)}</td>` +
+        `<td class="mono">${fscore(m, 1).toFixed(3)}</td><td class="mono">${fci(m)}</td><td class="mono">${pct(m.fbeta_vs_own_best)}</td>` +
+        `<td class="mono">${nr.real == null ? "–" : `${pct(nr.real)} (${pct(nr.expected)})`}</td></tr>`;
+    });
+  }
+  $("ptable").innerHTML = s;
+  $("ptable-title").textContent = (one ? "One threshold" : "Per detection") + (state.units === "lam" ? " at the λ presets" : " at the Fβ presets") + ", this condition";
+}
+
+function render() {
+  const c = cond(), row = cur(), one = state.mode === "one", lamU = state.units === "lam", b = beta();
+  document.querySelectorAll("#cond button").forEach((x, i) => x.setAttribute("aria-pressed", String(i === state.c)));
+  document.querySelectorAll("#mode button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.mode === state.mode)));
+  document.querySelectorAll("#units button").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.units === state.units)));
+  document.querySelectorAll("#ex button").forEach((x, i) => x.setAttribute("aria-pressed", String(i === state.ex)));
+  document.querySelectorAll("#presets .chip").forEach((x) => x.setAttribute("aria-pressed", String(nearest(+x.dataset.lam) === state.li)));
+  document.querySelectorAll("#beta-presets .chip").forEach((x) => x.setAttribute("aria-pressed", String(nearestB(+x.dataset.beta) === state.bi)));
+  $("lam-row").hidden = !lamU; $("presets").hidden = !lamU;
+  $("beta-label").textContent = lamU ? "F-score shown: weight on recall (β)" : "The dial: F-score weight on recall (β)";
+  $("lam-out").textContent = "λ = " + fmtLam(lamRow().lam);
+  $("beta-out").textContent = "β = " + fmtBeta(b);
+  const m = row[state.mode], mname = one ? "one threshold" : "per detection";
+  if (lamU) {
+    $("rule").innerHTML = one
+      ? `Keep a box if its confidence ≥ <b>${row.tau.toPrecision(3)}</b>, in every frame and condition. That is the threshold fitted on the BDD100K training images, where a box at that score is real 1 time in 1 + λ (<b>${pct(row.cut)}</b>).`
+      : `Keep a box if the per-detection model gives it at least a <b>${pct(row.cut)}</b> chance of being real (1 / (1 + λ)).`;
+  } else {
+    $("rule").innerHTML = one
+      ? `The λ dial at <b>λ ≈ ${fmtLam(row.lam_one)}</b>, ${fname()}'s equivalent: keep a box if its confidence ≥ <b>${row.tau.toPrecision(3)}</b>, in every frame and condition. λ = (1 + β²) / F* − 1 with F* = ${row.train_f_one.toFixed(3)}, the best ${fname()} one threshold reaches on the BDD100K training images.`
+      : `The λ dial at <b>λ ≈ ${fmtLam(row.lam_det)}</b>, ${fname()}'s equivalent: keep a box if the per-detection model gives it at least a <b>${pct(row.cut)}</b> chance of being real (1 / (1 + λ)). λ = (1 + β²) / F* − 1 with F* = ${row.train_f_det.toFixed(3)}, the best ${fname()} on the training images (chances from models that did not see the image).`;
+  }
+  $("t-recall").textContent = pct(m.recall);
+  $("t-prec").textContent = pct(m.precision);
+  $("t-fppi").textContent = m.fppi.toFixed(2);
+  $("t-f1").textContent = fscore(m, 1).toFixed(3);
+  $("t-fb").textContent = fscore(m, b).toFixed(3);
+  $("t-fb-l").textContent = b > 1.001 ? `${fname()}: recall counts ${fmtBeta(b)}× precision` : b < 0.999 ? `${fname()}: precision counts ${fmtBeta(1 / b)}× recall` : `${fname()}: the same as F1`;
+  $("calib").innerHTML = calibText(m.near, one ? "boxes scored" : "boxes with a chance");
+  $("est").innerHTML = `Estimated from the scores alone, without labels: <b>${m.est_fppi.toFixed(2)}</b> false alarms per image. ` +
+    (lamU ? (one ? "" : `Cost (λ·misses + false alarms) relative to one threshold: <b>${ratio(row.det)}</b>.`)
+      : `${fname()} <b>${fci(m)}</b>, <b>${pct(m.fbeta_vs_own_best)}</b> of the most any one threshold could reach on this condition's own labels.`);
+  const fpart = (x) => `F1 <b>${fscore(x, 1).toFixed(3)}</b>` + (Math.abs(b - 1) < 1e-6 ? "" : `, ${fname()} <b>${fscore(x, b).toFixed(3)}</b>`);
+  const line = (name, x, tail) => `<div>${name}: recall <b>${pct(x.recall)}</b>, precision <b>${pct(x.precision)}</b>, <b>${x.fppi.toFixed(2)}</b> false alarms per image, ${fpart(x)}${tail || ""}.</div>`;
+  if (lamU) {
+    $("vs").innerHTML = one
+      ? line("Per detection at the same λ", row.det, `; cost <b>${ratio(row.det)}</b> of one threshold's`) +
+        line("No tuning, a fixed 0.25", row.none, `; cost <b>${ratio(row.none)}</b>`) +
+        line(`Best constant for ${c.label.toLowerCase()} alone, picked with its own labels (<b>${row.tau_best.toPrecision(3)}</b>, in-sample)`, row.best, `; cost <b>${ratio(row.best)}</b>`)
+      : line(`One threshold (<b>${row.tau.toPrecision(3)}</b>) at the same λ`, row.one) +
+        line("No tuning, a fixed 0.25", row.none, `; cost <b>${ratio(row.none)}</b> of one threshold's`);
+    const lq = lamEq(state.mode), i = nearest(lq), below = lq < DATA.lams[0];
+    $("fb-pick").innerHTML = `The ${fname()} dial (fitted on train) would use λ ≈ <b>${fmtLam(lq)}</b> with ${mname}` +
+      (below ? `, below this dial's range (it starts at λ = ${fmtLam(DATA.lams[0])}); use the β dial for it.`
+        : "." + (i === state.li ? "" : `<button type="button" class="linkbtn">Set λ to the nearest step, ${fmtLam(DATA.lams[i])}</button>`));
+  } else {
+    const other = one ? row.det : row.one, oname = one ? "Per detection" : "One threshold";
+    $("vs").innerHTML = line(`${oname} at the same β`, other, `; ${fname()} 95%: ${other.fbeta_ci_lo.toFixed(3)}–${other.fbeta_ci_hi.toFixed(3)}`) +
+      line("No tuning, a fixed 0.25", row.none, `; ${fname()} 95%: ${row.none.fbeta_ci_lo.toFixed(3)}–${row.none.fbeta_ci_hi.toFixed(3)}`) +
+      line(`Best constant for ${c.label.toLowerCase()} alone, picked with its own labels (<b>${row.tau_best.toPrecision(3)}</b>, in-sample: the most one threshold can do here)`, row.best);
+    const lq = lamEq(state.mode);
+    $("fb-pick").innerHTML = `On the false-alarm dial this ${fname()} setting is λ ≈ <b>${fmtLam(row.lam_one)}</b> (one threshold) or <b>${fmtLam(row.lam_det)}</b> (per detection)` +
+      (lq < DATA.lams[0] ? `, below the λ dial's range (it starts at λ = ${fmtLam(DATA.lams[0])}).`
+        : `.<button type="button" class="linkbtn">Switch to the λ dial, nearest step</button>`);
+  }
+  $("note").textContent = `${c.label}${c.dataset === "DAWN" ? " (DAWN)" : " (BDD100K val)"}: ${num(c.images)} images, ${num(c.objects)} labelled objects, ${num(c.detections)} detections. ` +
+    "Detector: YOLOv8x at 1280 px, boxes down to confidence 0.001. Both dials and both options were fitted on the 21,831 BDD100K train images only; this condition's labels only grade them. " +
+    "On train, boxes scored " + DATA.chance.map((x) => `${x.score} are ${pct(x.real)}`).join(", ") + " real. " +
+    "λ dial: cost ratios are λ·misses + false alarms relative to the one threshold at the same λ. Fβ dial: Fβ = (1 + β²)·precision·recall / (β²·precision + recall) counts recall β times as much as precision; " +
+    "each β is turned into its equivalent λ = (1 + β²) / F* − 1, F* the best Fβ of that option on the train images (per detection with chances from models that did not see the image), and the λ dial is applied there. " +
+    "Intervals: 95%, from resampling images. The no-label estimate adds up (1 − chance real) over the kept boxes. " +
+    "The per-detection model judges each box from its confidence, class, size, position, rank, overlap with stronger boxes, how crowded the image is, and YOLOv8x's own per-box outputs (its class probabilities, how sure it is of the box edges, and its neck features at the box). " +
+    "An object counts as found only if the box matched to it is kept, so when a weaker duplicate is kept instead it shows as missed (per-detection numbers are slightly pessimistic).";
+  draw(); chart(); fbChart(); hist(); table();
+}
+
+if (DATA) { state.li = nearest(10); state.bi = nearestB(1); buildControls(); loadImage(); render(); }
+</script>

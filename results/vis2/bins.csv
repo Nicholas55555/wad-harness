@@ -1,0 +1,16 @@
+dataset,policy,bin,splits,n_cal_mean,n_cal_min,infeasible_share,tau_median,band,n_images_in_band
+BDD100K,v2 fixed bands,1,200,0.49,0,1,0.001,100-300 m,1
+BDD100K,v2 fixed bands,2,200,7.7,2,0.4,0.00118156,300-1000 m,16
+BDD100K,v2 fixed bands,3,200,4035.81,4030,0,0.0122133,>= 1000 m,8073
+BDD100K,v2 quartiles,0,200,1010.96,1010,0,0.0281262,quartile 1 (4 = least visible),
+BDD100K,v2 quartiles,1,200,1011.01,1010,0,0.0193235,quartile 2 (4 = least visible),
+BDD100K,v2 quartiles,2,200,1011.03,1011,0,0.00874827,quartile 3 (4 = least visible),
+BDD100K,v2 quartiles,3,200,1011,1011,0,0.00530342,quartile 4 (4 = least visible),
+DAWN,v2 fixed bands,0,200,88.955,71,0.295,0.00194905,< 100 m,179
+DAWN,v2 fixed bands,1,200,106.665,87,0,0.19158,100-300 m,214
+DAWN,v2 fixed bands,2,200,125.03,105,0,0.109121,300-1000 m,250
+DAWN,v2 fixed bands,3,200,122.35,106,0,0.256536,>= 1000 m,246
+DAWN,v2 quartiles,0,200,111,111,0,0.29073,quartile 1 (4 = least visible),
+DAWN,v2 quartiles,1,200,110,110,0,0.121087,quartile 2 (4 = least visible),
+DAWN,v2 quartiles,2,200,111,111,0,0.131621,quartile 3 (4 = least visible),
+DAWN,v2 quartiles,3,200,111,111,0.035,0.00874827,quartile 4 (4 = least visible),

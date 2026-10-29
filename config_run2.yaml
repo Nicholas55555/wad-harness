@@ -1,0 +1,28 @@
+# Run 2 (O2): detectors, losses and label variants on DAWN (PREREG_run2.md). Fixed 2026-10-08
+# before any run 2 detection or number was produced. wad/run2.py expands this into one analysis
+# per detector x loss x labels; the dataset settings are config.yaml's (run 1).
+
+base_config: config.yaml           # DAWN data, tau grid, alphas, splits, defaults: unchanged
+bdd_config: config_bdd.yaml        # the clear-weather control
+
+detectors:
+  v8s_640:  {name: yolov8s.pt, imgsz: 640,  device: cpu,    detections: cache}          # run 1 cache
+  v8x_640:  {name: yolov8x.pt, imgsz: 640,  device: cuda:0, detections: cache/det/v8x_640}
+  v8x_1280: {name: yolov8x.pt, imgsz: 1280, device: cuda:0, detections: cache/det/v8x_1280}
+
+losses:
+  class: null                      # run 1: class-aware matching over the six classes
+  group:                           # run 2 primary: matching within class groups
+    vehicle: [car, truck, bus]
+    two_wheeler: [bicycle, motorcycle]
+    person: [person]
+
+labels: [all, clean]               # clean = one image per near-duplicate group, no cross-weather groups
+
+primary: {detector: v8x_1280, loss: group, labels: clean}
+
+tiers: {fppi_caps: [0.1, 1.0]}     # confirmed tier: smallest tau with calibration FPPI <= cap
+
+bdd:
+  detectors: [v8s_640, v8x_1280]   # same settings as above, GPU for both on BDD100K
+  losses: [class, group]

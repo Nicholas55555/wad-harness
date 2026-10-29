@@ -1,0 +1,8 @@
+{
+ "version": 2,
+ "n_night": 400,
+ "n_day": 400,
+ "median_k_night": 0.9399360418319702,
+ "median_k_day": 1.006687879562378,
+ "auc_night_vs_day": 0.86751875
+}

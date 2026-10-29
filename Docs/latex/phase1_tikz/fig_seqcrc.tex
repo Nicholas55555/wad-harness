@@ -1,0 +1,76 @@
+% Figure: Sequential conformal risk control (SeqCRC), redrawn (TikZ) from arXiv:2505.24038v2,
+% Fig. 1 (p. 2), Algorithm 1 (p. 10) and Algorithm 2 (p. 11).
+% Top lane = offline calibration (Alg. 1); middle = the CRC rule and guarantee; bottom lane = online inference (Alg. 2).
+% Localisation and classification run in parallel in both lanes. Only the "+" parameters are used online (p. 10).
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\footnotesize,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=9mm, inner sep=2.5pt, fill=white, text width=23mm,
+              execute at begin node={\setlength{\lineskiplimit}{1pt}\setlength{\lineskip}{1.5pt}}},
+  data/.style={box, fill=gray!12},
+  det/.style={box, fill=blue!8},
+  crc/.style={box, fill=orange!18},
+  set/.style={box, fill=green!14},
+  rule/.style={draw, rounded corners=2pt, align=left, inner sep=3pt, fill=gray!6, text width=110mm},
+  arr/.style={-{Latex[length=2mm]}, thick},
+  dsh/.style={-{Latex[length=2mm]}, thick, dashed, gray!60!black},
+  lab/.style={font=\scriptsize, fill=white, inner sep=1pt},
+]
+  % ---------- top lane: offline calibration (Algorithm 1) ----------
+  \node[data] (cal)   at (0,0)     {Calibration set\\$n$ images + ground truth\\(i.i.d.\ with test; Assump.~1)};
+  \node[det]  (f1)    at (34mm,0)  {Frozen\\detector $f$, incl.\\NMS (IoU 0.5);\\YOLOv8x or\\DETR-101};
+  \node[data] (cache) at (68mm,0)  {Cached outputs\\(computed once):\\box, softmax,\\score; drop\\scores $<10^{-3}$};
+  \node[crc]  (s1)    at (102mm,0)  {\textbf{Step 1} (Eqs.~3--5)\\box-count loss,\\conservative risk $\tilde R^{\mathrm{cnf}}_n$\\
+                                    $\Rightarrow\lambda^{\mathrm{cnf}}_{+}$ ($B=\tilde B^{\mathrm{cnf}}$),\\
+                                    \phantom{$\Rightarrow$}$\lambda^{\mathrm{cnf}}_{-}$ ($B=0$)};
+  \node[crc]  (match) at (136mm,0) {Match each GT\\to its nearest\\prediction (Alg.~1):\\Hausdorff, LAC,\\Mix ($\tau_{\mathrm{mix}}{=}0.25$), GIoU};
+  \node[crc]  (s2a)   at (170mm,10mm)  {\textbf{Step 2a} (Eq.~6): $\lambda^{\mathrm{loc}}_{+}$\\loss at $\lambda^{\mathrm{cnf}}_{-}$, monotonised};
+  \node[crc]  (s2b)   at (170mm,-10mm) {\textbf{Step 2b} (Eq.~6): $\lambda^{\mathrm{cls}}_{+}$\\loss at $\lambda^{\mathrm{cnf}}_{-}$, monotonised};
+  \draw[arr] (cal) -- (f1);
+  \draw[arr] (f1) -- (cache);
+  \draw[arr] (cache) -- (s1);
+  \draw[arr] (s1) -- node[lab, above=1pt] {$\lambda^{\mathrm{cnf}}_{-}$} (match);
+  \draw[arr] (match.east) -- ++(1.6mm,0) |- (s2a.west);
+  \draw[arr] (match.east) -- ++(1.6mm,0) |- (s2b.west);
+
+  % ---------- middle: the CRC rule and the guarantee ----------
+  \node[rule, anchor=north west] (rule) at ($(cal.west)+(0,-21mm)$)
+    {\textbf{CRC rule} (Eq.~1): $\hat\lambda=\inf\{\lambda\in\Lambda:\ \tfrac{n}{n+1}\hat R_n(\lambda)+\tfrac{B}{n+1}\le\alpha\}$;
+     losses in $[0,B]$, non-increasing in $\lambda$. Score threshold $t=1-\lambda$, so this is the
+     \emph{highest} threshold that meets $\alpha$. Thm.~1: $\mathbb{E}[L_{\mathrm{test}}(\hat\lambda)]\le\alpha$ if $\alpha\ge B/(n+1)$.\\[1pt]
+     Step 1: $\hat R_n=\tilde R^{\mathrm{cnf}}_n=\max\{R^{\mathrm{cnf}}_n,\,R^{\mathrm{loc}}_n(\cdot,\bar\lambda^{\mathrm{loc}}),\,R^{\mathrm{cls}}_n(\cdot,\bar\lambda^{\mathrm{cls}})\}$.\\
+     Step 2: $\hat R_n=R^{\bullet}_n(\lambda^{\mathrm{cnf}}_{-},\cdot)$, made monotone by $\sup_{\lambda'\ge\lambda^{\mathrm{cnf}}}$.\\[1pt]
+     Thm.~2, Cor.~1: if $\alpha^{\bullet}\ge\alpha^{\mathrm{cnf}}+B^{\bullet}/(n+1)$, then
+     $\mathbb{E}[\max(L^{\mathrm{loc}},L^{\mathrm{cls}})]\le\alpha^{\mathrm{tot}}=\alpha^{\mathrm{loc}}+\alpha^{\mathrm{cls}}$.
+     $\mathbb{E}[L^{\mathrm{cnf}}]\le\alpha^{\mathrm{cnf}}$ needs $L^{\mathrm{cnf}}(\bar\lambda^{\mathrm{cnf}})\le\alpha^{\mathrm{cnf}}$ a.s.};
+
+  % ---------- bottom lane: online inference (Algorithm 2) ----------
+  % The class-set box sits above the inflation box so that the two dashed parameter arrows do not cross.
+  \node[data] (img)  at (0,-78mm)        {Test image\\(i.i.d.\ with\\calibration)};
+  \node[det]  (f2)   at (34mm,-78mm)     {Detector $f$\\incl.\ NMS};
+  \node[set]  (keep) at (102mm,-78mm)     {Keep boxes with\\score $\ge1-\lambda^{\mathrm{cnf}}_{+}$\\(Eq.~11)};
+  \node[set]  (cls)  at (136mm,-69mm)  {Class set by $\lambda^{\mathrm{cls}}_{+}$\\(LAC / APS)};
+  \node[set]  (loc)  at (136mm,-87mm)  {Inflate each box by $\lambda^{\mathrm{loc}}_{+}$\\(additive / multiplicative)};
+  \node[data, fill=green!25] (out) at (170mm,-78mm)
+        {Prediction set:\\kept boxes, inflated\\boxes, class sets};
+  \coordinate (below) at ($(loc.south)+(0,-6mm)$);
+  \draw[arr] (img) -- (f2);
+  \draw[arr] (f2) -- node[lab, above=1pt] {raw detections} (keep);
+  \draw[arr] (keep.east) -- ++(2.5mm,0) |- (loc.west);
+  \draw[arr] (keep.east) -- ++(2.5mm,0) |- (cls.west);
+  \draw[arr] (loc.east) -- ++(2.5mm,0) |- (out.west);
+  \draw[arr] (cls.east) -- ++(2.5mm,0) |- (out.west);
+
+  % ---------- parameters passed from offline to online ----------
+  \draw[dsh] (s1.south) -- node[lab, right=1pt, pos=0.5] {$\lambda^{\mathrm{cnf}}_{+}$} (keep.north);
+  \draw[dsh] (s2b.south) -- ++(0,-14mm) -| node[lab, pos=0.25, above=1pt] {$\lambda^{\mathrm{cls}}_{+}$} (cls.north);
+  \draw[dsh] (s2a.east) -- ++(5mm,0) |- node[lab, pos=0.3, right=1pt] {$\lambda^{\mathrm{loc}}_{+}$} ($(loc.south)+(0,-4mm)$) -- (loc.south);
+
+  % lanes
+  \begin{scope}[on background layer]
+    \node[draw=gray!50, dashed, rounded corners, fit=(cal)(f1)(cache)(s1)(match)(s2a)(s2b), inner sep=3pt,
+          label={[font=\scriptsize, gray!60!black, anchor=south west]north west:Offline: calibration only, no training (Alg.~1)}] (offl) {};
+    \node[draw=gray!50, dashed, rounded corners, fit=(img)(f2)(keep)(loc)(cls)(out)(below), inner sep=3pt,
+          label={[font=\scriptsize, gray!60!black, anchor=north west]south west:Online: inference (Alg.~2); added cost negligible next to $f$ (p.~10), not timed}] (onl) {};
+  \end{scope}
+\end{tikzpicture}}

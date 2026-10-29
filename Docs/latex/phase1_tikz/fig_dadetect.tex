@@ -1,0 +1,79 @@
+% Figure 1: DA-Detect architecture, redrawn (TikZ) from Li et al. (WACV 2023), Fig. 2 (p.4) and Secs. 3.1-3.6,
+% with details the paper leaves open (C4 variant, feature sizes, proposal counts, beta) taken from the released
+% code (HEAD 3f1f0ff). Training graph shown. Blue = Faster R-CNN kept at test time; red/orange/green = training-only.
+% Middle row: detector; top row: triplet regularisers (Eqs. 7-8); bottom rows: AdvGRL + domain classifiers (Eqs. 1-2, 5).
+% The method has no consistency regulariser (Eq. 9), so none is drawn.
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=4mm and 5mm,
+  nohyph/.style={execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\relax}},
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=10mm, inner sep=2.5pt, fill=white, nohyph},
+  inp/.style={box, fill=gray!12, text width=28mm},
+  core/.style={box, fill=blue!8, text width=20mm},
+  feat/.style={draw, dashed, blue!50!black, text=black, align=center, inner sep=2.5pt, minimum height=10mm,
+               text width=17mm, fill=blue!3, nohyph},
+  grl/.style={box, fill=red!12, text width=31mm, minimum height=6mm},
+  da/.style={box, fill=orange!18, text width=31mm},
+  reg/.style={box, fill=green!14, text width=44mm},
+  outp/.style={box, fill=gray!25, text width=23mm},
+  arr/.style={-{Latex[length=2mm]}, thick},
+  dsh/.style={-{Latex[length=2mm]}, thick, dashed, gray!70!black},
+  lab/.style={font=\scriptsize, fill=white, inner sep=1pt},
+]
+  % ---------------- detector row ----------------
+  \node[core] (bb) {ResNet-50, stem to res4 (``C4''), ImageNet init.; stem + res2 frozen};
+  \node[feat, right=of bb] (F) {image-level\\features $F$\\1024 ch, stride 16};
+  \node[core, right=of F] (rpn) {RPN\\15 anchors per location; 2000 / 1000 proposals (train / test)};
+  \node[core, right=of rpn] (roi) {RoI pooling of proposals on $F$ ($14{\times}14$) + res5 (C5) head};
+  \node[feat, right=of roi] (f) {object-level\\features $f$\\2048-d per RoI};
+  \node[outp, right=of f] (det) {Detection head\\boxes, scores,\\8 classes + bg.;\\$L_{\mathrm{cls}}+L_{\mathrm{reg}}$ on $S$ only};
+
+  % ---------------- inputs ----------------
+  \node[inp, left=12mm of bb] (tgt) {Target $T$: Foggy Cityscapes\\unlabelled $x_t$ ($\beta_{\mathrm{fog}}=0.02$)};
+  \node[inp, above=3mm of tgt] (src) {Source $S$: Cityscapes\\labelled $(x_s, y_s)$};
+  \node[inp, below=3mm of tgt] (aux) {Auxiliary $A$: RainMix on $x_s$\\pixel-aligned, unlabelled $x_a$};
+
+  % ---------------- training-only modules ----------------
+  \node[reg, above=15mm of F] (rimg) {Domain-level metric regulariser\\$L^{R}_{\mathrm{img}}$ (Eq.~7): triplet with anchor $F^S$, positive $F^T$, negative $F^A$; Euclidean, margin $\delta=1$};
+  \node[reg, above=15mm of f] (robj) {Domain-level metric regulariser\\$L^{R}_{\mathrm{obj}}$ (Eq.~8): same triplet on $f^S, f^T, f^A$ per RoI; needs aligned domains (dropped for KITTI)};
+  \node[grl, below=11mm of F] (agi) {AdvGRL, $\lambda_{\mathrm{adv}}$ (Eqs.~4--5)};
+  \node[da, below=3mm of agi] (dimg) {Image-level domain classifier\\2 conv, per location\\$L_{\mathrm{img}}$ (Eq.~1); label $S{=}1$, $T{=}0$};
+  \node[grl, below=11mm of f] (ago) {AdvGRL, $\lambda_{\mathrm{adv}}$ (Eqs.~4--5)};
+  \node[da, below=3mm of ago] (dobj) {Object-level domain classifier\\3 FC, per RoI\\$L_{\mathrm{obj}}$ (Eq.~2); label $S{=}1$, $T{=}0$};
+
+  % ---------------- main flow ----------------
+  \draw[arr] (src.east) -- ++(5mm,0) |- ([yshift=2mm]bb.west);
+  \draw[arr] (tgt.east) -- (bb.west);
+  \draw[arr] (aux.east) -- ++(5mm,0) |- ([yshift=-2mm]bb.west);
+  \draw[arr] (bb) -- (F);
+  \draw[arr] (F) -- (rpn);
+  \draw[arr] (rpn) -- (roi);
+  \draw[arr] (roi) -- (f);
+  \draw[arr] (f) -- (det);
+  % RoI pooling also reads the feature map (Fig. 2, the circled plus)
+  \draw[arr] ([xshift=5mm]F.north) -- ++(0,5mm) -| node[lab, pos=0.25, above]{$F$ into RoI pooling} (roi.north);
+
+  % ---------------- feature taps ----------------
+  \draw[dsh] ([xshift=-4mm]F.north) -- node[lab, pos=0.55]{$F^S, F^T, F^A$} ([xshift=-4mm]F.north |- rimg.south);
+  \draw[dsh] (f.north) -- node[lab, pos=0.55]{$f^S, f^T, f^A$} (f.north |- robj.south);
+  \draw[dsh] (F.south) -- node[lab, pos=0.75]{$F^S, F^T$ only} (agi.north);
+  \draw[dsh] (f.south) -- node[lab, pos=0.75]{$f^S, f^T$ only} (ago.north);
+  \draw[arr] (agi) -- (dimg);
+  \draw[arr] (ago) -- (dobj);
+
+  % ---------------- objective ----------------
+  \path (dimg.south) -- (dobj.south) coordinate[midway] (mid);
+  \node[below=4mm of mid, align=center, font=\scriptsize] (loss)
+    {Total loss (Eq.~9): $L = L_{\mathrm{cls}} + L_{\mathrm{reg}} + w\,\bigl(L_{\mathrm{img}} + L_{\mathrm{obj}} + L^{R}_{\mathrm{img}} + L^{R}_{\mathrm{obj}}\bigr)$, $w = 0.1$; no consistency term.\\[1pt]
+     AdvGRL: forward identity, backward $-\lambda_{\mathrm{adv}}\mathbf{I}$ (Eq.~4), with
+     $\lambda_{\mathrm{adv}} = \min(\lambda_0/L_c,\ \beta)$ if $L_c < \alpha$, else $\lambda_0$ (Eq.~5);\\[1pt]
+     $L_c$ = domain-classifier loss; $\lambda_0 = 1$, $\alpha = 0.63$, $\beta = 30$.};
+
+  % ---------------- frame around the deployed detector ----------------
+  \begin{scope}[on background layer]
+    \node[draw=blue!40, dashed, rounded corners, fit=(bb)(F)(rpn)(roi)(f)(det), inner sep=3pt,
+          label={[font=\scriptsize, blue!60!black, align=right, text width=21mm, anchor=north east, nohyph]south east:%
+          Faster R-CNN R-50-C4: weights shared by $S$, $T$, $A$; the only part kept at test time}] {};
+  \end{scope}
+\end{tikzpicture}}

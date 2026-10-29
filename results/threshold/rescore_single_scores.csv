@@ -1,0 +1,11 @@
+dataset,lam,raw score,competitive: score x weighted softmax share,cooperative: weighted noisy-OR,both: weighted noisy-OR x softmax share
+BDD100K,1,1,1.015,1.116,1.009
+BDD100K,3,1,1.021,1.218,1.01
+BDD100K,10,1,1.036,1.324,1.011
+BDD100K,30,1,1.068,1.205,1.017
+BDD100K,100,1,1.118,1.027,1.024
+DAWN,1,1,0.9901,1.166,0.9914
+DAWN,3,1,0.9906,1.292,0.9865
+DAWN,10,1,1.011,1.414,0.9941
+DAWN,30,1,1.05,1.261,1.016
+DAWN,100,1,1.09,1.059,1.022

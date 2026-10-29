@@ -1,0 +1,201 @@
+{
+ "bdd_val_day_accuracy": 0.7841709722874589,
+ "bdd_val_day_confusion": {
+  "clear": {
+   "clear": 1381,
+   "cloudy": 197,
+   "rain": 8,
+   "snow": 18
+  },
+  "cloudy": {
+   "clear": 162,
+   "cloudy": 1260,
+   "rain": 28,
+   "snow": 13
+  },
+  "fog": {
+   "clear": 1,
+   "cloudy": 2,
+   "rain": 0,
+   "snow": 0
+  },
+  "rain": {
+   "clear": 38,
+   "cloudy": 102,
+   "rain": 333,
+   "snow": 26
+  },
+  "snow": {
+   "clear": 182,
+   "cloudy": 116,
+   "rain": 26,
+   "snow": 365
+  }
+ },
+ "bdd_val_mean_h": {
+  "clear": 0.20900000631809235,
+  "clear_night": 0.38999998569488525,
+  "cloudy": 0.23499999940395355,
+  "rain": 0.8629999756813049,
+  "rain_night": 0.7540000081062317,
+  "snow": 0.8759999871253967,
+  "snow_night": 0.6949999928474426
+ },
+ "dawn_pred_by_weather": {
+  "clear": {
+   "fog": 22,
+   "rain": 4,
+   "sand": 55,
+   "snow": 0
+  },
+  "cloudy": {
+   "fog": 5,
+   "rain": 6,
+   "sand": 41,
+   "snow": 1
+  },
+  "fog": {
+   "fog": 165,
+   "rain": 37,
+   "sand": 139,
+   "snow": 6
+  },
+  "rain": {
+   "fog": 79,
+   "rain": 140,
+   "sand": 60,
+   "snow": 31
+  },
+  "snow": {
+   "fog": 12,
+   "rain": 12,
+   "sand": 25,
+   "snow": 165
+  }
+ },
+ "dawn_mean_h": {
+  "fog": 0.8270000219345093,
+  "rain": 0.843999981880188,
+  "sand": 0.671999990940094,
+  "snow": 0.9269999861717224
+ },
+ "train": {
+  "log": [
+   {
+    "epoch": 1,
+    "train_loss": 0.8321076316822983,
+    "holdout_balanced_acc": 0.716,
+    "holdout_recall": {
+     "clear": 0.7733333333333333,
+     "cloudy": 0.78,
+     "rain": 0.7333333333333333,
+     "snow": 0.8933333333333333,
+     "fog": 0.4
+    },
+    "seconds": 279.93469589999586
+   },
+   {
+    "epoch": 2,
+    "train_loss": 0.6714636689048906,
+    "holdout_balanced_acc": 0.7253333333333333,
+    "holdout_recall": {
+     "clear": 0.8266666666666667,
+     "cloudy": 0.7866666666666666,
+     "rain": 0.84,
+     "snow": 0.7733333333333333,
+     "fog": 0.4
+    },
+    "seconds": 402.6636828000046
+   },
+   {
+    "epoch": 3,
+    "train_loss": 0.6176225463848615,
+    "holdout_balanced_acc": 0.74,
+    "holdout_recall": {
+     "clear": 0.8333333333333334,
+     "cloudy": 0.8533333333333334,
+     "rain": 0.88,
+     "snow": 0.7333333333333333,
+     "fog": 0.4
+    },
+    "seconds": 525.2809645000088
+   },
+   {
+    "epoch": 4,
+    "train_loss": 0.568200250473965,
+    "holdout_balanced_acc": 0.6893333333333335,
+    "holdout_recall": {
+     "clear": 0.8,
+     "cloudy": 0.86,
+     "rain": 0.7933333333333333,
+     "snow": 0.7933333333333333,
+     "fog": 0.2
+    },
+    "seconds": 648.2037197000027
+   },
+   {
+    "epoch": 5,
+    "train_loss": 0.5632321983055663,
+    "holdout_balanced_acc": 0.7466666666666667,
+    "holdout_recall": {
+     "clear": 0.84,
+     "cloudy": 0.8266666666666667,
+     "rain": 0.8133333333333334,
+     "snow": 0.8533333333333334,
+     "fog": 0.4
+    },
+    "seconds": 770.9404958000086
+   },
+   {
+    "epoch": 6,
+    "train_loss": 0.5280051781547304,
+    "holdout_balanced_acc": 0.7546666666666666,
+    "holdout_recall": {
+     "clear": 0.82,
+     "cloudy": 0.8133333333333334,
+     "rain": 0.8266666666666667,
+     "snow": 0.9133333333333333,
+     "fog": 0.4
+    },
+    "seconds": 893.5742527999973
+   },
+   {
+    "epoch": 7,
+    "train_loss": 0.5079192600113579,
+    "holdout_balanced_acc": 0.7413333333333333,
+    "holdout_recall": {
+     "clear": 0.8533333333333334,
+     "cloudy": 0.8,
+     "rain": 0.7666666666666667,
+     "snow": 0.8866666666666667,
+     "fog": 0.4
+    },
+    "seconds": 1016.2455828999955
+   },
+   {
+    "epoch": 8,
+    "train_loss": 0.502265451641265,
+    "holdout_balanced_acc": 0.7506666666666667,
+    "holdout_recall": {
+     "clear": 0.9133333333333333,
+     "cloudy": 0.84,
+     "rain": 0.8066666666666666,
+     "snow": 0.7933333333333333,
+     "fog": 0.4
+    },
+    "seconds": 1139.0324744999962
+   }
+  ],
+  "best_holdout_balanced_acc": 0.7546666666666666,
+  "n_train": 5443,
+  "n_holdout": 605,
+  "per_class": {
+   "clear": 1500,
+   "cloudy": 1500,
+   "fog": 48,
+   "rain": 1500,
+   "snow": 1500
+  },
+  "prereg": "PREREG_o3.md"
+ }
+}

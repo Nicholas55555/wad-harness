@@ -1,0 +1,45 @@
+# Every fixed choice lives here. Fixed before any split was made; nothing in this
+# file is tuned on a test half. See NOTES.md for why each value is what it is.
+
+paths:
+  data: data/DAWN
+  cache: cache
+  results: results
+  weights: weights
+
+data:
+  # weather bin -> folder name under data/DAWN (the real folder names)
+  bins: {fog: Fog, rain: Rain, sand: Sand, snow: Snow}
+  ann_subdir: "{folder}_PASCAL_VOC"     # Pascal VOC XML lives here; images sit in the folder itself
+  # Classes present in the annotations that are not among the six canonical ones are dropped
+  # (DAWN has exactly one `train` box). Listed so the drop is explicit, not silent.
+  drop_classes: [train]
+  # How pixels are read. 'apply' = honour the JPEG EXIF orientation tag (what OpenCV, and so
+  # Ultralytics, does by default); 'ignore' = raw stored pixels. Decided empirically on the 40
+  # mirrored (orientation=2) images before detection; see NOTES.md.
+  exif_orientation: apply
+  phash_max_hamming: 4
+
+detector: {name: yolov8s.pt, imgsz: 640, conf_floor: 0.001, nms_iou: 0.5, max_det: 300, device: cpu}   # run 1 ran on CPU; one image per forward pass
+classes: {person: 0, bicycle: 1, car: 2, motorcycle: 3, bus: 5, truck: 7}   # COCO ids
+match_iou: 0.5
+default_thresholds: [0.25, 0.5]     # 0.25 = Ultralytics predict default; 0.5 = the "typical" hand-picked value
+
+# 200 points: 150 log-spaced on [0.001, 0.5], then 50 linear on (0.5, 0.99]
+tau_grid: {log_start: 0.001, log_end: 0.5, n_log: 150, lin_end: 0.99, n_lin: 50}
+
+alphas: [0.10, 0.20]
+splits: {n_repeats: 10, calibration_fraction: 0.5, seed: 0}
+go_no_go: {margin_points: 15, classes: [person, car], reference_threshold: 0.25}
+
+# Phase 4 per-class preview (O4, light): tighter budget for people than for vehicles.
+perclass_alphas: {person: 0.05, default: 0.10}
+
+# Phase 3 summaries
+lamr: {n_points: 9, fppi_lo: 0.01, fppi_hi: 1.0}
+fppi_budgets: [0.1, 1.0]            # the plan's headline: miss rate at a fixed FPPI
+
+# Phase 6a hazard scalar
+hazard: {dark_channel_patch: 15, n_bins: 4}
+
+smoke: {per_bin: 5, seed: 0}

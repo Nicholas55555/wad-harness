@@ -1,0 +1,4 @@
+criterion,value,met
+"BDD100K val all, lam 10: cost model 2 / model 1, 95% interval below 1",0.9719 (0.9686-0.9753),True
+"DAWN all, lam 10: model 2 not worse (point estimate <= 1)",0.9952 (0.9805-1.0101),True
+BDD100K val all: share real near each preset cut within x1.25 of the cut,"1.041, 1.005, 1.061, 1.066, 1.131",True

@@ -1,0 +1,31 @@
+dataset,images,lam,policy,cost_vs_best_single,cost_vs_train_chosen_single,oracle,spearman_vs_oracle,within_one_step_of_oracle,distinct_thresholds
+BDD100K,8090,1,v3: YOLOv8x features (this),1.013,1.01,0.8535,0.1447,0.6169,19
+BDD100K,8090,1,v2: confidence profile,1.005,1.003,0.8535,0.07548,0.6344,11
+BDD100K,8090,1,"v1: own pixel CNN, curve prediction",1.001,0.9982,0.8535,0.05627,0.6384,7
+BDD100K,8090,3,v3: YOLOv8x features (this),1.045,1.045,0.8547,0.1344,0.4105,23
+BDD100K,8090,3,v2: confidence profile,1.008,1.008,0.8547,0.1961,0.4561,13
+BDD100K,8090,3,"v1: own pixel CNN, curve prediction",1.002,1.002,0.8547,0.2145,0.4279,6
+BDD100K,8090,10,v3: YOLOv8x features (this),1.068,1.068,0.8331,0.1488,0.2753,30
+BDD100K,8090,10,v2: confidence profile,1.01,1.01,0.8331,0.2552,0.292,16
+BDD100K,8090,10,"v1: own pixel CNN, curve prediction",1.004,1.004,0.8331,0.1978,0.2642,7
+BDD100K,8090,30,v3: YOLOv8x features (this),1.084,1.084,0.8135,0.1663,0.1875,33
+BDD100K,8090,30,v2: confidence profile,1.014,1.014,0.8135,0.2745,0.1958,22
+BDD100K,8090,30,"v1: own pixel CNN, curve prediction",0.9974,0.9974,0.8135,0.1853,0.1607,8
+BDD100K,8090,100,v3: YOLOv8x features (this),1.068,1.068,0.8103,0.2058,0.1307,28
+BDD100K,8090,100,v2: confidence profile,1.017,1.017,0.8103,0.2508,0.1255,24
+BDD100K,8090,100,"v1: own pixel CNN, curve prediction",0.997,0.997,0.8103,0.216,0.1267,11
+DAWN,889,1,v3: YOLOv8x features (this),1.032,1.032,0.7197,-0.1658,0.6142,14
+DAWN,889,1,v2: confidence profile,0.9717,0.9717,0.7197,0.1335,0.6794,9
+DAWN,889,1,"v1: own pixel CNN, curve prediction",1.027,1.027,0.7197,0.00617,0.6805,6
+DAWN,889,3,v3: YOLOv8x features (this),1.059,1.059,0.7086,-0.1598,0.5141,17
+DAWN,889,3,v2: confidence profile,0.9957,0.9957,0.7086,0.1496,0.5287,12
+DAWN,889,3,"v1: own pixel CNN, curve prediction",1.017,1.017,0.7086,-0.002087,0.4859,7
+DAWN,889,10,v3: YOLOv8x features (this),1.161,1.157,0.7072,-0.1209,0.3971,21
+DAWN,889,10,v2: confidence profile,0.9974,0.9938,0.7072,0.2495,0.4027,12
+DAWN,889,10,"v1: own pixel CNN, curve prediction",1.04,1.036,0.7072,-0.02118,0.3386,6
+DAWN,889,30,v3: YOLOv8x features (this),1.222,1.194,0.7183,-0.01904,0.306,26
+DAWN,889,30,v2: confidence profile,1.082,1.057,0.7183,0.2554,0.3251,15
+DAWN,889,30,"v1: own pixel CNN, curve prediction",1.049,1.025,0.7183,0.01919,0.2261,7
+DAWN,889,100,v3: YOLOv8x features (this),1.227,1.22,0.751,0.06625,0.2508,27
+DAWN,889,100,v2: confidence profile,1.094,1.088,0.751,0.3404,0.2418,21
+DAWN,889,100,"v1: own pixel CNN, curve prediction",1.051,1.045,0.751,0.06824,0.1091,10

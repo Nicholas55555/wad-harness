@@ -1,0 +1,44 @@
+# Clear-weather control: BDD100K val (PREREG_run2.md). Fixed 2026-10-08 before any BDD100K
+# detection or number was produced.
+
+dataset: bdd100k
+paths:
+  data: data/BDD100K
+  data_cache: cache/bdd            # images.parquet, gt.parquet for BDD100K
+  detections: cache/bdd/det/v8s_640
+  cache: cache/bdd/v8s_640__class
+  results: results/bdd/v8s_640__class
+  weights: weights
+
+data:
+  split: val
+  # bin -> (weather tags) x (time-of-day tags). Excluded: foggy (13 images), undefined, dawn/dusk,
+  # and overcast/partly-cloudy night (23; no bin lists them)
+  bins:
+    clear:       {weather: [clear], timeofday: [daytime]}
+    cloudy:      {weather: [overcast, partly cloudy], timeofday: [daytime]}
+    rain:        {weather: [rainy], timeofday: [daytime]}
+    snow:        {weather: [snowy], timeofday: [daytime]}
+    clear_night: {weather: [clear], timeofday: [night]}
+    rain_night:  {weather: [rainy], timeofday: [night]}
+    snow_night:  {weather: [snowy], timeofday: [night]}
+  class_map: {person: person, rider: person, car: car, truck: truck, bus: bus, bike: bicycle, motor: motorcycle}
+  drop_classes: [train, traffic light, traffic sign]
+  exif_orientation: apply
+  phash_max_hamming: 4
+
+detector: {name: yolov8s.pt, imgsz: 640, conf_floor: 0.001, nms_iou: 0.5, max_det: 300, device: auto}
+classes: {person: 0, bicycle: 1, car: 2, motorcycle: 3, bus: 5, truck: 7}
+match_iou: 0.5
+default_thresholds: [0.25, 0.5]
+tau_grid: {log_start: 0.001, log_end: 0.5, n_log: 150, lin_end: 0.99, n_lin: 50}
+alphas: [0.10, 0.20]
+splits: {n_repeats: 10, calibration_fraction: 0.5, seed: 0}
+go_no_go: {margin_points: 15, classes: [person, car], reference_threshold: 0.25, bins: [clear, cloudy, rain, snow]}
+perclass_alphas: {person: 0.05, default: 0.10}
+lamr: {n_points: 9, fppi_lo: 0.01, fppi_hi: 1.0}
+fppi_budgets: [0.1, 1.0]
+reference_bin: clear               # clear-calibrated policy: fit on clear daytime, apply everywhere
+tiers: {fppi_caps: [0.1, 1.0]}
+hazard: {dark_channel_patch: 15, n_bins: 4}
+smoke: {per_bin: 3, seed: 0}

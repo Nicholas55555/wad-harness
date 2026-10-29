@@ -1,0 +1,63 @@
+train: 3338916 detections, 56 s
+BDD100K: 1178828 detections, 74 s
+DAWN: 49814 detections, 75 s
+logistic weights: {'logit score': np.float64(0.686), 'logit noisy-OR': np.float64(0.491), 'log softmax share': np.float64(0.26)}
+trained score + class (baseline): 77 iterations, 95 s
+trained score + detection context: 81 iterations, 126 s
+trained context without overlap features: 89 iterations, 152 s
+trained context + softmax share + noisy-OR: 78 iterations, 182 s
+dataset  lam  raw score  competitive: score x weighted softmax share  cooperative: weighted noisy-OR  both: weighted noisy-OR x softmax share
+BDD100K    1        1.0                                        1.015                           1.116                                    1.009
+BDD100K    3        1.0                                        1.021                           1.218                                    1.010
+BDD100K   10        1.0                                        1.036                           1.324                                    1.011
+BDD100K   30        1.0                                        1.068                           1.205                                    1.017
+BDD100K  100        1.0                                        1.118                           1.027                                    1.024
+   DAWN    1        1.0                                        0.990                           1.166                                    0.991
+   DAWN    3        1.0                                        0.991                           1.292                                    0.986
+   DAWN   10        1.0                                        1.011                           1.414                                    0.994
+   DAWN   30        1.0                                        1.050                           1.261                                    1.016
+   DAWN  100        1.0                                        1.090                           1.059                                    1.022
+                    feature  log_loss_increase
+                      logit            0.14214
+max_iou_stronger_same_group            0.02788
+                   x_center            0.02324
+                     aspect            0.01988
+                      log_w            0.01963
+                      y_top            0.01692
+                        cls            0.01639
+                      log_h            0.00720
+                   y_bottom            0.00537
+       max_iou_stronger_any            0.00492
+              img_log_n_001            0.00413
+         support_same_group            0.00333
+        img_group_log_n_025            0.00249
+              img_max_score            0.00190
+                support_any            0.00154
+             log_rank_group            0.00072
+              img_log_n_025            0.00058
+              img_log_n_005            0.00048
+                   log_rank            0.00021
+     n_stronger_overlapping            0.00003
+dataset                                                          model  log_loss    auc  auc_score_band_005_05  mean_predicted  share_real
+BDD100K learned sigmoid on top (score, noisy-OR, softmax share, class)    0.1053 0.9516                 0.7469          0.0699      0.0710
+BDD100K                                       score + class (baseline)    0.1043 0.9506                 0.7494          0.0697      0.0710
+BDD100K                                      score + detection context    0.0942 0.9646                 0.8194          0.0699      0.0710
+BDD100K                               context without overlap features    0.0974 0.9628                 0.8027          0.0700      0.0710
+BDD100K                             context + softmax share + noisy-OR    0.0940 0.9647                 0.8195          0.0700      0.0710
+   DAWN learned sigmoid on top (score, noisy-OR, softmax share, class)    0.1326 0.9657                 0.7281          0.1239      0.1277
+   DAWN                                       score + class (baseline)    0.1306 0.9685                 0.7334          0.1247      0.1277
+   DAWN                                      score + detection context    0.1218 0.9726                 0.8046          0.1233      0.1277
+   DAWN                               context without overlap features    0.1277 0.9708                 0.7597          0.1219      0.1277
+   DAWN                             context + softmax share + noisy-OR    0.1218 0.9726                 0.8053          0.1241      0.1277
+dataset  lam  best_single  oracle_image_threshold  learned sigmoid on top (score, noisy-OR, softmax share, class)  score + class (baseline)  score + detection context  context without overlap features  context + softmax share + noisy-OR
+BDD100K    1          1.0                   0.835                                                           1.004                     1.000                      0.941                             0.963                               0.941
+BDD100K    3          1.0                   0.838                                                           1.003                     0.998                      0.939                             0.956                               0.940
+BDD100K   10          1.0                   0.820                                                           0.997                     0.996                      0.938                             0.949                               0.937
+BDD100K   30          1.0                   0.802                                                           0.995                     0.997                      0.930                             0.937                               0.927
+BDD100K  100          1.0                   0.804                                                           0.988                     0.990                      0.920                             0.927                               0.919
+   DAWN    1          1.0                   0.703                                                           0.996                     1.004                      0.940                             0.983                               0.935
+   DAWN    3          1.0                   0.697                                                           0.994                     0.998                      0.930                             0.989                               0.926
+   DAWN   10          1.0                   0.696                                                           0.996                     0.989                      0.939                             0.973                               0.942
+   DAWN   30          1.0                   0.710                                                           1.018                     0.994                      0.964                             0.975                               0.959
+   DAWN  100          1.0                   0.746                                                           0.994                     0.976                      0.956                             0.963                               0.962
+EXIT 0

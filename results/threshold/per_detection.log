@@ -1,0 +1,153 @@
+train features: 3338916 detections, 62 s
+model: 81 iterations, 94 s -> C:\Users\nicho\Downloads\Weather Adaptive Autonomous Driving\wad-harness\weights\per_detection.joblib
+BDD100K: graded, 131 s
+DAWN: graded, 132 s
+fold 0: 80 iterations, 35 s
+fold 1: 86 iterations, 36 s
+fold 2: 79 iterations, 34 s
+fold 3: 74 iterations, 33 s
+fold 4: 82 iterations, 35 s
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+dataset  group      
+BDD100K  all            0.0012
+         clear          0.0028
+         clear_night    0.0025
+         cloudy         0.0019
+         day            0.0015
+         night          0.0021
+         rain           0.0023
+         rain_night     0.0024
+         snow           0.0027
+         snow_night     0.0019
+DAWN     all            0.0097
+         fog            0.0180
+         rain           0.0102
+         sand           0.0093
+         snow           0.0105
+dataset group   lam   cut  n_near  mean_chance_near  share_real_near
+BDD100K   day   1.0 0.500   15579             0.535            0.552
+BDD100K   day   3.0 0.250   14102             0.253            0.254
+BDD100K   day  10.0 0.091   24631             0.090            0.096
+BDD100K   day  30.0 0.032   46616             0.032            0.033
+BDD100K   day 100.0 0.010   88076             0.010            0.010
+BDD100K night   1.0 0.500   13704             0.519            0.504
+BDD100K night   3.0 0.250   16252             0.248            0.248
+BDD100K night  10.0 0.091   32108             0.091            0.097
+BDD100K night  30.0 0.032   57682             0.033            0.037
+BDD100K night 100.0 0.010   90894             0.010            0.011
+BDD100K   all   1.0 0.500   29283             0.528            0.530
+BDD100K   all   3.0 0.250   30354             0.250            0.251
+BDD100K   all  10.0 0.091   56739             0.091            0.097
+BDD100K   all  30.0 0.032  104298             0.032            0.035
+BDD100K   all 100.0 0.010  178970             0.010            0.011
+   DAWN   fog   1.0 0.500     349             0.540            0.633
+   DAWN   fog   3.0 0.250     267             0.257            0.431
+   DAWN   fog  10.0 0.091     397             0.092            0.154
+   DAWN   fog  30.0 0.032     732             0.032            0.064
+   DAWN   fog 100.0 0.010    1705             0.010            0.018
+   DAWN   all   1.0 0.500    1602             0.540            0.542
+   DAWN   all   3.0 0.250    1243             0.253            0.329
+   DAWN   all  10.0 0.091    1934             0.091            0.123
+   DAWN   all  30.0 0.032    3436             0.032            0.050
+   DAWN   all 100.0 0.010    8083             0.010            0.013
+dataset      group   lam                policy  recall  precision   fppi  cost_vs_one  ci_lo  ci_hi
+BDD100K rain_night   1.0         per detection   0.414      0.808  0.955        0.971  0.954  0.988
+BDD100K rain_night   1.0 one threshold (train)   0.385      0.810  0.874        1.000  1.000  1.000
+BDD100K rain_night   1.0      no tuning (0.25)   0.413      0.746  1.360        1.032  1.018  1.048
+BDD100K        day   1.0         per detection   0.653      0.890  1.110        0.924  0.918  0.929
+BDD100K        day   1.0 one threshold (train)   0.629      0.872  1.273        1.000  1.000  1.000
+BDD100K        day   1.0      no tuning (0.25)   0.657      0.841  1.700        1.007  1.003  1.011
+BDD100K      night   1.0         per detection   0.436      0.815  1.012        0.958  0.953  0.963
+BDD100K      night   1.0 one threshold (train)   0.399      0.815  0.931        1.000  1.000  1.000
+BDD100K      night   1.0      no tuning (0.25)   0.434      0.766  1.357        1.010  1.006  1.014
+BDD100K        all   1.0         per detection   0.566      0.865  1.063        0.941  0.937  0.944
+BDD100K        all   1.0 one threshold (train)   0.537      0.854  1.111        1.000  1.000  1.000
+BDD100K        all   1.0      no tuning (0.25)   0.567      0.817  1.538        1.009  1.006  1.012
+BDD100K rain_night   3.0         per detection   0.509      0.631  2.878        0.951  0.937  0.965
+BDD100K rain_night   3.0 one threshold (train)   0.479      0.616  2.899        1.000  1.000  1.000
+BDD100K rain_night   3.0      no tuning (0.25)   0.413      0.746  1.360        1.022  1.004  1.041
+BDD100K        day   3.0         per detection   0.725      0.781  2.796        0.932  0.928  0.937
+BDD100K        day   3.0 one threshold (train)   0.710      0.753  3.202        1.000  1.000  1.000
+BDD100K        day   3.0      no tuning (0.25)   0.657      0.841  1.700        1.044  1.038  1.050
+BDD100K      night   3.0         per detection   0.543      0.649  3.014        0.945  0.940  0.949
+BDD100K      night   3.0 one threshold (train)   0.506      0.645  2.858        1.000  1.000  1.000
+BDD100K      night   3.0      no tuning (0.25)   0.434      0.766  1.357        1.040  1.035  1.045
+BDD100K        all   3.0         per detection   0.652      0.731  2.899        0.939  0.935  0.942
+BDD100K        all   3.0 one threshold (train)   0.628      0.714  3.039        1.000  1.000  1.000
+BDD100K        all   3.0      no tuning (0.25)   0.567      0.817  1.538        1.042  1.038  1.046
+BDD100K rain_night  10.0         per detection   0.616      0.381  9.685        0.951  0.935  0.969
+BDD100K rain_night  10.0 one threshold (train)   0.584      0.387  8.965        1.000  1.000  1.000
+BDD100K rain_night  10.0      no tuning (0.25)   0.413      0.746  1.360        1.183  1.149  1.218
+BDD100K        day  10.0         per detection   0.785      0.598  7.261        0.935  0.929  0.940
+BDD100K        day  10.0 one threshold (train)   0.775      0.557  8.447        1.000  1.000  1.000
+BDD100K        day  10.0      no tuning (0.25)   0.657      0.841  1.700        1.240  1.229  1.251
+BDD100K      night  10.0         per detection   0.657      0.414  9.526        0.938  0.933  0.944
+BDD100K      night  10.0 one threshold (train)   0.621      0.421  8.760        1.000  1.000  1.000
+BDD100K      night  10.0      no tuning (0.25)   0.434      0.766  1.357        1.249  1.238  1.260
+BDD100K        all  10.0         per detection   0.734      0.515  8.334        0.937  0.933  0.940
+BDD100K        all  10.0 one threshold (train)   0.713      0.501  8.595        1.000  1.000  1.000
+BDD100K        all  10.0      no tuning (0.25)   0.567      0.817  1.538        1.245  1.236  1.253
+BDD100K rain_night  30.0         per detection   0.715      0.210 26.112        0.928  0.906  0.950
+BDD100K rain_night  30.0 one threshold (train)   0.680      0.212 24.413        1.000  1.000  1.000
+BDD100K rain_night  30.0      no tuning (0.25)   0.413      0.746  1.360        1.465  1.407  1.532
+BDD100K        day  30.0         per detection   0.827      0.398 17.201        0.938  0.933  0.944
+BDD100K        day  30.0 one threshold (train)   0.819      0.363 19.722        1.000  1.000  1.000
+BDD100K        day  30.0      no tuning (0.25)   0.657      0.841  1.700        1.517  1.501  1.534
+BDD100K      night  30.0         per detection   0.743      0.244 23.570        0.921  0.915  0.927
+BDD100K      night  30.0 one threshold (train)   0.708      0.253 21.451        1.000  1.000  1.000
+BDD100K      night  30.0      no tuning (0.25)   0.434      0.766  1.357        1.576  1.558  1.595
+BDD100K        all  30.0         per detection   0.793      0.322 20.218        0.929  0.925  0.934
+BDD100K        all  30.0 one threshold (train)   0.774      0.313 20.541        1.000  1.000  1.000
+BDD100K        all  30.0      no tuning (0.25)   0.567      0.817  1.538        1.548  1.536  1.561
+BDD100K rain_night 100.0         per detection   0.777      0.113 59.101        0.908  0.883  0.934
+BDD100K rain_night 100.0 one threshold (train)   0.749      0.107 60.724        1.000  1.000  1.000
+BDD100K rain_night 100.0      no tuning (0.25)   0.413      0.746  1.360        1.880  1.776  1.992
+BDD100K        day 100.0         per detection   0.858      0.230 39.438        0.924  0.917  0.931
+BDD100K        day 100.0 one threshold (train)   0.850      0.200 46.688        1.000  1.000  1.000
+BDD100K        day 100.0      no tuning (0.25)   0.657      0.841  1.700        1.864  1.838  1.890
+BDD100K      night 100.0         per detection   0.800      0.137 51.500        0.911  0.904  0.917
+BDD100K      night 100.0 one threshold (train)   0.773      0.139 49.108        1.000  1.000  1.000
+BDD100K      night 100.0      no tuning (0.25)   0.434      0.766  1.357        2.063  2.032  2.095
+BDD100K        all 100.0         per detection   0.835      0.183 45.153        0.917  0.913  0.922
+BDD100K        all 100.0 one threshold (train)   0.819      0.171 47.834        1.000  1.000  1.000
+BDD100K        all 100.0      no tuning (0.25)   0.567      0.817  1.538        1.964  1.943  1.985
+   DAWN        fog   1.0         per detection   0.656      0.915  0.406        0.953  0.910  0.993
+   DAWN        fog   1.0 one threshold (train)   0.663      0.883  0.590        1.000  1.000  1.000
+   DAWN        fog   1.0      no tuning (0.25)   0.681      0.859  0.746        1.014  0.991  1.038
+   DAWN        all   1.0         per detection   0.707      0.873  0.804        0.935  0.917  0.952
+   DAWN        all   1.0 one threshold (train)   0.697      0.852  0.946        1.000  1.000  1.000
+   DAWN        all   1.0      no tuning (0.25)   0.721      0.829  1.163        1.011  0.997  1.025
+   DAWN        fog   3.0         per detection   0.726      0.852  0.844        0.935  0.894  0.974
+   DAWN        fog   3.0 one threshold (train)   0.724      0.795  1.250        1.000  1.000  1.000
+   DAWN        fog   3.0      no tuning (0.25)   0.681      0.859  0.746        1.055  1.014  1.095
+   DAWN        all   3.0         per detection   0.773      0.801  1.502        0.926  0.908  0.942
+   DAWN        all   3.0 one threshold (train)   0.764      0.766  1.825        1.000  1.000  1.000
+   DAWN        all   3.0      no tuning (0.25)   0.721      0.829  1.163        1.047  1.025  1.070
+   DAWN        fog  10.0         per detection   0.784      0.725  1.992        0.957  0.922  0.993
+   DAWN        fog  10.0 one threshold (train)   0.786      0.653  2.801        1.000  1.000  1.000
+   DAWN        fog  10.0      no tuning (0.25)   0.681      0.859  0.746        1.290  1.195  1.405
+   DAWN        all  10.0         per detection   0.829      0.671  3.177        0.938  0.918  0.958
+   DAWN        all  10.0 one threshold (train)   0.823      0.629  3.803        1.000  1.000  1.000
+   DAWN        all  10.0      no tuning (0.25)   0.721      0.829  1.163        1.306  1.249  1.364
+   DAWN        fog  30.0         per detection   0.828      0.562  4.324        0.954  0.915  0.994
+   DAWN        fog  30.0 one threshold (train)   0.825      0.496  5.609        1.000  1.000  1.000
+   DAWN        fog  30.0      no tuning (0.25)   0.681      0.859  0.746        1.589  1.430  1.796
+   DAWN        all  30.0         per detection   0.866      0.509  6.534        0.940  0.916  0.962
+   DAWN        all  30.0 one threshold (train)   0.860      0.468  7.654        1.000  1.000  1.000
+   DAWN        all  30.0      no tuning (0.25)   0.721      0.829  1.163        1.651  1.549  1.758
+   DAWN        fog 100.0         per detection   0.859      0.352 10.609        0.971  0.934  1.006
+   DAWN        fog 100.0 one threshold (train)   0.857      0.320 12.227        1.000  1.000  1.000
+   DAWN        fog 100.0      no tuning (0.25)   0.681      0.859  0.746        1.983  1.719  2.351
+   DAWN        all 100.0         per detection   0.895      0.314 15.303        0.948  0.927  0.967
+   DAWN        all 100.0 one threshold (train)   0.890      0.297 16.478        1.000  1.000  1.000
+   DAWN        all 100.0      no tuning (0.25)   0.721      0.829  1.163        2.143  1.968  2.318
+      heldout_ece         heldout_cost_vs_one         BDD100K_cost_vs_one         DAWN_cost_vs_one        
+              min     max                 min     max                 min     max              min     max
+lam                                                                                                       
+1.0        0.0006  0.0009              0.9413  0.9487              0.9415  0.9430           0.9304  0.9396
+3.0        0.0006  0.0009              0.9387  0.9446              0.9392  0.9405           0.9200  0.9323
+10.0       0.0006  0.0009              0.9376  0.9426              0.9380  0.9390           0.9398  0.9490
+30.0       0.0006  0.0009              0.9246  0.9341              0.9298  0.9314           0.9299  0.9419
+100.0      0.0006  0.0009              0.9148  0.9234              0.9178  0.9191           0.9401  0.9465
+done, 311 s
+EXIT 0

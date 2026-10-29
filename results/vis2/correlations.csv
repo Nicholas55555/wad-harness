@@ -1,0 +1,10 @@
+dataset,score,spearman_miss025,spearman_never,n_images,note
+BDD100K,v1 (contrast + detail),0.459538,0.129877,8018,
+BDD100K,v2 (trained estimator),0.27703,0.0590114,8018,
+BDD100K,v2 light only (-log k),0.293672,0.0571272,8018,
+BDD100K,v2 scattering only (-log MOR),-0.153607,-0.0539262,8018,
+DAWN,v1 (contrast + detail),0.244931,0.195952,888,
+DAWN,v2 (trained estimator),0.177012,0.170567,888,
+DAWN,v2 light only (-log k),0.146058,0.132501,888,
+DAWN,v2 scattering only (-log MOR),0.20148,0.179414,888,
+DAWN,"v2, stretched images (sensitivity)",0.185047,0.176157,888,Spearman with the cropped score: 0.989

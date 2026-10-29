@@ -1,0 +1,25 @@
+{
+  "rule": "GO if, in the worst weather bin (lowest maximum achievable recall) for each of person, car, max recall - recall at tau=0.25 >= 15 points",
+  "classes": {
+    "person": {
+      "worst_bin": "cloudy",
+      "n_gt": 2694,
+      "max_recall": 0.8426132145508538,
+      "recall_at_ref": 0.5619896065330363,
+      "margin_points": 28.06236080178175,
+      "margin_points_vs_0_5": 42.5389755011136,
+      "passed": true
+    },
+    "car": {
+      "worst_bin": "clear",
+      "n_gt": 19633,
+      "max_recall": 0.8505577344267305,
+      "recall_at_ref": 0.6376508939031222,
+      "margin_points": 21.29068405236083,
+      "margin_points_vs_0_5": 34.12621606478887,
+      "passed": true
+    }
+  },
+  "verdict": "GO",
+  "line": "VERDICT: GO. person: worst bin cloudy (n_gt=2694), max recall 84.3% vs 56.2% at tau=0.25 -> margin 28.1 pts; car: worst bin clear (n_gt=19633), max recall 85.1% vs 63.8% at tau=0.25 -> margin 21.3 pts (threshold 15 pts)."
+}

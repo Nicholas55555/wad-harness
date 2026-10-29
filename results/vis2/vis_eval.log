@@ -1,0 +1,24 @@
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+                                                              criterion                                                                                            value   met
+                                                             S1 BDD100K                                                                           v2 +0.277 vs v1 +0.460 False
+                                                                S1 DAWN                                                                           v2 +0.177 vs v1 +0.245 False
+                                                  S2 BDD100K rain_night                                                                      0.248 (above alpha in 100%) False
+                                                 S2 BDD100K clear_night                                                                      0.236 (above alpha in 100%) False
+                                                            S2 DAWN fog                                                                       0.220 (above alpha in 75%) False
+                                                             S3 BDD100K                                                                        v2 29.57 vs v1 31.91 FPPI  True
+                                                                S3 DAWN                                                                          v2 4.05 vs v1 6.37 FPPI  True
+                                                                     S4                                                                 MAE log10 V_eff 0.069 (epoch 19)  True
+               sanity: light separates BDD100K night from day (ROC AUC)                                                                                            0.852  None
+sanity: median predicted MOR (m); fog < rain, snow < BDD100K clear day? DAWN fog 208, DAWN rain 2078, DAWN snow 2901, DAWN sand 216, BDD100K clear 9461 (ordering holds)  None
+dataset                              score  spearman_miss025  spearman_never  n_images                                   note
+BDD100K             v1 (contrast + detail)             0.460           0.130      8018                                    NaN
+BDD100K             v2 (trained estimator)             0.277           0.059      8018                                    NaN
+BDD100K             v2 light only (-log k)             0.294           0.057      8018                                    NaN
+BDD100K      v2 scattering only (-log MOR)            -0.154          -0.054      8018                                    NaN
+   DAWN             v1 (contrast + detail)             0.245           0.196       888                                    NaN
+   DAWN             v2 (trained estimator)             0.177           0.171       888                                    NaN
+   DAWN             v2 light only (-log k)             0.146           0.133       888                                    NaN
+   DAWN      v2 scattering only (-log MOR)             0.201           0.179       888                                    NaN
+   DAWN v2, stretched images (sensitivity)             0.185           0.176       888 Spearman with the cropped score: 0.989
+EXIT 0

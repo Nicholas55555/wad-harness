@@ -1,0 +1,18 @@
+dataset     images                  score    n  spearman_miss025
+BDD100K all images                     v1 8018             0.460
+BDD100K all images                     v3 8018             0.373
+BDD100K all images v3 light only (-log k) 8018             0.437
+BDD100K all images rank mean of v1 and v3 8018             0.438
+BDD100K   day only                     v1 4234             0.091
+BDD100K   day only                     v3 4234             0.028
+BDD100K   day only v3 light only (-log k) 4234             0.017
+BDD100K   day only rank mean of v1 and v3 4234             0.074
+BDD100K night only                     v1 3784             0.175
+BDD100K night only                     v3 3784             0.132
+BDD100K night only v3 light only (-log k) 3784             0.141
+BDD100K night only rank mean of v1 and v3 3784             0.161
+   DAWN all images                     v1  888             0.245
+   DAWN all images                     v3  888             0.179
+   DAWN all images v3 light only (-log k)  888             0.140
+   DAWN all images rank mean of v1 and v3  888             0.226
+EXIT 0

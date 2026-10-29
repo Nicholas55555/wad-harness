@@ -1,0 +1,10 @@
+{
+  "n_boot": 2000,
+  "seed": 0,
+  "resampling": "near-duplicate groups with replacement, within weather bin",
+  "p_go": 0.2845,
+  "p_pass": {
+    "person": 0.2985,
+    "car": 0.954
+  }
+}

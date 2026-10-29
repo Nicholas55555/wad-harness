@@ -1,0 +1,4 @@
+criterion,value,met
+"E1 BDD100K, lam 10: cost <= 0.97x best single",1.242,False
+"E2 DAWN, lam 10: cost <= 0.97x best single",1.289,False
+"E3 BDD100K, lam 10: Spearman with oracle threshold >= 0.3",0.087,False

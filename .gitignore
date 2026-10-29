@@ -1,0 +1,11 @@
+# raw data, caches and weights are rebuilt by scripts/run_all.py
+data/
+cache/
+weights/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# smoke-test outputs
+results/smoke/
+Docs/docs.zip

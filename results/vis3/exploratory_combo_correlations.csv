@@ -1,0 +1,17 @@
+dataset,images,score,n,spearman_miss025
+BDD100K,all images,v1,8018,0.459538
+BDD100K,all images,v3,8018,0.373205
+BDD100K,all images,v3 light only (-log k),8018,0.437102
+BDD100K,all images,rank mean of v1 and v3,8018,0.437919
+BDD100K,day only,v1,4234,0.0906233
+BDD100K,day only,v3,4234,0.0279977
+BDD100K,day only,v3 light only (-log k),4234,0.0167187
+BDD100K,day only,rank mean of v1 and v3,4234,0.0735991
+BDD100K,night only,v1,3784,0.175261
+BDD100K,night only,v3,3784,0.132207
+BDD100K,night only,v3 light only (-log k),3784,0.140754
+BDD100K,night only,rank mean of v1 and v3,3784,0.160509
+DAWN,all images,v1,888,0.244931
+DAWN,all images,v3,888,0.178858
+DAWN,all images,v3 light only (-log k),888,0.13967
+DAWN,all images,rank mean of v1 and v3,888,0.226237

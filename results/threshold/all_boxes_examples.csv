@@ -1,0 +1,5 @@
+dataset,condition,image_id,objects,boxes_all,boxes_ge_0001,boxes_ge_005,boxes_ge_025,lowest_score
+BDD100K,clear,clear/c650b257-a545cebf,14,2516,122,16,12,1e-06
+BDD100K,clear_night,clear_night/c72762cc-135927f8,11,2286,103,13,6,1.002e-06
+BDD100K,rain_night,rain_night/c81ff2c0-7204c5fe,9,2938,83,9,6,1.002e-06
+DAWN,fog,fog/mist-109,14,2550,48,9,5,1e-06

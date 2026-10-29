@@ -1,0 +1,18 @@
+{
+ "Day": {
+  "images": 4257,
+  "objects": 58435
+ },
+ "Night": {
+  "images": 3833,
+  "objects": 39310
+ },
+ "Rain at night": {
+  "images": 286,
+  "objects": 2770
+ },
+ "Fog": {
+  "images": 256,
+  "objects": 1716
+ }
+}

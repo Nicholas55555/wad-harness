@@ -1,0 +1,49 @@
+\documentclass[11pt]{article}
+\usepackage[paperwidth=6.9in,paperheight=3.9in,margin=0.12in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\pagestyle{empty}
+\begin{document}
+\begin{algorithm}[H]
+\caption{Fitting the dial (offline, BDD100K train only)}\label{alg:fit}
+\begin{algorithmic}[1]
+\Require labelled train frames $\mathcal{D}_{\text{train}}$; frozen detector $f$
+\ForAll{$x \in \mathcal{D}_{\text{train}}$}
+  \State $(D(x), h) \gets f(x)$ \Comment{floor 0.001, NMS 0.5, $\le 300$ boxes; keep per-box outputs}
+  \State $y(d) \gets$ greedy IoU $\ge 0.5$ match of $d \in D(x)$ to labels \Comment{grouped classes}
+\EndFor
+\State \textbf{Option A:} sort scores; keep ends of equal-score blocks; cumulative real and false counts
+\State \hspace{1.2em} $\tau(\cdot) \gets$ corners of the lower convex hull \Comment{all $\lambda$ at once}
+\State \textbf{Option B:} $\varphi(d) \gets [\text{context}(d, D(x)),\ \text{per-box}(h(d))]$ \Comment{PCA fitted on train}
+\State \hspace{1.2em} $g \gets$ gradient boosting on $\{(\varphi(d), y(d))\}$ \Comment{log-loss}
+\State \hspace{1.2em} $p_{\text{oof}} \gets$ 5-fold out-of-fold probabilities, folds by near-duplicate group
+\ForAll{$\beta$}
+  \State $\lambda_{\text{eq}}(\beta) \gets (1+\beta^2)/F^*_\beta - 1$ \Comment{F-score map, $F^*_\beta$ on train}
+\EndFor
+\State check calibration near every cut $1/(1+\lambda)$ and fold stability; adopt only if the pre-registered criteria hold
+\State \Return $\tau(\cdot)$, $g$ (with PCA), $\lambda_{\text{eq}}(\cdot)$
+\end{algorithmic}
+\end{algorithm}
+\clearpage
+\begin{algorithm}[H]
+\caption{Applying the dial (online, every camera frame)}\label{alg:deploy}
+\begin{algorithmic}[1]
+\Require frame $x$; setting $\lambda$ (or $\beta$); option $\in\{$A, B$\}$
+\If{$\beta$ is given} \State $\lambda \gets \lambda_{\text{eq}}(\beta)$ \Comment{F-score map} \EndIf
+\If{a budget $\alpha$ is certified for condition $c$} \State $\lambda \gets \max(\lambda, \hat\lambda_c)$ \Comment{planned: CRC over $\lambda$} \EndIf
+\State $(D, h) \gets f(x)$ \Comment{one detector pass}
+\ForAll{$d \in D$}
+  \If{option A}
+    \State keep $d$ iff $s(d) \ge \tau(\lambda)$
+  \Else
+    \State $p(d) \gets \sigma(g(\varphi(d)))$; keep $d$ iff $p(d) \ge 1/(1+\lambda)$ \Comment{cost-optimal cut}
+  \EndIf
+\EndFor
+\State $\widehat{\mathrm{FA}} \gets \sum_{d \text{ kept}} (1 - p(d))$ \Comment{expected false alarms, no labels needed}
+\State \Return kept detections, $\widehat{\mathrm{FA}}$
+\end{algorithmic}
+\end{algorithm}
+\end{document}

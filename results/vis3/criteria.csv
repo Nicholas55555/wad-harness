@@ -1,0 +1,11 @@
+criterion,value,met
+S1 BDD100K,v3 +0.373 vs v1 +0.460,False
+S1 DAWN,v3 +0.179 vs v1 +0.245,False
+S2 BDD100K rain_night,0.260 (above alpha in 100%),False
+S2 BDD100K clear_night,0.220 (above alpha in 100%),False
+S2 DAWN fog,0.216 (above alpha in 70%),False
+S3 BDD100K,v3 30.20 vs v1 31.91 FPPI,True
+S3 DAWN,v3 4.05 vs v1 6.37 FPPI,True
+S4,MAE log10 V_eff 0.071 (epoch 19),True
+sanity: light separates BDD100K night from day (ROC AUC),0.987,
+"sanity: median predicted MOR (m); fog < rain, snow < BDD100K clear day?","DAWN fog 180, DAWN rain 2477, DAWN snow 4007, DAWN sand 196, BDD100K clear 9651 (ordering holds)",
