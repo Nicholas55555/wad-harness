@@ -41,6 +41,7 @@ re-run to make them.
 | [`11_decision_log.md`](11_decision_log.md) | every decision with date and evidence |
 | [`12_open_items_next_steps.md`](12_open_items_next_steps.md) | Phase 4 work, known report bugs, missing facts, unfinished objectives, data to request |
 | [`13_glossary.md`](13_glossary.md) | symbols and about 90 terms, each pointing to where it is defined |
+| [`14_phase4_experiments.md`](14_phase4_experiments.md) | **Phase 4:** dataset and splits, setup, the pre-registered comparison of CRC over λ with the per-weather baseline, the dial results, the ablations, figures, and the paper and submission package |
 
 ## Folders
 

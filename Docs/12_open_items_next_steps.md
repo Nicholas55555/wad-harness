@@ -16,6 +16,17 @@ objectives not yet done.*
 
 ## 1. Phase 4 work (method)
 
+**Status 2026-11-03:**
+- **Done (doc 14):**
+  - 1, CRC over λ (pre-registered, all criteria met);
+  - 3, feature-group ablation;
+  - 4, training-size curve (10 / 25 / 50 / 100%);
+  - 6, per-frame timing;
+  - 7, tables and figures.
+- **Still open, for the final paper:**
+  - 2, per-condition recalibration;
+  - 5, detector transfer.
+
 | # | item | detail | effort |
 |---|---|---|---|
 | 1 | **CRC over λ** | per condition, λ̂_c = inf{λ : n/(n+1)·R̂_c(λ) + 1/(n+1) ≤ α}; deploy max(λ_user, λ̂_c); 200 calibration/test halves, near-duplicate-aware; compare FA/image with per-bin CRC over τ at equal α; report the smallest certifiable α. **Pre-register the criteria first** (e.g. "held-out miss ≤ α in every condition where per-bin CRC holds; FA/image below per-bin CRC's in ≥ x of y conditions") | laptop, about 1 day |

@@ -1,0 +1,18 @@
+  bdd 500/8091, 84 s, images re-matched box by box: 1
+  bdd 1000/8091, 161 s, images re-matched box by box: 2
+  bdd 1500/8091, 237 s, images re-matched box by box: 3
+  bdd 2000/8091, 313 s, images re-matched box by box: 3
+  bdd 2500/8091, 390 s, images re-matched box by box: 4
+  bdd 3000/8091, 466 s, images re-matched box by box: 4
+  bdd 3500/8091, 542 s, images re-matched box by box: 5
+  bdd 4000/8091, 618 s, images re-matched box by box: 5
+  bdd 4500/8091, 695 s, images re-matched box by box: 5
+  bdd 5000/8091, 771 s, images re-matched box by box: 5
+  bdd 5500/8091, 847 s, images re-matched box by box: 6
+  bdd 6000/8091, 924 s, images re-matched box by box: 8
+  bdd 6500/8091, 1000 s, images re-matched box by box: 8
+  bdd 7000/8091, 1077 s, images re-matched box by box: 8
+  bdd 7500/8091, 1153 s, images re-matched box by box: 8
+  bdd 8000/8091, 1230 s, images re-matched box by box: 9
+  bdd 8091/8091, 1244 s, images re-matched box by box: 10
+EXIT 0

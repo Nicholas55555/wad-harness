@@ -1,0 +1,4 @@
+criterion,value,met
+C1 validity: ours mean held-out miss <= alpha + 0.01 wherever the baseline holds (alpha 0.2),11 conditions where the baseline holds; ours max mean miss 0.1984,True
+C2 price: median per-split FPPI ratio ours/baseline < 1 in >= 9 of 11 conditions,11 of 11,True
+C3 pooled price: 97.5th percentile of the pooled per-split ratio < 1,"median 0.610, 95% 0.589-0.633",True

@@ -20,6 +20,22 @@ dial" below, the write-up [`Docs/08_method_lambda_dial.md`](Docs/08_method_lambd
 Phase 3 kit [`Docs/10_phase3_methodology_kit.md`](Docs/10_phase3_methodology_kit.md) and the index
 of all project docs, [`Docs/README.md`](Docs/README.md).
 
+**Experiments (CAI 6930 Phase 4).** The dial against the Phase-1 baseline on the same test data:
+- **The pre-registered comparison:** CRC over the dial λ vs per-weather CRC over the score.
+  - Pre-registration: [`PREREG_crc_lambda.md`](PREREG_crc_lambda.md).
+  - Results: [`results/crc_lambda/crc_lambda.md`](results/crc_lambda/crc_lambda.md).
+- **Ablations of the per-detection model:** feature groups and training-set size, in
+  [`results/ablation/dial_ablation.md`](results/ablation/dial_ablation.md).
+- **The paper's tables and figures:** made by `python -m wad.phase4_paper` into `Docs/latex/phase4/`.
+- **Write-up:** [`Docs/14_phase4_experiments.md`](Docs/14_phase4_experiments.md).
+- **Trained components and run logs:** [`checkpoints/`](checkpoints/) and [`logs/`](logs/).
+
+```bash
+.venv/Scripts/python.exe -m wad.crc_lambda      # CRC over lambda vs the per-weather baseline, 200 splits (CPU)
+.venv/Scripts/python.exe -m wad.dial_ablation   # refits of the per-detection model (CPU, ~45 min)
+.venv/Scripts/python.exe -m wad.phase4_paper    # LaTeX tables and figures of the Experiments section
+```
+
 **Results:**
 
 - Run 1 (O1/O2 on DAWN, YOLOv8s, CPU): [`results/results.md`](results/results.md), figures in
@@ -473,7 +489,7 @@ Windows 11, AMD Ryzen 7 4800H, CPU-only torch:
 | `run_all.py --from-cache` | 69 s |
 | `run_all.py --smoke` (20 images) | 76 s |
 | `python -m wad.sensitivity` (YOLOv8s at imgsz 1280, detection included) | ~7 min |
-| `pytest tests` (91 tests at run 1; 154 now, about 2 min) | 3 s |
+| `pytest tests` (91 tests at run 1; 161 now, about 2 min) | 3 s |
 
 Per-phase timings of the last run are in `results/run_timing.json`. Detection is
 deterministic: a forced rerun reproduced `detections.parquet` bit for bit, and two
@@ -502,6 +518,11 @@ wad/per_detection.py the dial's per-detection option (model 1 weights/per_detect
 wad/fbeta_dial.py    the dial in F-score units: β -> equivalent λ fitted on train (+ weights/fbeta_table.csv)
 wad/yolo_box_features.py YOLOv8x's own per-box features (head outputs at each box's anchor); Detector for new images
 wad/dial_demo.py     the interactive dial page (template wad/assets/dial_demo.html)
+wad/crc_lambda.py    Phase 4: CRC over the dial λ vs per-weather CRC over the score, same 200 splits (PREREG_crc_lambda.md)
+wad/dial_ablation.py Phase 4: refits of the per-detection model (feature groups, training-set size)
+wad/phase4_paper.py  Phase 4: the Experiments section's LaTeX tables and figures (Docs/latex/phase4/)
+checkpoints/         the trained per-detection models and dial tables (copies of weights/), with a README
+logs/                logs of the GPU passes (BDD100K train detection, per-box outputs)
 wad/run2.py, run2_analysis.py, run2_report.py   run 2 (O2) and the BDD100K clear-weather control (PREREG_run2.md)
 wad/hazard_cnn.py, o3_eval.py                   O3 version B, a learned camera hazard estimator, and its evaluation (PREREG_o3.md)
 wad/visibility.py                               exploratory pixel-only visibility score (v1)
@@ -513,7 +534,7 @@ wad/threshold_headroom.py, threshold_budget.py, threshold_noise.py, graded_respo
 scripts/run_all.py   one command, cache -> results
 scripts/get_dawn.py  verified DAWN download
 scripts/get_bdd100k.py  the parts of BDD100K this project uses, from the official host
-tests/               pytest suite, 154 tests (matching, loss monotonicity, CRC rule, curves, hazard isolation, the dial)
+tests/               pytest suite, 161 tests (matching, loss monotonicity, CRC rule, curves, hazard isolation, the dial, CRC over λ)
 ```
 
 `data/`, `cache/` and `weights/` are git-ignored, as the brief specifies. The cache is small

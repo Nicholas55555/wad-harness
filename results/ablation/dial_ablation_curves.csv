@@ -1,0 +1,1533 @@
+variant,fraction,seed,iteration,train_logloss,val_logloss
+"model 2 (adopted, 68 features)",1,0,0,0.247019,0.247016
+"model 2 (adopted, 68 features)",1,0,1,0.188853,0.188847
+"model 2 (adopted, 68 features)",1,0,2,0.169936,0.170001
+"model 2 (adopted, 68 features)",1,0,3,0.156609,0.156735
+"model 2 (adopted, 68 features)",1,0,4,0.146356,0.146528
+"model 2 (adopted, 68 features)",1,0,5,0.138118,0.13834
+"model 2 (adopted, 68 features)",1,0,6,0.131295,0.131545
+"model 2 (adopted, 68 features)",1,0,7,0.12557,0.125858
+"model 2 (adopted, 68 features)",1,0,8,0.120701,0.121015
+"model 2 (adopted, 68 features)",1,0,9,0.116504,0.11684
+"model 2 (adopted, 68 features)",1,0,10,0.112878,0.113235
+"model 2 (adopted, 68 features)",1,0,11,0.109711,0.110089
+"model 2 (adopted, 68 features)",1,0,12,0.106966,0.107363
+"model 2 (adopted, 68 features)",1,0,13,0.10454,0.104952
+"model 2 (adopted, 68 features)",1,0,14,0.102421,0.102854
+"model 2 (adopted, 68 features)",1,0,15,0.100548,0.101001
+"model 2 (adopted, 68 features)",1,0,16,0.0989131,0.0993795
+"model 2 (adopted, 68 features)",1,0,17,0.0974433,0.0979375
+"model 2 (adopted, 68 features)",1,0,18,0.0961537,0.096666
+"model 2 (adopted, 68 features)",1,0,19,0.0949935,0.09552
+"model 2 (adopted, 68 features)",1,0,20,0.0939616,0.0945171
+"model 2 (adopted, 68 features)",1,0,21,0.0930198,0.093596
+"model 2 (adopted, 68 features)",1,0,22,0.092204,0.092806
+"model 2 (adopted, 68 features)",1,0,23,0.0914471,0.0920691
+"model 2 (adopted, 68 features)",1,0,24,0.0907766,0.0914215
+"model 2 (adopted, 68 features)",1,0,25,0.0901581,0.0908147
+"model 2 (adopted, 68 features)",1,0,26,0.0896107,0.0902978
+"model 2 (adopted, 68 features)",1,0,27,0.0891074,0.0898181
+"model 2 (adopted, 68 features)",1,0,28,0.0886388,0.0893834
+"model 2 (adopted, 68 features)",1,0,29,0.0882099,0.0889851
+"model 2 (adopted, 68 features)",1,0,30,0.0878252,0.0886213
+"model 2 (adopted, 68 features)",1,0,31,0.0874675,0.0882798
+"model 2 (adopted, 68 features)",1,0,32,0.0871405,0.0879693
+"model 2 (adopted, 68 features)",1,0,33,0.0868332,0.0876965
+"model 2 (adopted, 68 features)",1,0,34,0.0865234,0.0873976
+"model 2 (adopted, 68 features)",1,0,35,0.0862409,0.0871229
+"model 2 (adopted, 68 features)",1,0,36,0.0859947,0.0868993
+"model 2 (adopted, 68 features)",1,0,37,0.0857684,0.0867127
+"model 2 (adopted, 68 features)",1,0,38,0.0855568,0.0865235
+"model 2 (adopted, 68 features)",1,0,39,0.0853407,0.0863302
+"model 2 (adopted, 68 features)",1,0,40,0.0851489,0.0861655
+"model 2 (adopted, 68 features)",1,0,41,0.0849759,0.0860214
+"model 2 (adopted, 68 features)",1,0,42,0.0847953,0.0859002
+"model 2 (adopted, 68 features)",1,0,43,0.0846453,0.0857713
+"model 2 (adopted, 68 features)",1,0,44,0.0844802,0.0856318
+"model 2 (adopted, 68 features)",1,0,45,0.084331,0.0855126
+"model 2 (adopted, 68 features)",1,0,46,0.0841965,0.0854092
+"model 2 (adopted, 68 features)",1,0,47,0.0840772,0.085312
+"model 2 (adopted, 68 features)",1,0,48,0.0839486,0.0852118
+"model 2 (adopted, 68 features)",1,0,49,0.083818,0.085103
+"model 2 (adopted, 68 features)",1,0,50,0.0837053,0.0850394
+"model 2 (adopted, 68 features)",1,0,51,0.0835898,0.0849396
+"model 2 (adopted, 68 features)",1,0,52,0.0834825,0.0848567
+"model 2 (adopted, 68 features)",1,0,53,0.0833811,0.0847881
+"model 2 (adopted, 68 features)",1,0,54,0.0832877,0.0847403
+"model 2 (adopted, 68 features)",1,0,55,0.083195,0.084674
+"model 2 (adopted, 68 features)",1,0,56,0.0831122,0.0846191
+"model 2 (adopted, 68 features)",1,0,57,0.0830251,0.0845698
+"model 2 (adopted, 68 features)",1,0,58,0.0829307,0.0845077
+"model 2 (adopted, 68 features)",1,0,59,0.0828439,0.0844496
+"model 2 (adopted, 68 features)",1,0,60,0.0827511,0.0844028
+"model 2 (adopted, 68 features)",1,0,61,0.0826589,0.0843344
+"model 2 (adopted, 68 features)",1,0,62,0.0825794,0.0842803
+"model 2 (adopted, 68 features)",1,0,63,0.08249,0.0842427
+"model 2 (adopted, 68 features)",1,0,64,0.082416,0.084211
+"model 2 (adopted, 68 features)",1,0,65,0.082348,0.0841747
+"model 2 (adopted, 68 features)",1,0,66,0.0822488,0.0840987
+"model 2 (adopted, 68 features)",1,0,67,0.0821832,0.0840671
+"model 2 (adopted, 68 features)",1,0,68,0.0820965,0.084029
+"model 2 (adopted, 68 features)",1,0,69,0.0820279,0.0839828
+"model 2 (adopted, 68 features)",1,0,70,0.0819541,0.0839528
+"model 2 (adopted, 68 features)",1,0,71,0.0819312,0.0839444
+"model 2 (adopted, 68 features)",1,0,72,0.0818638,0.0839129
+"model 2 (adopted, 68 features)",1,0,73,0.0817802,0.0838653
+"model 2 (adopted, 68 features)",1,0,74,0.0817089,0.083821
+"model 2 (adopted, 68 features)",1,0,75,0.0816729,0.0838497
+"model 2 (adopted, 68 features)",1,0,76,0.0815985,0.0837685
+"model 2 (adopted, 68 features)",1,0,77,0.081532,0.0837259
+"model 2 (adopted, 68 features)",1,0,78,0.0814612,0.0836878
+"model 2 (adopted, 68 features)",1,0,79,0.0814086,0.0836638
+"model 2 (adopted, 68 features)",1,0,80,0.0813527,0.0836409
+"model 2 (adopted, 68 features)",1,0,81,0.0813026,0.0836548
+"model 2 (adopted, 68 features)",1,0,82,0.0812451,0.0836376
+"model 2 (adopted, 68 features)",1,0,83,0.0811849,0.0836219
+"model 2 (adopted, 68 features)",1,0,84,0.0811221,0.0835939
+"model 2 (adopted, 68 features)",1,0,85,0.0810907,0.0835834
+"model 2 (adopted, 68 features)",1,0,86,0.0810248,0.0835437
+"model 2 (adopted, 68 features)",1,0,87,0.0809751,0.083538
+"model 2 (adopted, 68 features)",1,0,88,0.0809627,0.0835612
+"model 2 (adopted, 68 features)",1,0,89,0.0809061,0.0835235
+"model 2 (adopted, 68 features)",1,0,90,0.0809174,0.083536
+"model 2 (adopted, 68 features)",1,0,91,0.080798,0.0835098
+"model 2 (adopted, 68 features)",1,0,92,0.0807465,0.0834735
+"model 2 (adopted, 68 features)",1,0,93,0.0806961,0.0834492
+"model 2 (adopted, 68 features)",1,0,94,0.0806385,0.083415
+"model 2 (adopted, 68 features)",1,0,95,0.0805931,0.0834045
+"model 2 (adopted, 68 features)",1,0,96,0.0805576,0.0834299
+"model 2 (adopted, 68 features)",1,0,97,0.0805018,0.0834035
+"model 2 (adopted, 68 features)",1,0,98,0.0805075,0.083457
+"model 2 (adopted, 68 features)",1,0,99,0.0805169,0.0836148
+"model 2 (adopted, 68 features)",1,0,100,0.0807837,0.0834278
+"model 2 (adopted, 68 features)",1,0,101,0.0809473,0.0836166
+"model 2 (adopted, 68 features)",1,0,102,0.0814152,0.0835106
+"model 2 (adopted, 68 features)",1,0,103,0.0813412,0.0835007
+"model 2 (adopted, 68 features)",1,0,104,0.0814097,0.0836047
+"model 2 (adopted, 68 features)",1,0,105,0.0815668,0.083728
+"model 2 (adopted, 68 features)",1,0,106,0.0818137,0.0837463
+"model 2 (adopted, 68 features)",1,0,107,0.0818489,0.0839107
+without class probabilities (-10),1,0,0,0.247019,0.247016
+without class probabilities (-10),1,0,1,0.189248,0.189255
+without class probabilities (-10),1,0,2,0.170362,0.17046
+without class probabilities (-10),1,0,3,0.157069,0.157234
+without class probabilities (-10),1,0,4,0.146858,0.147081
+without class probabilities (-10),1,0,5,0.138637,0.138893
+without class probabilities (-10),1,0,6,0.131863,0.132152
+without class probabilities (-10),1,0,7,0.126179,0.126502
+without class probabilities (-10),1,0,8,0.121337,0.121693
+without class probabilities (-10),1,0,9,0.117191,0.117578
+without class probabilities (-10),1,0,10,0.113624,0.11404
+without class probabilities (-10),1,0,11,0.110528,0.110967
+without class probabilities (-10),1,0,12,0.107821,0.108287
+without class probabilities (-10),1,0,13,0.105452,0.105946
+without class probabilities (-10),1,0,14,0.103356,0.103891
+without class probabilities (-10),1,0,15,0.101536,0.102088
+without class probabilities (-10),1,0,16,0.0999202,0.1005
+without class probabilities (-10),1,0,17,0.0984679,0.0990689
+without class probabilities (-10),1,0,18,0.0971945,0.0978221
+without class probabilities (-10),1,0,19,0.0960479,0.0966968
+without class probabilities (-10),1,0,20,0.0950351,0.0956922
+without class probabilities (-10),1,0,21,0.0941355,0.0948236
+without class probabilities (-10),1,0,22,0.0933127,0.0940281
+without class probabilities (-10),1,0,23,0.0925927,0.0933355
+without class probabilities (-10),1,0,24,0.0919447,0.0926994
+without class probabilities (-10),1,0,25,0.091359,0.0921272
+without class probabilities (-10),1,0,26,0.0908351,0.0916348
+without class probabilities (-10),1,0,27,0.0903343,0.0911585
+without class probabilities (-10),1,0,28,0.0898907,0.0907273
+without class probabilities (-10),1,0,29,0.0894807,0.0903312
+without class probabilities (-10),1,0,30,0.0891036,0.0899696
+without class probabilities (-10),1,0,31,0.0887561,0.0896312
+without class probabilities (-10),1,0,32,0.0884281,0.0893314
+without class probabilities (-10),1,0,33,0.0881239,0.0890404
+without class probabilities (-10),1,0,34,0.08784,0.0887885
+without class probabilities (-10),1,0,35,0.0875812,0.0885421
+without class probabilities (-10),1,0,36,0.0873386,0.0883165
+without class probabilities (-10),1,0,37,0.087106,0.0881164
+without class probabilities (-10),1,0,38,0.0868898,0.0879137
+without class probabilities (-10),1,0,39,0.0866785,0.0877264
+without class probabilities (-10),1,0,40,0.086498,0.0875703
+without class probabilities (-10),1,0,41,0.0863237,0.0874292
+without class probabilities (-10),1,0,42,0.0861392,0.0872696
+without class probabilities (-10),1,0,43,0.0859766,0.087147
+without class probabilities (-10),1,0,44,0.0858295,0.0870297
+without class probabilities (-10),1,0,45,0.0857011,0.0869237
+without class probabilities (-10),1,0,46,0.0855657,0.0868122
+without class probabilities (-10),1,0,47,0.0854411,0.0867072
+without class probabilities (-10),1,0,48,0.0853259,0.0866275
+without class probabilities (-10),1,0,49,0.0852043,0.0865301
+without class probabilities (-10),1,0,50,0.0850844,0.0864401
+without class probabilities (-10),1,0,51,0.084964,0.0863372
+without class probabilities (-10),1,0,52,0.084839,0.0862323
+without class probabilities (-10),1,0,53,0.0847429,0.0861534
+without class probabilities (-10),1,0,54,0.0846372,0.0860742
+without class probabilities (-10),1,0,55,0.0845394,0.0859946
+without class probabilities (-10),1,0,56,0.0844531,0.0859377
+without class probabilities (-10),1,0,57,0.0843545,0.0858676
+without class probabilities (-10),1,0,58,0.0842804,0.0858276
+without class probabilities (-10),1,0,59,0.0841956,0.0857715
+without class probabilities (-10),1,0,60,0.084111,0.0857228
+without class probabilities (-10),1,0,61,0.0840262,0.0856691
+without class probabilities (-10),1,0,62,0.0839482,0.0856272
+without class probabilities (-10),1,0,63,0.0838391,0.0855396
+without class probabilities (-10),1,0,64,0.0837629,0.0854954
+without class probabilities (-10),1,0,65,0.0836925,0.0854459
+without class probabilities (-10),1,0,66,0.0836203,0.0853975
+without class probabilities (-10),1,0,67,0.0835486,0.0853544
+without class probabilities (-10),1,0,68,0.0834794,0.0853186
+without class probabilities (-10),1,0,69,0.0834092,0.0852804
+without class probabilities (-10),1,0,70,0.0833315,0.0852538
+without class probabilities (-10),1,0,71,0.0832651,0.0852105
+without class probabilities (-10),1,0,72,0.0831951,0.0851726
+without class probabilities (-10),1,0,73,0.0831306,0.0851367
+without class probabilities (-10),1,0,74,0.0830642,0.0850873
+without class probabilities (-10),1,0,75,0.0829968,0.0850698
+without class probabilities (-10),1,0,76,0.0829389,0.0850441
+without class probabilities (-10),1,0,77,0.0828783,0.0850197
+without class probabilities (-10),1,0,78,0.0828142,0.0849855
+without class probabilities (-10),1,0,79,0.0827604,0.08496
+without class probabilities (-10),1,0,80,0.0826933,0.0849151
+without class probabilities (-10),1,0,81,0.0826215,0.0848769
+without class probabilities (-10),1,0,82,0.0825662,0.0848536
+without class probabilities (-10),1,0,83,0.0825092,0.084829
+without class probabilities (-10),1,0,84,0.0824551,0.0848093
+without class probabilities (-10),1,0,85,0.0824022,0.0847887
+without class probabilities (-10),1,0,86,0.0823445,0.0847608
+without class probabilities (-10),1,0,87,0.0822961,0.0847301
+without class probabilities (-10),1,0,88,0.082246,0.084708
+without class probabilities (-10),1,0,89,0.0821961,0.084691
+without class probabilities (-10),1,0,90,0.0821414,0.0846587
+without class probabilities (-10),1,0,91,0.082096,0.0846686
+without class probabilities (-10),1,0,92,0.0820439,0.0846498
+without class probabilities (-10),1,0,93,0.0820169,0.0846483
+without class probabilities (-10),1,0,94,0.0820173,0.0846681
+without class probabilities (-10),1,0,95,0.0819204,0.0846305
+without class probabilities (-10),1,0,96,0.0818945,0.0846569
+without class probabilities (-10),1,0,97,0.0818149,0.0845793
+without class probabilities (-10),1,0,98,0.0817578,0.0845405
+without class probabilities (-10),1,0,99,0.0817032,0.084515
+without class probabilities (-10),1,0,100,0.0816538,0.084498
+without class probabilities (-10),1,0,101,0.0816199,0.0845164
+without class probabilities (-10),1,0,102,0.0815691,0.0845133
+without class probabilities (-10),1,0,103,0.0815103,0.0844809
+without class probabilities (-10),1,0,104,0.0816288,0.0845819
+without class probabilities (-10),1,0,105,0.0814458,0.0845092
+without class probabilities (-10),1,0,106,0.0813932,0.0844947
+without class probabilities (-10),1,0,107,0.0814596,0.0845854
+without class probabilities (-10),1,0,108,0.0813481,0.0845778
+without class probabilities (-10),1,0,109,0.0812797,0.0845071
+without class probabilities (-10),1,0,110,0.0812732,0.0845634
+without class probabilities (-10),1,0,111,0.0811982,0.0845151
+without class probabilities (-10),1,0,112,0.0811491,0.084499
+without class probabilities (-10),1,0,113,0.0811239,0.0845024
+without box-edge DFL entropies (-5),1,0,0,0.247019,0.247016
+without box-edge DFL entropies (-5),1,0,1,0.188853,0.188847
+without box-edge DFL entropies (-5),1,0,2,0.169939,0.17
+without box-edge DFL entropies (-5),1,0,3,0.15662,0.156738
+without box-edge DFL entropies (-5),1,0,4,0.146367,0.146524
+without box-edge DFL entropies (-5),1,0,5,0.138143,0.138347
+without box-edge DFL entropies (-5),1,0,6,0.131326,0.131552
+without box-edge DFL entropies (-5),1,0,7,0.12559,0.125839
+without box-edge DFL entropies (-5),1,0,8,0.120719,0.121008
+without box-edge DFL entropies (-5),1,0,9,0.116518,0.116828
+without box-edge DFL entropies (-5),1,0,10,0.112894,0.113222
+without box-edge DFL entropies (-5),1,0,11,0.109745,0.110095
+without box-edge DFL entropies (-5),1,0,12,0.106989,0.107354
+without box-edge DFL entropies (-5),1,0,13,0.104578,0.104959
+without box-edge DFL entropies (-5),1,0,14,0.10246,0.102863
+without box-edge DFL entropies (-5),1,0,15,0.100591,0.101028
+without box-edge DFL entropies (-5),1,0,16,0.0989391,0.0993918
+without box-edge DFL entropies (-5),1,0,17,0.097463,0.0979306
+without box-edge DFL entropies (-5),1,0,18,0.096168,0.0966542
+without box-edge DFL entropies (-5),1,0,19,0.0950328,0.0955477
+without box-edge DFL entropies (-5),1,0,20,0.0940058,0.0945356
+without box-edge DFL entropies (-5),1,0,21,0.0930771,0.0936155
+without box-edge DFL entropies (-5),1,0,22,0.0922577,0.0928172
+without box-edge DFL entropies (-5),1,0,23,0.0915042,0.0920858
+without box-edge DFL entropies (-5),1,0,24,0.0908371,0.0914479
+without box-edge DFL entropies (-5),1,0,25,0.090231,0.0908637
+without box-edge DFL entropies (-5),1,0,26,0.0896763,0.0903308
+without box-edge DFL entropies (-5),1,0,27,0.0891941,0.08988
+without box-edge DFL entropies (-5),1,0,28,0.0887431,0.0894565
+without box-edge DFL entropies (-5),1,0,29,0.0883182,0.0890474
+without box-edge DFL entropies (-5),1,0,30,0.0879233,0.0886717
+without box-edge DFL entropies (-5),1,0,31,0.0875584,0.0883155
+without box-edge DFL entropies (-5),1,0,32,0.0872242,0.0879966
+without box-edge DFL entropies (-5),1,0,33,0.0869096,0.087699
+without box-edge DFL entropies (-5),1,0,34,0.0866192,0.0874266
+without box-edge DFL entropies (-5),1,0,35,0.0863627,0.0871908
+without box-edge DFL entropies (-5),1,0,36,0.0861198,0.0869685
+without box-edge DFL entropies (-5),1,0,37,0.0859106,0.08678
+without box-edge DFL entropies (-5),1,0,38,0.0856999,0.0866034
+without box-edge DFL entropies (-5),1,0,39,0.085507,0.0864271
+without box-edge DFL entropies (-5),1,0,40,0.0853251,0.08628
+without box-edge DFL entropies (-5),1,0,41,0.085155,0.0861501
+without box-edge DFL entropies (-5),1,0,42,0.0849759,0.0859992
+without box-edge DFL entropies (-5),1,0,43,0.0848068,0.0858407
+without box-edge DFL entropies (-5),1,0,44,0.0846612,0.0857024
+without box-edge DFL entropies (-5),1,0,45,0.0844991,0.0855595
+without box-edge DFL entropies (-5),1,0,46,0.0843442,0.0854227
+without box-edge DFL entropies (-5),1,0,47,0.0842254,0.0853254
+without box-edge DFL entropies (-5),1,0,48,0.0840891,0.0852333
+without box-edge DFL entropies (-5),1,0,49,0.0839755,0.0851447
+without box-edge DFL entropies (-5),1,0,50,0.0838562,0.0851212
+without box-edge DFL entropies (-5),1,0,51,0.0837354,0.085028
+without box-edge DFL entropies (-5),1,0,52,0.0836256,0.0849499
+without box-edge DFL entropies (-5),1,0,53,0.0835313,0.0849049
+without box-edge DFL entropies (-5),1,0,54,0.0834376,0.0848434
+without box-edge DFL entropies (-5),1,0,55,0.0833475,0.0847883
+without box-edge DFL entropies (-5),1,0,56,0.0832605,0.0847288
+without box-edge DFL entropies (-5),1,0,57,0.0831648,0.0846726
+without box-edge DFL entropies (-5),1,0,58,0.0830782,0.0846148
+without box-edge DFL entropies (-5),1,0,59,0.0830019,0.0845719
+without box-edge DFL entropies (-5),1,0,60,0.0829062,0.0844951
+without box-edge DFL entropies (-5),1,0,61,0.0828216,0.0844551
+without box-edge DFL entropies (-5),1,0,62,0.0827346,0.0844211
+without box-edge DFL entropies (-5),1,0,63,0.0826601,0.084377
+without box-edge DFL entropies (-5),1,0,64,0.0825956,0.0843419
+without box-edge DFL entropies (-5),1,0,65,0.0825245,0.084299
+without box-edge DFL entropies (-5),1,0,66,0.0824457,0.0842894
+without box-edge DFL entropies (-5),1,0,67,0.0823693,0.0842894
+without box-edge DFL entropies (-5),1,0,68,0.0822928,0.0842381
+without box-edge DFL entropies (-5),1,0,69,0.0822067,0.0841896
+without box-edge DFL entropies (-5),1,0,70,0.0821444,0.0841645
+without box-edge DFL entropies (-5),1,0,71,0.0820807,0.0841357
+without box-edge DFL entropies (-5),1,0,72,0.0820195,0.0841088
+without box-edge DFL entropies (-5),1,0,73,0.0819453,0.084045
+without box-edge DFL entropies (-5),1,0,74,0.0818727,0.0840083
+without box-edge DFL entropies (-5),1,0,75,0.0818057,0.0839804
+without box-edge DFL entropies (-5),1,0,76,0.081745,0.0839483
+without box-edge DFL entropies (-5),1,0,77,0.0816832,0.0839085
+without box-edge DFL entropies (-5),1,0,78,0.0816318,0.0838982
+without box-edge DFL entropies (-5),1,0,79,0.0816173,0.0839392
+without box-edge DFL entropies (-5),1,0,80,0.0815533,0.0839207
+without box-edge DFL entropies (-5),1,0,81,0.0815139,0.0838912
+without box-edge DFL entropies (-5),1,0,82,0.0814995,0.0839065
+without box-edge DFL entropies (-5),1,0,83,0.0814336,0.0838772
+without box-edge DFL entropies (-5),1,0,84,0.081373,0.0838476
+without box-edge DFL entropies (-5),1,0,85,0.0813105,0.0838509
+without box-edge DFL entropies (-5),1,0,86,0.0812635,0.0838336
+without box-edge DFL entropies (-5),1,0,87,0.0812374,0.0838849
+without box-edge DFL entropies (-5),1,0,88,0.0811944,0.0838858
+without box-edge DFL entropies (-5),1,0,89,0.0811919,0.0839664
+without box-edge DFL entropies (-5),1,0,90,0.0812127,0.0841963
+without box-edge DFL entropies (-5),1,0,91,0.0811791,0.0839832
+without box-edge DFL entropies (-5),1,0,92,0.0810992,0.0839199
+without box-edge DFL entropies (-5),1,0,93,0.0814195,0.0848625
+without box-edge DFL entropies (-5),1,0,94,0.0815727,0.0838864
+without box-edge DFL entropies (-5),1,0,95,0.0815604,0.0839222
+without box-edge DFL entropies (-5),1,0,96,0.0815101,0.0839086
+without neck components (-32),1,0,0,0.247019,0.247016
+without neck components (-32),1,0,1,0.188858,0.188856
+without neck components (-32),1,0,2,0.169924,0.170006
+without neck components (-32),1,0,3,0.156622,0.156753
+without neck components (-32),1,0,4,0.146391,0.146561
+without neck components (-32),1,0,5,0.138156,0.138352
+without neck components (-32),1,0,6,0.131347,0.131579
+without neck components (-32),1,0,7,0.125613,0.125858
+without neck components (-32),1,0,8,0.120749,0.121028
+without neck components (-32),1,0,9,0.116571,0.116873
+without neck components (-32),1,0,10,0.112959,0.113287
+without neck components (-32),1,0,11,0.109834,0.110178
+without neck components (-32),1,0,12,0.107091,0.107456
+without neck components (-32),1,0,13,0.104694,0.105081
+without neck components (-32),1,0,14,0.102592,0.103009
+without neck components (-32),1,0,15,0.100733,0.101167
+without neck components (-32),1,0,16,0.0991042,0.0995665
+without neck components (-32),1,0,17,0.0976391,0.0981221
+without neck components (-32),1,0,18,0.0963601,0.096858
+without neck components (-32),1,0,19,0.0952097,0.0957193
+without neck components (-32),1,0,20,0.0941903,0.0947266
+without neck components (-32),1,0,21,0.093273,0.0938309
+without neck components (-32),1,0,22,0.0924504,0.0930286
+without neck components (-32),1,0,23,0.0917072,0.0923057
+without neck components (-32),1,0,24,0.0910623,0.0916735
+without neck components (-32),1,0,25,0.0904654,0.0910991
+without neck components (-32),1,0,26,0.089929,0.0905773
+without neck components (-32),1,0,27,0.0894473,0.0901187
+without neck components (-32),1,0,28,0.0890053,0.089697
+without neck components (-32),1,0,29,0.0885904,0.0893088
+without neck components (-32),1,0,30,0.0882139,0.0889424
+without neck components (-32),1,0,31,0.0878643,0.0886042
+without neck components (-32),1,0,32,0.0875625,0.088321
+without neck components (-32),1,0,33,0.0872793,0.0880617
+without neck components (-32),1,0,34,0.0870174,0.087818
+without neck components (-32),1,0,35,0.0867557,0.0875908
+without neck components (-32),1,0,36,0.086514,0.0873617
+without neck components (-32),1,0,37,0.0863027,0.0871612
+without neck components (-32),1,0,38,0.0861122,0.0869816
+without neck components (-32),1,0,39,0.0859231,0.0868023
+without neck components (-32),1,0,40,0.0857345,0.0866292
+without neck components (-32),1,0,41,0.0855617,0.0864888
+without neck components (-32),1,0,42,0.0854025,0.0863449
+without neck components (-32),1,0,43,0.0852544,0.0862117
+without neck components (-32),1,0,44,0.085098,0.0860915
+without neck components (-32),1,0,45,0.0849529,0.0859805
+without neck components (-32),1,0,46,0.0848217,0.0858825
+without neck components (-32),1,0,47,0.0847017,0.0857755
+without neck components (-32),1,0,48,0.0845949,0.0856951
+without neck components (-32),1,0,49,0.0844727,0.0855957
+without neck components (-32),1,0,50,0.0843593,0.0855115
+without neck components (-32),1,0,51,0.0842495,0.0854149
+without neck components (-32),1,0,52,0.0841325,0.0853289
+without neck components (-32),1,0,53,0.084039,0.0852615
+without neck components (-32),1,0,54,0.0839261,0.0851808
+without neck components (-32),1,0,55,0.083837,0.0851248
+without neck components (-32),1,0,56,0.0837452,0.0850568
+without neck components (-32),1,0,57,0.0836761,0.085024
+without neck components (-32),1,0,58,0.08359,0.0849609
+without neck components (-32),1,0,59,0.0835124,0.084905
+without neck components (-32),1,0,60,0.0834373,0.0848545
+without neck components (-32),1,0,61,0.0833668,0.0848256
+without neck components (-32),1,0,62,0.0832891,0.0847805
+without neck components (-32),1,0,63,0.0832009,0.0847367
+without neck components (-32),1,0,64,0.0831304,0.0847008
+without neck components (-32),1,0,65,0.0830685,0.0846848
+without neck components (-32),1,0,66,0.0830076,0.0846575
+without neck components (-32),1,0,67,0.0829462,0.0846177
+without neck components (-32),1,0,68,0.082882,0.0845734
+without neck components (-32),1,0,69,0.08282,0.0845315
+without neck components (-32),1,0,70,0.0827615,0.0845298
+without neck components (-32),1,0,71,0.0826966,0.0845025
+without neck components (-32),1,0,72,0.082642,0.0844836
+without neck components (-32),1,0,73,0.0825784,0.0844475
+without neck components (-32),1,0,74,0.0825163,0.0844126
+without neck components (-32),1,0,75,0.082495,0.0844513
+without neck components (-32),1,0,76,0.0824156,0.0843806
+without neck components (-32),1,0,77,0.0823583,0.0843616
+without neck components (-32),1,0,78,0.0823025,0.0843385
+without neck components (-32),1,0,79,0.0822757,0.0843577
+without neck components (-32),1,0,80,0.0822209,0.0843335
+without neck components (-32),1,0,81,0.0821697,0.0843178
+without neck components (-32),1,0,82,0.0821196,0.0843038
+without neck components (-32),1,0,83,0.0820685,0.084284
+without neck components (-32),1,0,84,0.08207,0.0842809
+without neck components (-32),1,0,85,0.0821025,0.0844355
+without neck components (-32),1,0,86,0.0820586,0.0843521
+without neck components (-32),1,0,87,0.0819884,0.084309
+without neck components (-32),1,0,88,0.0819291,0.0842769
+without neck components (-32),1,0,89,0.0819766,0.0843725
+without neck components (-32),1,0,90,0.0821866,0.084744
+without neck components (-32),1,0,91,0.0828467,0.0843135
+without neck components (-32),1,0,92,0.0828479,0.0843451
+without neck components (-32),1,0,93,0.0827687,0.0843418
+without neck components (-32),1,0,94,0.0827084,0.0843423
+without neck components (-32),1,0,95,0.0827086,0.0842745
+without neck components (-32),1,0,96,0.0827216,0.084381
+without neck components (-32),1,0,97,0.0827112,0.0844251
+without neck components (-32),1,0,98,0.0826115,0.0844195
+without neck components (-32),1,0,99,0.0825642,0.0844255
+without neck components (-32),1,0,100,0.0825704,0.0845119
+without neck components (-32),1,0,101,0.0825003,0.084527
+without neck components (-32),1,0,102,0.0824819,0.0845589
+without neck components (-32),1,0,103,0.0825838,0.0848258
+without neck components (-32),1,0,104,0.0828394,0.08486
+without neck components (-32),1,0,105,0.0825018,0.0846153
+without pyramid level (-1),1,0,0,0.247019,0.247016
+without pyramid level (-1),1,0,1,0.188853,0.188847
+without pyramid level (-1),1,0,2,0.169936,0.170001
+without pyramid level (-1),1,0,3,0.156611,0.156735
+without pyramid level (-1),1,0,4,0.146357,0.146529
+without pyramid level (-1),1,0,5,0.13812,0.13834
+without pyramid level (-1),1,0,6,0.131297,0.131546
+without pyramid level (-1),1,0,7,0.125573,0.125862
+without pyramid level (-1),1,0,8,0.120702,0.121019
+without pyramid level (-1),1,0,9,0.116503,0.116843
+without pyramid level (-1),1,0,10,0.112882,0.113236
+without pyramid level (-1),1,0,11,0.109719,0.110098
+without pyramid level (-1),1,0,12,0.106966,0.107371
+without pyramid level (-1),1,0,13,0.104539,0.104958
+without pyramid level (-1),1,0,14,0.10242,0.102861
+without pyramid level (-1),1,0,15,0.100555,0.10102
+without pyramid level (-1),1,0,16,0.0989201,0.0994108
+without pyramid level (-1),1,0,17,0.0974461,0.0979494
+without pyramid level (-1),1,0,18,0.0961394,0.0966705
+without pyramid level (-1),1,0,19,0.0949907,0.0955403
+without pyramid level (-1),1,0,20,0.0939545,0.0945219
+without pyramid level (-1),1,0,21,0.0930154,0.0936118
+without pyramid level (-1),1,0,22,0.0921966,0.0928114
+without pyramid level (-1),1,0,23,0.0914391,0.0920834
+without pyramid level (-1),1,0,24,0.0907723,0.0914354
+without pyramid level (-1),1,0,25,0.0901708,0.0908593
+without pyramid level (-1),1,0,26,0.0896102,0.0903136
+without pyramid level (-1),1,0,27,0.0891116,0.0898316
+without pyramid level (-1),1,0,28,0.0886374,0.0893884
+without pyramid level (-1),1,0,29,0.088215,0.0889888
+without pyramid level (-1),1,0,30,0.0878259,0.0886267
+without pyramid level (-1),1,0,31,0.0874552,0.0882901
+without pyramid level (-1),1,0,32,0.0871308,0.087992
+without pyramid level (-1),1,0,33,0.0868233,0.0877005
+without pyramid level (-1),1,0,34,0.0865373,0.0874326
+without pyramid level (-1),1,0,35,0.0862751,0.0872012
+without pyramid level (-1),1,0,36,0.0860311,0.0870276
+without pyramid level (-1),1,0,37,0.0857919,0.086813
+without pyramid level (-1),1,0,38,0.0855851,0.0866336
+without pyramid level (-1),1,0,39,0.0853702,0.0864408
+without pyramid level (-1),1,0,40,0.0851744,0.0862724
+without pyramid level (-1),1,0,41,0.0849862,0.086098
+without pyramid level (-1),1,0,42,0.0848202,0.0859806
+without pyramid level (-1),1,0,43,0.0846672,0.0858693
+without pyramid level (-1),1,0,44,0.0845143,0.0857306
+without pyramid level (-1),1,0,45,0.0843656,0.0856231
+without pyramid level (-1),1,0,46,0.0842033,0.0854853
+without pyramid level (-1),1,0,47,0.0840791,0.0853932
+without pyramid level (-1),1,0,48,0.0839671,0.0853039
+without pyramid level (-1),1,0,49,0.0838544,0.0852152
+without pyramid level (-1),1,0,50,0.0837249,0.0851245
+without pyramid level (-1),1,0,51,0.0836244,0.085073
+without pyramid level (-1),1,0,52,0.0834953,0.0850067
+without pyramid level (-1),1,0,53,0.0833901,0.0849378
+without pyramid level (-1),1,0,54,0.0832989,0.0848655
+without pyramid level (-1),1,0,55,0.0832014,0.0847902
+without pyramid level (-1),1,0,56,0.0831035,0.0847434
+without pyramid level (-1),1,0,57,0.083001,0.084658
+without pyramid level (-1),1,0,58,0.0829117,0.0845867
+without pyramid level (-1),1,0,59,0.0828172,0.0845164
+without pyramid level (-1),1,0,60,0.0827364,0.0844769
+without pyramid level (-1),1,0,61,0.0826507,0.0844059
+without pyramid level (-1),1,0,62,0.082575,0.0843649
+without pyramid level (-1),1,0,63,0.0824946,0.084306
+without pyramid level (-1),1,0,64,0.08241,0.0842612
+without pyramid level (-1),1,0,65,0.0823439,0.084227
+without pyramid level (-1),1,0,66,0.0822626,0.0841739
+without pyramid level (-1),1,0,67,0.0821857,0.0841365
+without pyramid level (-1),1,0,68,0.082104,0.084108
+without pyramid level (-1),1,0,69,0.0820314,0.0840771
+without pyramid level (-1),1,0,70,0.081958,0.0840308
+without pyramid level (-1),1,0,71,0.0818855,0.0840132
+without pyramid level (-1),1,0,72,0.0818229,0.0839725
+without pyramid level (-1),1,0,73,0.0817748,0.0839574
+without pyramid level (-1),1,0,74,0.0817177,0.0839425
+without pyramid level (-1),1,0,75,0.0816535,0.083906
+without pyramid level (-1),1,0,76,0.0815918,0.0838734
+without pyramid level (-1),1,0,77,0.0815342,0.0838468
+without pyramid level (-1),1,0,78,0.0814716,0.0838135
+without pyramid level (-1),1,0,79,0.0814119,0.0838037
+without pyramid level (-1),1,0,80,0.0813596,0.083788
+without pyramid level (-1),1,0,81,0.0812974,0.0837666
+without pyramid level (-1),1,0,82,0.0812323,0.0837454
+without pyramid level (-1),1,0,83,0.0811697,0.083728
+without pyramid level (-1),1,0,84,0.0811013,0.0837049
+without pyramid level (-1),1,0,85,0.081043,0.0836544
+without pyramid level (-1),1,0,86,0.0809885,0.0836275
+without pyramid level (-1),1,0,87,0.0809393,0.0836029
+without pyramid level (-1),1,0,88,0.0808854,0.083582
+without pyramid level (-1),1,0,89,0.0808246,0.0835553
+without pyramid level (-1),1,0,90,0.0807721,0.0835354
+without pyramid level (-1),1,0,91,0.0807288,0.0835344
+without pyramid level (-1),1,0,92,0.0806756,0.0835064
+without pyramid level (-1),1,0,93,0.0806416,0.0835175
+without pyramid level (-1),1,0,94,0.0805803,0.0835222
+without pyramid level (-1),1,0,95,0.0805257,0.0835049
+without pyramid level (-1),1,0,96,0.0805632,0.0836485
+without pyramid level (-1),1,0,97,0.0805232,0.0836832
+without pyramid level (-1),1,0,98,0.0804616,0.0836661
+without pyramid level (-1),1,0,99,0.0805027,0.0837458
+without pyramid level (-1),1,0,100,0.080402,0.083736
+without pyramid level (-1),1,0,101,0.0804077,0.0838498
+without pyramid level (-1),1,0,102,0.0803899,0.0838361
+without pyramid level (-1),1,0,103,0.0803825,0.0838528
+without pyramid level (-1),1,0,104,0.0802776,0.0838195
+without pyramid level (-1),1,0,105,0.0804094,0.0839192
+"context only (model 1, 20)",1,0,0,0.247019,0.247016
+"context only (model 1, 20)",1,0,1,0.189259,0.18924
+"context only (model 1, 20)",1,0,2,0.170405,0.170478
+"context only (model 1, 20)",1,0,3,0.157157,0.157291
+"context only (model 1, 20)",1,0,4,0.146993,0.147181
+"context only (model 1, 20)",1,0,5,0.138821,0.139046
+"context only (model 1, 20)",1,0,6,0.13208,0.132335
+"context only (model 1, 20)",1,0,7,0.126434,0.126724
+"context only (model 1, 20)",1,0,8,0.121637,0.121956
+"context only (model 1, 20)",1,0,9,0.117535,0.117886
+"context only (model 1, 20)",1,0,10,0.114003,0.114377
+"context only (model 1, 20)",1,0,11,0.110948,0.111347
+"context only (model 1, 20)",1,0,12,0.108283,0.10871
+"context only (model 1, 20)",1,0,13,0.105959,0.106407
+"context only (model 1, 20)",1,0,14,0.103929,0.104394
+"context only (model 1, 20)",1,0,15,0.102152,0.102633
+"context only (model 1, 20)",1,0,16,0.100575,0.101077
+"context only (model 1, 20)",1,0,17,0.0991906,0.0997091
+"context only (model 1, 20)",1,0,18,0.09795,0.0984837
+"context only (model 1, 20)",1,0,19,0.0968537,0.0973975
+"context only (model 1, 20)",1,0,20,0.095886,0.0964362
+"context only (model 1, 20)",1,0,21,0.0950246,0.0955931
+"context only (model 1, 20)",1,0,22,0.0942644,0.0948531
+"context only (model 1, 20)",1,0,23,0.0935839,0.094187
+"context only (model 1, 20)",1,0,24,0.0929783,0.0935941
+"context only (model 1, 20)",1,0,25,0.0924346,0.093064
+"context only (model 1, 20)",1,0,26,0.0919541,0.0925997
+"context only (model 1, 20)",1,0,27,0.0915153,0.0921761
+"context only (model 1, 20)",1,0,28,0.0911197,0.0917911
+"context only (model 1, 20)",1,0,29,0.0907559,0.0914378
+"context only (model 1, 20)",1,0,30,0.0904216,0.091116
+"context only (model 1, 20)",1,0,31,0.0901156,0.0908248
+"context only (model 1, 20)",1,0,32,0.0898316,0.0905514
+"context only (model 1, 20)",1,0,33,0.0895738,0.0903173
+"context only (model 1, 20)",1,0,34,0.0893244,0.0900804
+"context only (model 1, 20)",1,0,35,0.0891099,0.0898851
+"context only (model 1, 20)",1,0,36,0.0889095,0.0897004
+"context only (model 1, 20)",1,0,37,0.0887307,0.0895367
+"context only (model 1, 20)",1,0,38,0.0885598,0.0893842
+"context only (model 1, 20)",1,0,39,0.0883932,0.0892438
+"context only (model 1, 20)",1,0,40,0.0882466,0.089115
+"context only (model 1, 20)",1,0,41,0.0881048,0.0889864
+"context only (model 1, 20)",1,0,42,0.087958,0.088848
+"context only (model 1, 20)",1,0,43,0.0878425,0.0887457
+"context only (model 1, 20)",1,0,44,0.0877198,0.088652
+"context only (model 1, 20)",1,0,45,0.0875855,0.0885311
+"context only (model 1, 20)",1,0,46,0.0874895,0.0884533
+"context only (model 1, 20)",1,0,47,0.0873701,0.08835
+"context only (model 1, 20)",1,0,48,0.0872593,0.0882565
+"context only (model 1, 20)",1,0,49,0.0871695,0.0881897
+"context only (model 1, 20)",1,0,50,0.0870751,0.0881164
+"context only (model 1, 20)",1,0,51,0.0870006,0.0880572
+"context only (model 1, 20)",1,0,52,0.0869082,0.0879833
+"context only (model 1, 20)",1,0,53,0.0868525,0.0879533
+"context only (model 1, 20)",1,0,54,0.0867762,0.0879238
+"context only (model 1, 20)",1,0,55,0.0866941,0.0878478
+"context only (model 1, 20)",1,0,56,0.0866286,0.0878031
+"context only (model 1, 20)",1,0,57,0.0865483,0.0877651
+"context only (model 1, 20)",1,0,58,0.0864925,0.0877364
+"context only (model 1, 20)",1,0,59,0.0864352,0.0877019
+"context only (model 1, 20)",1,0,60,0.0863677,0.0876445
+"context only (model 1, 20)",1,0,61,0.0863052,0.0876051
+"context only (model 1, 20)",1,0,62,0.0862453,0.0875644
+"context only (model 1, 20)",1,0,63,0.08619,0.0875497
+"context only (model 1, 20)",1,0,64,0.0861251,0.0874977
+"context only (model 1, 20)",1,0,65,0.086075,0.0874679
+"context only (model 1, 20)",1,0,66,0.0860223,0.0874552
+"context only (model 1, 20)",1,0,67,0.085951,0.0874012
+"context only (model 1, 20)",1,0,68,0.085947,0.0874159
+"context only (model 1, 20)",1,0,69,0.0859055,0.0874001
+"context only (model 1, 20)",1,0,70,0.0858495,0.087364
+"context only (model 1, 20)",1,0,71,0.0858268,0.0873503
+"context only (model 1, 20)",1,0,72,0.0858162,0.087418
+"context only (model 1, 20)",1,0,73,0.0857931,0.0874613
+"context only (model 1, 20)",1,0,74,0.0858238,0.0875291
+"context only (model 1, 20)",1,0,75,0.085836,0.0874399
+"context only (model 1, 20)",1,0,76,0.0857893,0.0874146
+"context only (model 1, 20)",1,0,77,0.0857871,0.087441
+"context only (model 1, 20)",1,0,78,0.08576,0.0874921
+"context only (model 1, 20)",1,0,79,0.0860793,0.0877538
+"context only (model 1, 20)",1,0,80,0.0857657,0.0874418
+"context only (model 1, 20)",1,0,81,0.0858263,0.0874866
+per-box outputs only (48),1,0,0,0.247019,0.247016
+per-box outputs only (48),1,0,1,0.189506,0.189434
+per-box outputs only (48),1,0,2,0.170766,0.170758
+per-box outputs only (48),1,0,3,0.1576,0.157655
+per-box outputs only (48),1,0,4,0.147481,0.147576
+per-box outputs only (48),1,0,5,0.139352,0.139466
+per-box outputs only (48),1,0,6,0.13265,0.132802
+per-box outputs only (48),1,0,7,0.12703,0.127221
+per-box outputs only (48),1,0,8,0.122247,0.12247
+per-box outputs only (48),1,0,9,0.118156,0.11839
+per-box outputs only (48),1,0,10,0.114619,0.114865
+per-box outputs only (48),1,0,11,0.111558,0.11181
+per-box outputs only (48),1,0,12,0.108897,0.109185
+per-box outputs only (48),1,0,13,0.10657,0.106871
+per-box outputs only (48),1,0,14,0.104515,0.104836
+per-box outputs only (48),1,0,15,0.102711,0.103063
+per-box outputs only (48),1,0,16,0.101122,0.101488
+per-box outputs only (48),1,0,17,0.0997215,0.100116
+per-box outputs only (48),1,0,18,0.0984683,0.0988916
+per-box outputs only (48),1,0,19,0.0973545,0.0978069
+per-box outputs only (48),1,0,20,0.0963684,0.0968535
+per-box outputs only (48),1,0,21,0.0954935,0.0960127
+per-box outputs only (48),1,0,22,0.0947183,0.0952555
+per-box outputs only (48),1,0,23,0.0940258,0.0945815
+per-box outputs only (48),1,0,24,0.0933977,0.093987
+per-box outputs only (48),1,0,25,0.0928371,0.0934525
+per-box outputs only (48),1,0,26,0.0923266,0.0929617
+per-box outputs only (48),1,0,27,0.0918514,0.0925103
+per-box outputs only (48),1,0,28,0.0914328,0.0921188
+per-box outputs only (48),1,0,29,0.0910477,0.0917693
+per-box outputs only (48),1,0,30,0.0906946,0.0914386
+per-box outputs only (48),1,0,31,0.0903786,0.0911494
+per-box outputs only (48),1,0,32,0.0900894,0.0908894
+per-box outputs only (48),1,0,33,0.0898231,0.0906538
+per-box outputs only (48),1,0,34,0.0895715,0.0904404
+per-box outputs only (48),1,0,35,0.0893347,0.0902219
+per-box outputs only (48),1,0,36,0.0891227,0.090043
+per-box outputs only (48),1,0,37,0.088926,0.0898715
+per-box outputs only (48),1,0,38,0.0887464,0.0897125
+per-box outputs only (48),1,0,39,0.0885717,0.0895637
+per-box outputs only (48),1,0,40,0.0884131,0.0894287
+per-box outputs only (48),1,0,41,0.0882651,0.0893161
+per-box outputs only (48),1,0,42,0.0881261,0.0892037
+per-box outputs only (48),1,0,43,0.0879943,0.0891035
+per-box outputs only (48),1,0,44,0.0878716,0.0889953
+per-box outputs only (48),1,0,45,0.0877528,0.0888919
+per-box outputs only (48),1,0,46,0.0876348,0.0888166
+per-box outputs only (48),1,0,47,0.0875238,0.0887293
+per-box outputs only (48),1,0,48,0.0874178,0.0886466
+per-box outputs only (48),1,0,49,0.0873123,0.088569
+per-box outputs only (48),1,0,50,0.0872217,0.0885154
+per-box outputs only (48),1,0,51,0.0871332,0.0884529
+per-box outputs only (48),1,0,52,0.0870463,0.0883934
+per-box outputs only (48),1,0,53,0.0869604,0.0883547
+per-box outputs only (48),1,0,54,0.0868797,0.0883054
+per-box outputs only (48),1,0,55,0.0867971,0.0882454
+per-box outputs only (48),1,0,56,0.0867203,0.0881989
+per-box outputs only (48),1,0,57,0.0866467,0.0881642
+per-box outputs only (48),1,0,58,0.0865615,0.0880996
+per-box outputs only (48),1,0,59,0.0864902,0.0880597
+per-box outputs only (48),1,0,60,0.0864219,0.088013
+per-box outputs only (48),1,0,61,0.0863486,0.0879897
+per-box outputs only (48),1,0,62,0.0862893,0.0879667
+per-box outputs only (48),1,0,63,0.0862247,0.0879311
+per-box outputs only (48),1,0,64,0.0861553,0.0878846
+per-box outputs only (48),1,0,65,0.0860959,0.0878551
+per-box outputs only (48),1,0,66,0.0860332,0.0878261
+per-box outputs only (48),1,0,67,0.0859716,0.087797
+per-box outputs only (48),1,0,68,0.0859069,0.0877491
+per-box outputs only (48),1,0,69,0.0858381,0.0877471
+per-box outputs only (48),1,0,70,0.0857823,0.0877241
+per-box outputs only (48),1,0,71,0.0857213,0.0876932
+per-box outputs only (48),1,0,72,0.0856613,0.0876641
+per-box outputs only (48),1,0,73,0.085605,0.0876366
+per-box outputs only (48),1,0,74,0.0855536,0.0876156
+per-box outputs only (48),1,0,75,0.0854985,0.0875989
+per-box outputs only (48),1,0,76,0.0854512,0.0875867
+per-box outputs only (48),1,0,77,0.0853918,0.0875504
+per-box outputs only (48),1,0,78,0.0853322,0.0875388
+per-box outputs only (48),1,0,79,0.0852804,0.0875181
+per-box outputs only (48),1,0,80,0.0852778,0.0876002
+per-box outputs only (48),1,0,81,0.0852045,0.087534
+per-box outputs only (48),1,0,82,0.0852551,0.0876469
+per-box outputs only (48),1,0,83,0.085208,0.0876493
+per-box outputs only (48),1,0,84,0.0851592,0.0876414
+per-box outputs only (48),1,0,85,0.0851271,0.0876336
+per-box outputs only (48),1,0,86,0.0850791,0.0876287
+per-box outputs only (48),1,0,87,0.0850558,0.0876296
+per-box outputs only (48),1,0,88,0.0850649,0.0877355
+per-box outputs only (48),1,0,89,0.0853008,0.0881341
+score and class only (2),1,0,0,0.247019,0.247016
+score and class only (2),1,0,1,0.190911,0.19082
+score and class only (2),1,0,2,0.172601,0.172562
+score and class only (2),1,0,3,0.159774,0.159775
+score and class only (2),1,0,4,0.149944,0.149974
+score and class only (2),1,0,5,0.142073,0.142129
+score and class only (2),1,0,6,0.135606,0.135684
+score and class only (2),1,0,7,0.130203,0.130299
+score and class only (2),1,0,8,0.125636,0.125751
+score and class only (2),1,0,9,0.121744,0.121874
+score and class only (2),1,0,10,0.118408,0.11855
+score and class only (2),1,0,11,0.115534,0.115688
+score and class only (2),1,0,12,0.113051,0.113215
+score and class only (2),1,0,13,0.110899,0.111072
+score and class only (2),1,0,14,0.109031,0.109213
+score and class only (2),1,0,15,0.107407,0.107597
+score and class only (2),1,0,16,0.105993,0.10619
+score and class only (2),1,0,17,0.104762,0.104965
+score and class only (2),1,0,18,0.10369,0.103898
+score and class only (2),1,0,19,0.102755,0.102969
+score and class only (2),1,0,20,0.10194,0.102159
+score and class only (2),1,0,21,0.10123,0.101453
+score and class only (2),1,0,22,0.100612,0.100838
+score and class only (2),1,0,23,0.100074,0.100302
+score and class only (2),1,0,24,0.0996051,0.0998357
+score and class only (2),1,0,25,0.0991976,0.0994305
+score and class only (2),1,0,26,0.0988431,0.0990788
+score and class only (2),1,0,27,0.0985354,0.0987732
+score and class only (2),1,0,28,0.0982681,0.0985075
+score and class only (2),1,0,29,0.0980362,0.098276
+score and class only (2),1,0,30,0.0978351,0.0980755
+score and class only (2),1,0,31,0.097661,0.0979015
+score and class only (2),1,0,32,0.0975101,0.0977521
+score and class only (2),1,0,33,0.0973799,0.0976215
+score and class only (2),1,0,34,0.0972674,0.0975098
+score and class only (2),1,0,35,0.0971702,0.0974125
+score and class only (2),1,0,36,0.097086,0.0973286
+score and class only (2),1,0,37,0.0970132,0.0972575
+score and class only (2),1,0,38,0.0969507,0.0971969
+score and class only (2),1,0,39,0.0968969,0.0971447
+score and class only (2),1,0,40,0.0968507,0.0971005
+score and class only (2),1,0,41,0.096811,0.0970614
+score and class only (2),1,0,42,0.0967769,0.0970278
+score and class only (2),1,0,43,0.0967472,0.0969982
+score and class only (2),1,0,44,0.0967219,0.0969731
+score and class only (2),1,0,45,0.0967002,0.0969511
+score and class only (2),1,0,46,0.0966814,0.0969325
+score and class only (2),1,0,47,0.0966651,0.0969182
+score and class only (2),1,0,48,0.0966512,0.0969049
+score and class only (2),1,0,49,0.0966392,0.0968933
+score and class only (2),1,0,50,0.0966288,0.0968839
+score and class only (2),1,0,51,0.0966199,0.0968753
+score and class only (2),1,0,52,0.0966117,0.0968688
+score and class only (2),1,0,53,0.0966045,0.0968635
+score and class only (2),1,0,54,0.0965984,0.0968591
+score and class only (2),1,0,55,0.0965932,0.0968549
+score and class only (2),1,0,56,0.0965885,0.0968508
+score and class only (2),1,0,57,0.0965841,0.0968469
+score and class only (2),1,0,58,0.09658,0.096843
+score and class only (2),1,0,59,0.0965767,0.0968413
+score and class only (2),1,0,60,0.0965729,0.0968396
+score and class only (2),1,0,61,0.0965698,0.0968393
+score and class only (2),1,0,62,0.0965671,0.0968393
+score and class only (2),1,0,63,0.0965647,0.0968381
+score and class only (2),1,0,64,0.0965626,0.0968382
+score and class only (2),1,0,65,0.0965606,0.0968374
+score and class only (2),1,0,66,0.0965585,0.0968376
+score and class only (2),1,0,67,0.0965565,0.0968369
+score and class only (2),1,0,68,0.096555,0.0968375
+score and class only (2),1,0,69,0.0965527,0.0968384
+score and class only (2),1,0,70,0.0965512,0.0968388
+score and class only (2),1,0,71,0.0965497,0.0968399
+score and class only (2),1,0,72,0.0965482,0.0968405
+score and class only (2),1,0,73,0.0965467,0.0968413
+score and class only (2),1,0,74,0.0965452,0.0968423
+score and class only (2),1,0,75,0.0965437,0.0968421
+score and class only (2),1,0,76,0.0965426,0.096842
+score and class only (2),1,0,77,0.0965417,0.0968431
+"model 2, training subset",0.1,0,0,0.243961,0.243977
+"model 2, training subset",0.1,0,1,0.18515,0.186566
+"model 2, training subset",0.1,0,2,0.166323,0.168356
+"model 2, training subset",0.1,0,3,0.152966,0.155514
+"model 2, training subset",0.1,0,4,0.14262,0.145702
+"model 2, training subset",0.1,0,5,0.134303,0.137789
+"model 2, training subset",0.1,0,6,0.127407,0.131263
+"model 2, training subset",0.1,0,7,0.121572,0.12581
+"model 2, training subset",0.1,0,8,0.116603,0.121151
+"model 2, training subset",0.1,0,9,0.112275,0.117095
+"model 2, training subset",0.1,0,10,0.108502,0.11364
+"model 2, training subset",0.1,0,11,0.105206,0.110624
+"model 2, training subset",0.1,0,12,0.102265,0.108013
+"model 2, training subset",0.1,0,13,0.099688,0.105792
+"model 2, training subset",0.1,0,14,0.0973994,0.103712
+"model 2, training subset",0.1,0,15,0.0953409,0.102007
+"model 2, training subset",0.1,0,16,0.0935243,0.100435
+"model 2, training subset",0.1,0,17,0.0918801,0.0990924
+"model 2, training subset",0.1,0,18,0.0903792,0.0979753
+"model 2, training subset",0.1,0,19,0.0890123,0.0969443
+"model 2, training subset",0.1,0,20,0.0877847,0.0960278
+"model 2, training subset",0.1,0,21,0.0866522,0.0951989
+"model 2, training subset",0.1,0,22,0.085601,0.0944563
+"model 2, training subset",0.1,0,23,0.0846254,0.0937662
+"model 2, training subset",0.1,0,24,0.0837189,0.0931729
+"model 2, training subset",0.1,0,25,0.0829025,0.0926157
+"model 2, training subset",0.1,0,26,0.0821554,0.0921311
+"model 2, training subset",0.1,0,27,0.0814674,0.0917267
+"model 2, training subset",0.1,0,28,0.080786,0.0913815
+"model 2, training subset",0.1,0,29,0.0800959,0.0910546
+"model 2, training subset",0.1,0,30,0.0794131,0.090671
+"model 2, training subset",0.1,0,31,0.078822,0.0904226
+"model 2, training subset",0.1,0,32,0.0782367,0.0901237
+"model 2, training subset",0.1,0,33,0.0777206,0.089857
+"model 2, training subset",0.1,0,34,0.077253,0.0896502
+"model 2, training subset",0.1,0,35,0.0767813,0.0894343
+"model 2, training subset",0.1,0,36,0.076286,0.089204
+"model 2, training subset",0.1,0,37,0.075836,0.0890364
+"model 2, training subset",0.1,0,38,0.075378,0.0888265
+"model 2, training subset",0.1,0,39,0.0750028,0.0886838
+"model 2, training subset",0.1,0,40,0.0745234,0.0886548
+"model 2, training subset",0.1,0,41,0.0740945,0.0885553
+"model 2, training subset",0.1,0,42,0.0737265,0.08849
+"model 2, training subset",0.1,0,43,0.0733122,0.0884192
+"model 2, training subset",0.1,0,44,0.0729176,0.0883655
+"model 2, training subset",0.1,0,45,0.0725377,0.0882792
+"model 2, training subset",0.1,0,46,0.0721987,0.0882001
+"model 2, training subset",0.1,0,47,0.0718666,0.0881076
+"model 2, training subset",0.1,0,48,0.0715437,0.0880194
+"model 2, training subset",0.1,0,49,0.0711705,0.0880341
+"model 2, training subset",0.1,0,50,0.0708384,0.0879507
+"model 2, training subset",0.1,0,51,0.0704918,0.0879128
+"model 2, training subset",0.1,0,52,0.0701635,0.0879124
+"model 2, training subset",0.1,0,53,0.0698125,0.0879885
+"model 2, training subset",0.1,0,54,0.0695262,0.087937
+"model 2, training subset",0.1,0,55,0.069223,0.0878952
+"model 2, training subset",0.1,0,56,0.0689355,0.0878171
+"model 2, training subset",0.1,0,57,0.0686019,0.0877635
+"model 2, training subset",0.1,0,58,0.0684251,0.0879259
+"model 2, training subset",0.1,0,59,0.0681008,0.0878213
+"model 2, training subset",0.1,0,60,0.067784,0.0877952
+"model 2, training subset",0.1,0,61,0.0675267,0.0877285
+"model 2, training subset",0.1,0,62,0.0672718,0.0876898
+"model 2, training subset",0.1,0,63,0.066983,0.0876635
+"model 2, training subset",0.1,0,64,0.0666931,0.0876183
+"model 2, training subset",0.1,0,65,0.0663974,0.0875908
+"model 2, training subset",0.1,0,66,0.0660875,0.0875699
+"model 2, training subset",0.1,0,67,0.0658461,0.0875226
+"model 2, training subset",0.1,0,68,0.0655754,0.087477
+"model 2, training subset",0.1,0,69,0.0653504,0.0874238
+"model 2, training subset",0.1,0,70,0.0650945,0.0873586
+"model 2, training subset",0.1,0,71,0.0648297,0.0873664
+"model 2, training subset",0.1,0,72,0.0646106,0.0873351
+"model 2, training subset",0.1,0,73,0.0644063,0.0873071
+"model 2, training subset",0.1,0,74,0.0641609,0.0872578
+"model 2, training subset",0.1,0,75,0.0639434,0.0873057
+"model 2, training subset",0.1,0,76,0.0637328,0.0873375
+"model 2, training subset",0.1,0,77,0.063545,0.0873374
+"model 2, training subset",0.1,0,78,0.0633159,0.0874468
+"model 2, training subset",0.1,0,79,0.0631275,0.0874288
+"model 2, training subset",0.1,0,80,0.063082,0.0879674
+"model 2, training subset",0.1,0,81,0.0628421,0.0878116
+"model 2, training subset",0.1,0,82,0.0626415,0.0877721
+"model 2, training subset",0.1,0,83,0.062435,0.087667
+"model 2, training subset",0.1,0,84,0.0622574,0.0876851
+"model 2, training subset",0.1,1,0,0.243588,0.243593
+"model 2, training subset",0.1,1,1,0.185013,0.185235
+"model 2, training subset",0.1,1,2,0.16612,0.166606
+"model 2, training subset",0.1,1,3,0.152736,0.153356
+"model 2, training subset",0.1,1,4,0.142439,0.143382
+"model 2, training subset",0.1,1,5,0.13408,0.135187
+"model 2, training subset",0.1,1,6,0.127155,0.128467
+"model 2, training subset",0.1,1,7,0.121327,0.122803
+"model 2, training subset",0.1,1,8,0.11632,0.118013
+"model 2, training subset",0.1,1,9,0.111985,0.113916
+"model 2, training subset",0.1,1,10,0.108181,0.110379
+"model 2, training subset",0.1,1,11,0.104893,0.107338
+"model 2, training subset",0.1,1,12,0.101998,0.104709
+"model 2, training subset",0.1,1,13,0.09942,0.102328
+"model 2, training subset",0.1,1,14,0.0971129,0.100264
+"model 2, training subset",0.1,1,15,0.0950927,0.0984686
+"model 2, training subset",0.1,1,16,0.0932727,0.0968573
+"model 2, training subset",0.1,1,17,0.0916099,0.0954213
+"model 2, training subset",0.1,1,18,0.0901172,0.0941063
+"model 2, training subset",0.1,1,19,0.088773,0.0930604
+"model 2, training subset",0.1,1,20,0.0875263,0.0920974
+"model 2, training subset",0.1,1,21,0.0863833,0.0912256
+"model 2, training subset",0.1,1,22,0.0853384,0.0904557
+"model 2, training subset",0.1,1,23,0.0844015,0.0897487
+"model 2, training subset",0.1,1,24,0.0834872,0.0891436
+"model 2, training subset",0.1,1,25,0.0826842,0.0886054
+"model 2, training subset",0.1,1,26,0.0819184,0.0881235
+"model 2, training subset",0.1,1,27,0.0812339,0.0876935
+"model 2, training subset",0.1,1,28,0.0805881,0.0872835
+"model 2, training subset",0.1,1,29,0.0799784,0.0869502
+"model 2, training subset",0.1,1,30,0.0793009,0.0866446
+"model 2, training subset",0.1,1,31,0.0787602,0.0863637
+"model 2, training subset",0.1,1,32,0.0781589,0.0860971
+"model 2, training subset",0.1,1,33,0.0776235,0.0858401
+"model 2, training subset",0.1,1,34,0.0770742,0.0856221
+"model 2, training subset",0.1,1,35,0.0765454,0.0854317
+"model 2, training subset",0.1,1,36,0.0760751,0.0852354
+"model 2, training subset",0.1,1,37,0.075648,0.0850818
+"model 2, training subset",0.1,1,38,0.0751908,0.0848889
+"model 2, training subset",0.1,1,39,0.0748009,0.0847817
+"model 2, training subset",0.1,1,40,0.0743879,0.0845481
+"model 2, training subset",0.1,1,41,0.074008,0.0844133
+"model 2, training subset",0.1,1,42,0.0736162,0.0842528
+"model 2, training subset",0.1,1,43,0.0732321,0.0841514
+"model 2, training subset",0.1,1,44,0.0728828,0.0840984
+"model 2, training subset",0.1,1,45,0.0725192,0.0839943
+"model 2, training subset",0.1,1,46,0.0721621,0.0839061
+"model 2, training subset",0.1,1,47,0.0718009,0.0838178
+"model 2, training subset",0.1,1,48,0.0714782,0.0837821
+"model 2, training subset",0.1,1,49,0.0711674,0.0836733
+"model 2, training subset",0.1,1,50,0.0708364,0.0836434
+"model 2, training subset",0.1,1,51,0.0705448,0.0835669
+"model 2, training subset",0.1,1,52,0.0702427,0.0834772
+"model 2, training subset",0.1,1,53,0.0698314,0.0834438
+"model 2, training subset",0.1,1,54,0.0695599,0.083411
+"model 2, training subset",0.1,1,55,0.0692732,0.0833634
+"model 2, training subset",0.1,1,56,0.0689666,0.0833674
+"model 2, training subset",0.1,1,57,0.0687113,0.0834083
+"model 2, training subset",0.1,1,58,0.0684475,0.0833415
+"model 2, training subset",0.1,1,59,0.0681771,0.0832692
+"model 2, training subset",0.1,1,60,0.0678719,0.0832484
+"model 2, training subset",0.1,1,61,0.0675595,0.0832317
+"model 2, training subset",0.1,1,62,0.0673184,0.0832421
+"model 2, training subset",0.1,1,63,0.0670415,0.0832601
+"model 2, training subset",0.1,1,64,0.0667911,0.0832561
+"model 2, training subset",0.1,1,65,0.0665129,0.0832525
+"model 2, training subset",0.1,1,66,0.0662727,0.0832323
+"model 2, training subset",0.1,1,67,0.0660278,0.0832248
+"model 2, training subset",0.1,1,68,0.0658027,0.0832735
+"model 2, training subset",0.1,1,69,0.0655362,0.0833059
+"model 2, training subset",0.1,1,70,0.0653336,0.0832921
+"model 2, training subset",0.1,1,71,0.0650746,0.0832255
+"model 2, training subset",0.1,1,72,0.064865,0.0832463
+"model 2, training subset",0.1,1,73,0.0646512,0.0833644
+"model 2, training subset",0.1,1,74,0.0644615,0.0833495
+"model 2, training subset",0.1,1,75,0.0642694,0.0833293
+"model 2, training subset",0.1,1,76,0.0640412,0.0833173
+"model 2, training subset",0.1,1,77,0.0638559,0.083301
+"model 2, training subset",0.1,2,0,0.248659,0.248645
+"model 2, training subset",0.1,2,1,0.189674,0.191345
+"model 2, training subset",0.1,2,2,0.170091,0.172323
+"model 2, training subset",0.1,2,3,0.156321,0.15917
+"model 2, training subset",0.1,2,4,0.145645,0.148929
+"model 2, training subset",0.1,2,5,0.137045,0.140746
+"model 2, training subset",0.1,2,6,0.129937,0.133936
+"model 2, training subset",0.1,2,7,0.123917,0.128171
+"model 2, training subset",0.1,2,8,0.118734,0.123264
+"model 2, training subset",0.1,2,9,0.114277,0.119067
+"model 2, training subset",0.1,2,10,0.110402,0.115463
+"model 2, training subset",0.1,2,11,0.106946,0.112337
+"model 2, training subset",0.1,2,12,0.103977,0.109605
+"model 2, training subset",0.1,2,13,0.101285,0.10723
+"model 2, training subset",0.1,2,14,0.0989225,0.10512
+"model 2, training subset",0.1,2,15,0.0968268,0.103279
+"model 2, training subset",0.1,2,16,0.0949692,0.101639
+"model 2, training subset",0.1,2,17,0.0932527,0.10023
+"model 2, training subset",0.1,2,18,0.0917319,0.0990119
+"model 2, training subset",0.1,2,19,0.0903485,0.0978878
+"model 2, training subset",0.1,2,20,0.0890551,0.0969125
+"model 2, training subset",0.1,2,21,0.0879105,0.0960594
+"model 2, training subset",0.1,2,22,0.086837,0.0951609
+"model 2, training subset",0.1,2,23,0.0858849,0.0944834
+"model 2, training subset",0.1,2,24,0.0849867,0.0938411
+"model 2, training subset",0.1,2,25,0.0841812,0.0932405
+"model 2, training subset",0.1,2,26,0.0833662,0.0927481
+"model 2, training subset",0.1,2,27,0.0825908,0.0922202
+"model 2, training subset",0.1,2,28,0.0818669,0.0918195
+"model 2, training subset",0.1,2,29,0.0812171,0.0914662
+"model 2, training subset",0.1,2,30,0.0806086,0.0911836
+"model 2, training subset",0.1,2,31,0.0800641,0.0908646
+"model 2, training subset",0.1,2,32,0.0795106,0.0906019
+"model 2, training subset",0.1,2,33,0.0790067,0.0902807
+"model 2, training subset",0.1,2,34,0.0785006,0.0900158
+"model 2, training subset",0.1,2,35,0.077996,0.0897975
+"model 2, training subset",0.1,2,36,0.0774123,0.0896779
+"model 2, training subset",0.1,2,37,0.0769718,0.0894413
+"model 2, training subset",0.1,2,38,0.0765637,0.0893001
+"model 2, training subset",0.1,2,39,0.076144,0.0892044
+"model 2, training subset",0.1,2,40,0.0757578,0.089055
+"model 2, training subset",0.1,2,41,0.0753214,0.0889696
+"model 2, training subset",0.1,2,42,0.0749597,0.0888622
+"model 2, training subset",0.1,2,43,0.0745871,0.0887725
+"model 2, training subset",0.1,2,44,0.0741513,0.0886967
+"model 2, training subset",0.1,2,45,0.0738053,0.0885493
+"model 2, training subset",0.1,2,46,0.0734307,0.0884011
+"model 2, training subset",0.1,2,47,0.0731313,0.0883287
+"model 2, training subset",0.1,2,48,0.0727673,0.0882716
+"model 2, training subset",0.1,2,49,0.0724344,0.0882462
+"model 2, training subset",0.1,2,50,0.0720902,0.0881875
+"model 2, training subset",0.1,2,51,0.0717917,0.0881286
+"model 2, training subset",0.1,2,52,0.0715008,0.0881062
+"model 2, training subset",0.1,2,53,0.0711482,0.0880697
+"model 2, training subset",0.1,2,54,0.0708293,0.08802
+"model 2, training subset",0.1,2,55,0.0705598,0.0879771
+"model 2, training subset",0.1,2,56,0.0702823,0.0879573
+"model 2, training subset",0.1,2,57,0.0699559,0.0879628
+"model 2, training subset",0.1,2,58,0.0696815,0.0879331
+"model 2, training subset",0.1,2,59,0.0693875,0.0878907
+"model 2, training subset",0.1,2,60,0.0690792,0.0878582
+"model 2, training subset",0.1,2,61,0.0687425,0.0879011
+"model 2, training subset",0.1,2,62,0.0684559,0.0879483
+"model 2, training subset",0.1,2,63,0.0681745,0.0879069
+"model 2, training subset",0.1,2,64,0.067934,0.0878953
+"model 2, training subset",0.1,2,65,0.0676619,0.0879108
+"model 2, training subset",0.1,2,66,0.0673843,0.0878819
+"model 2, training subset",0.1,2,67,0.0671154,0.0878743
+"model 2, training subset",0.1,2,68,0.0668664,0.0878924
+"model 2, training subset",0.1,2,69,0.0666084,0.0879291
+"model 2, training subset",0.1,2,70,0.0663088,0.087948
+"model 2, training subset",0.25,0,0,0.245294,0.24531
+"model 2, training subset",0.25,0,1,0.187102,0.186773
+"model 2, training subset",0.25,0,2,0.168268,0.167832
+"model 2, training subset",0.25,0,3,0.155043,0.154484
+"model 2, training subset",0.25,0,4,0.144859,0.144223
+"model 2, training subset",0.25,0,5,0.136639,0.135977
+"model 2, training subset",0.25,0,6,0.129829,0.129165
+"model 2, training subset",0.25,0,7,0.124107,0.123455
+"model 2, training subset",0.25,0,8,0.11921,0.118543
+"model 2, training subset",0.25,0,9,0.115001,0.114328
+"model 2, training subset",0.25,0,10,0.111368,0.110704
+"model 2, training subset",0.25,0,11,0.108201,0.107585
+"model 2, training subset",0.25,0,12,0.10542,0.104853
+"model 2, training subset",0.25,0,13,0.102978,0.102473
+"model 2, training subset",0.25,0,14,0.100833,0.100365
+"model 2, training subset",0.25,0,15,0.0989267,0.0985131
+"model 2, training subset",0.25,0,16,0.0972345,0.0968869
+"model 2, training subset",0.25,0,17,0.0957584,0.0954772
+"model 2, training subset",0.25,0,18,0.0943936,0.0941807
+"model 2, training subset",0.25,0,19,0.0932009,0.0930565
+"model 2, training subset",0.25,0,20,0.092125,0.0920547
+"model 2, training subset",0.25,0,21,0.0911379,0.0911281
+"model 2, training subset",0.25,0,22,0.0902277,0.0903088
+"model 2, training subset",0.25,0,23,0.0894183,0.0895743
+"model 2, training subset",0.25,0,24,0.0886911,0.0889057
+"model 2, training subset",0.25,0,25,0.088025,0.088333
+"model 2, training subset",0.25,0,26,0.0874025,0.0877535
+"model 2, training subset",0.25,0,27,0.0868151,0.0872505
+"model 2, training subset",0.25,0,28,0.0862859,0.0868367
+"model 2, training subset",0.25,0,29,0.0858137,0.0864164
+"model 2, training subset",0.25,0,30,0.0853436,0.086068
+"model 2, training subset",0.25,0,31,0.0849203,0.0857343
+"model 2, training subset",0.25,0,32,0.0845384,0.0854351
+"model 2, training subset",0.25,0,33,0.0841859,0.0851795
+"model 2, training subset",0.25,0,34,0.0838317,0.0849471
+"model 2, training subset",0.25,0,35,0.0834885,0.0847189
+"model 2, training subset",0.25,0,36,0.0831574,0.0844461
+"model 2, training subset",0.25,0,37,0.0828516,0.0842644
+"model 2, training subset",0.25,0,38,0.0825428,0.0840997
+"model 2, training subset",0.25,0,39,0.0822633,0.0839741
+"model 2, training subset",0.25,0,40,0.0820029,0.0838283
+"model 2, training subset",0.25,0,41,0.081726,0.0837088
+"model 2, training subset",0.25,0,42,0.0814803,0.083581
+"model 2, training subset",0.25,0,43,0.0812392,0.0834664
+"model 2, training subset",0.25,0,44,0.0809906,0.0833535
+"model 2, training subset",0.25,0,45,0.080765,0.0832071
+"model 2, training subset",0.25,0,46,0.0805394,0.0831234
+"model 2, training subset",0.25,0,47,0.0803232,0.0830072
+"model 2, training subset",0.25,0,48,0.080128,0.0829137
+"model 2, training subset",0.25,0,49,0.0799172,0.0828154
+"model 2, training subset",0.25,0,50,0.0796875,0.0827737
+"model 2, training subset",0.25,0,51,0.0795014,0.082692
+"model 2, training subset",0.25,0,52,0.0793039,0.0826461
+"model 2, training subset",0.25,0,53,0.07914,0.0826614
+"model 2, training subset",0.25,0,54,0.0789394,0.0825619
+"model 2, training subset",0.25,0,55,0.0787253,0.0825192
+"model 2, training subset",0.25,0,56,0.078516,0.0824818
+"model 2, training subset",0.25,0,57,0.0783114,0.08243
+"model 2, training subset",0.25,0,58,0.0781172,0.0823662
+"model 2, training subset",0.25,0,59,0.0779417,0.0823079
+"model 2, training subset",0.25,0,60,0.0778021,0.0822903
+"model 2, training subset",0.25,0,61,0.0776191,0.0822774
+"model 2, training subset",0.25,0,62,0.0774611,0.0822599
+"model 2, training subset",0.25,0,63,0.0772862,0.0822596
+"model 2, training subset",0.25,0,64,0.0770847,0.0822359
+"model 2, training subset",0.25,0,65,0.0769047,0.0822094
+"model 2, training subset",0.25,0,66,0.0767456,0.0821665
+"model 2, training subset",0.25,0,67,0.0765825,0.0821268
+"model 2, training subset",0.25,0,68,0.0764125,0.0820969
+"model 2, training subset",0.25,0,69,0.0762535,0.08212
+"model 2, training subset",0.25,0,70,0.0761186,0.0821343
+"model 2, training subset",0.25,0,71,0.0759606,0.0821403
+"model 2, training subset",0.25,0,72,0.0758182,0.08214
+"model 2, training subset",0.25,0,73,0.0756703,0.082112
+"model 2, training subset",0.25,0,74,0.0755315,0.0821484
+"model 2, training subset",0.25,0,75,0.0753983,0.0821043
+"model 2, training subset",0.25,0,76,0.075372,0.0822981
+"model 2, training subset",0.25,0,77,0.0751835,0.0822823
+"model 2, training subset",0.25,0,78,0.0750291,0.0823154
+"model 2, training subset",0.25,1,0,0.244122,0.244131
+"model 2, training subset",0.25,1,1,0.185931,0.186043
+"model 2, training subset",0.25,1,2,0.167278,0.167488
+"model 2, training subset",0.25,1,3,0.154094,0.154377
+"model 2, training subset",0.25,1,4,0.143933,0.144289
+"model 2, training subset",0.25,1,5,0.135734,0.136145
+"model 2, training subset",0.25,1,6,0.128966,0.129452
+"model 2, training subset",0.25,1,7,0.123278,0.123844
+"model 2, training subset",0.25,1,8,0.118397,0.119058
+"model 2, training subset",0.25,1,9,0.114187,0.114933
+"model 2, training subset",0.25,1,10,0.110537,0.111374
+"model 2, training subset",0.25,1,11,0.107374,0.108292
+"model 2, training subset",0.25,1,12,0.104599,0.105582
+"model 2, training subset",0.25,1,13,0.102162,0.10325
+"model 2, training subset",0.25,1,14,0.100013,0.101175
+"model 2, training subset",0.25,1,15,0.0981003,0.0993195
+"model 2, training subset",0.25,1,16,0.0964176,0.0976968
+"model 2, training subset",0.25,1,17,0.0949277,0.0962779
+"model 2, training subset",0.25,1,18,0.0935703,0.0950163
+"model 2, training subset",0.25,1,19,0.0923468,0.0938838
+"model 2, training subset",0.25,1,20,0.0912846,0.0929212
+"model 2, training subset",0.25,1,21,0.0903003,0.0920215
+"model 2, training subset",0.25,1,22,0.0893973,0.0912341
+"model 2, training subset",0.25,1,23,0.0886123,0.0905512
+"model 2, training subset",0.25,1,24,0.0878828,0.0899587
+"model 2, training subset",0.25,1,25,0.0872382,0.0894125
+"model 2, training subset",0.25,1,26,0.0866243,0.0888956
+"model 2, training subset",0.25,1,27,0.0860383,0.0884276
+"model 2, training subset",0.25,1,28,0.0855199,0.0880281
+"model 2, training subset",0.25,1,29,0.085024,0.0876601
+"model 2, training subset",0.25,1,30,0.0845562,0.0872949
+"model 2, training subset",0.25,1,31,0.0841316,0.0870064
+"model 2, training subset",0.25,1,32,0.0837315,0.0867485
+"model 2, training subset",0.25,1,33,0.0833683,0.0865239
+"model 2, training subset",0.25,1,34,0.0829975,0.0862497
+"model 2, training subset",0.25,1,35,0.0826699,0.086028
+"model 2, training subset",0.25,1,36,0.0823356,0.0858918
+"model 2, training subset",0.25,1,37,0.0820234,0.0857118
+"model 2, training subset",0.25,1,38,0.0817467,0.0855505
+"model 2, training subset",0.25,1,39,0.0814262,0.0854063
+"model 2, training subset",0.25,1,40,0.0811415,0.0852375
+"model 2, training subset",0.25,1,41,0.0808913,0.0850867
+"model 2, training subset",0.25,1,42,0.0806459,0.0849645
+"model 2, training subset",0.25,1,43,0.0804011,0.0848644
+"model 2, training subset",0.25,1,44,0.0801672,0.0847036
+"model 2, training subset",0.25,1,45,0.0799365,0.0846154
+"model 2, training subset",0.25,1,46,0.0797073,0.0845009
+"model 2, training subset",0.25,1,47,0.0794808,0.0844034
+"model 2, training subset",0.25,1,48,0.0792442,0.0843081
+"model 2, training subset",0.25,1,49,0.0790389,0.0842397
+"model 2, training subset",0.25,1,50,0.0788643,0.0841587
+"model 2, training subset",0.25,1,51,0.0786651,0.084114
+"model 2, training subset",0.25,1,52,0.0784777,0.0840567
+"model 2, training subset",0.25,1,53,0.0783175,0.0840075
+"model 2, training subset",0.25,1,54,0.078139,0.0839762
+"model 2, training subset",0.25,1,55,0.0779478,0.0839184
+"model 2, training subset",0.25,1,56,0.077779,0.083861
+"model 2, training subset",0.25,1,57,0.0776156,0.083831
+"model 2, training subset",0.25,1,58,0.0774512,0.0837794
+"model 2, training subset",0.25,1,59,0.0773008,0.0837538
+"model 2, training subset",0.25,1,60,0.077139,0.0836978
+"model 2, training subset",0.25,1,61,0.0769575,0.0837141
+"model 2, training subset",0.25,1,62,0.0767794,0.0836836
+"model 2, training subset",0.25,1,63,0.0766126,0.083746
+"model 2, training subset",0.25,1,64,0.076447,0.0837526
+"model 2, training subset",0.25,1,65,0.0762854,0.0837379
+"model 2, training subset",0.25,1,66,0.0761207,0.0837247
+"model 2, training subset",0.25,1,67,0.0759566,0.0836845
+"model 2, training subset",0.25,1,68,0.0757944,0.0836581
+"model 2, training subset",0.25,1,69,0.0756775,0.0836705
+"model 2, training subset",0.25,1,70,0.0755107,0.0836178
+"model 2, training subset",0.25,1,71,0.0753355,0.0835963
+"model 2, training subset",0.25,1,72,0.0751947,0.0835958
+"model 2, training subset",0.25,1,73,0.0750732,0.0836439
+"model 2, training subset",0.25,1,74,0.0753336,0.0848937
+"model 2, training subset",0.25,1,75,0.0750958,0.0844686
+"model 2, training subset",0.25,1,76,0.0750891,0.0846288
+"model 2, training subset",0.25,1,77,0.0748609,0.0845033
+"model 2, training subset",0.25,1,78,0.0746768,0.0845388
+"model 2, training subset",0.25,1,79,0.0745507,0.0845617
+"model 2, training subset",0.25,1,80,0.0746091,0.0848179
+"model 2, training subset",0.25,1,81,0.0746086,0.0851803
+"model 2, training subset",0.25,1,82,0.074488,0.0849808
+"model 2, training subset",0.25,2,0,0.246227,0.246236
+"model 2, training subset",0.25,2,1,0.187777,0.189388
+"model 2, training subset",0.25,2,2,0.168786,0.170856
+"model 2, training subset",0.25,2,3,0.155453,0.157871
+"model 2, training subset",0.25,2,4,0.145163,0.147794
+"model 2, training subset",0.25,2,5,0.136896,0.139798
+"model 2, training subset",0.25,2,6,0.13004,0.133132
+"model 2, training subset",0.25,2,7,0.124279,0.127539
+"model 2, training subset",0.25,2,8,0.119352,0.122798
+"model 2, training subset",0.25,2,9,0.115128,0.118751
+"model 2, training subset",0.25,2,10,0.111464,0.115218
+"model 2, training subset",0.25,2,11,0.10828,0.112166
+"model 2, training subset",0.25,2,12,0.105472,0.109471
+"model 2, training subset",0.25,2,13,0.102982,0.107145
+"model 2, training subset",0.25,2,14,0.100822,0.105126
+"model 2, training subset",0.25,2,15,0.0989104,0.103338
+"model 2, training subset",0.25,2,16,0.0972016,0.101762
+"model 2, training subset",0.25,2,17,0.0956899,0.100373
+"model 2, training subset",0.25,2,18,0.0943236,0.0991279
+"model 2, training subset",0.25,2,19,0.09308,0.0979894
+"model 2, training subset",0.25,2,20,0.0919885,0.0969901
+"model 2, training subset",0.25,2,21,0.0909826,0.0961409
+"model 2, training subset",0.25,2,22,0.090104,0.0953176
+"model 2, training subset",0.25,2,23,0.0892728,0.0945986
+"model 2, training subset",0.25,2,24,0.08854,0.0939655
+"model 2, training subset",0.25,2,25,0.0878732,0.0934485
+"model 2, training subset",0.25,2,26,0.0872356,0.0929072
+"model 2, training subset",0.25,2,27,0.0866591,0.0923931
+"model 2, training subset",0.25,2,28,0.0861405,0.0920263
+"model 2, training subset",0.25,2,29,0.0856508,0.0916345
+"model 2, training subset",0.25,2,30,0.0851947,0.091306
+"model 2, training subset",0.25,2,31,0.0847594,0.0909557
+"model 2, training subset",0.25,2,32,0.0843716,0.0906855
+"model 2, training subset",0.25,2,33,0.0840134,0.0904329
+"model 2, training subset",0.25,2,34,0.0836518,0.0902051
+"model 2, training subset",0.25,2,35,0.0833095,0.0900193
+"model 2, training subset",0.25,2,36,0.0829692,0.0898013
+"model 2, training subset",0.25,2,37,0.0826476,0.0896199
+"model 2, training subset",0.25,2,38,0.0823657,0.0894974
+"model 2, training subset",0.25,2,39,0.0820842,0.0893481
+"model 2, training subset",0.25,2,40,0.081812,0.08924
+"model 2, training subset",0.25,2,41,0.0815375,0.0890643
+"model 2, training subset",0.25,2,42,0.0812639,0.0889249
+"model 2, training subset",0.25,2,43,0.0810234,0.0888413
+"model 2, training subset",0.25,2,44,0.0808093,0.0887474
+"model 2, training subset",0.25,2,45,0.0805667,0.088592
+"model 2, training subset",0.25,2,46,0.0802689,0.0884972
+"model 2, training subset",0.25,2,47,0.0800452,0.088394
+"model 2, training subset",0.25,2,48,0.0798318,0.0883356
+"model 2, training subset",0.25,2,49,0.0796098,0.0883113
+"model 2, training subset",0.25,2,50,0.0794085,0.0882569
+"model 2, training subset",0.25,2,51,0.0792264,0.0881959
+"model 2, training subset",0.25,2,52,0.079054,0.0881337
+"model 2, training subset",0.25,2,53,0.0788638,0.0881064
+"model 2, training subset",0.25,2,54,0.0786873,0.088047
+"model 2, training subset",0.25,2,55,0.078523,0.087989
+"model 2, training subset",0.25,2,56,0.078345,0.0879305
+"model 2, training subset",0.25,2,57,0.0781642,0.0878794
+"model 2, training subset",0.25,2,58,0.0779908,0.0878185
+"model 2, training subset",0.25,2,59,0.0778129,0.087771
+"model 2, training subset",0.25,2,60,0.0776448,0.0877449
+"model 2, training subset",0.25,2,61,0.0774913,0.0877891
+"model 2, training subset",0.25,2,62,0.0773415,0.0877254
+"model 2, training subset",0.25,2,63,0.0771836,0.0877885
+"model 2, training subset",0.25,2,64,0.0770343,0.0877426
+"model 2, training subset",0.25,2,65,0.0768471,0.0876829
+"model 2, training subset",0.25,2,66,0.0766761,0.0876468
+"model 2, training subset",0.25,2,67,0.0765395,0.0876096
+"model 2, training subset",0.25,2,68,0.0764031,0.0875594
+"model 2, training subset",0.25,2,69,0.0762768,0.0875234
+"model 2, training subset",0.25,2,70,0.0760754,0.0875492
+"model 2, training subset",0.25,2,71,0.0758991,0.0875818
+"model 2, training subset",0.25,2,72,0.0757718,0.0876314
+"model 2, training subset",0.25,2,73,0.0756057,0.0875704
+"model 2, training subset",0.25,2,74,0.0754948,0.0875624
+"model 2, training subset",0.25,2,75,0.0753679,0.0875857
+"model 2, training subset",0.25,2,76,0.0752369,0.0876041
+"model 2, training subset",0.25,2,77,0.0751252,0.0876714
+"model 2, training subset",0.25,2,78,0.0750024,0.0877107
+"model 2, training subset",0.25,2,79,0.0749851,0.0880729
+"model 2, training subset",0.5,0,0,0.247149,0.247145
+"model 2, training subset",0.5,0,1,0.188816,0.189046
+"model 2, training subset",0.5,0,2,0.169818,0.17018
+"model 2, training subset",0.5,0,3,0.156445,0.156912
+"model 2, training subset",0.5,0,4,0.146152,0.146696
+"model 2, training subset",0.5,0,5,0.137878,0.138487
+"model 2, training subset",0.5,0,6,0.131023,0.131709
+"model 2, training subset",0.5,0,7,0.125241,0.125983
+"model 2, training subset",0.5,0,8,0.120339,0.12114
+"model 2, training subset",0.5,0,9,0.116124,0.116988
+"model 2, training subset",0.5,0,10,0.112496,0.113403
+"model 2, training subset",0.5,0,11,0.109324,0.110295
+"model 2, training subset",0.5,0,12,0.106543,0.107574
+"model 2, training subset",0.5,0,13,0.104095,0.105164
+"model 2, training subset",0.5,0,14,0.101968,0.103092
+"model 2, training subset",0.5,0,15,0.100075,0.101249
+"model 2, training subset",0.5,0,16,0.0984072,0.0996327
+"model 2, training subset",0.5,0,17,0.0969221,0.0981773
+"model 2, training subset",0.5,0,18,0.0955987,0.0969002
+"model 2, training subset",0.5,0,19,0.0944288,0.0957831
+"model 2, training subset",0.5,0,20,0.0933791,0.0947789
+"model 2, training subset",0.5,0,21,0.0924278,0.0938657
+"model 2, training subset",0.5,0,22,0.0915697,0.0930703
+"model 2, training subset",0.5,0,23,0.0908051,0.0923476
+"model 2, training subset",0.5,0,24,0.0901274,0.0917233
+"model 2, training subset",0.5,0,25,0.0895142,0.0911439
+"model 2, training subset",0.5,0,26,0.0889616,0.0906417
+"model 2, training subset",0.5,0,27,0.0884325,0.0901655
+"model 2, training subset",0.5,0,28,0.0879718,0.0897624
+"model 2, training subset",0.5,0,29,0.0875278,0.0893698
+"model 2, training subset",0.5,0,30,0.087103,0.0889941
+"model 2, training subset",0.5,0,31,0.0867159,0.0886567
+"model 2, training subset",0.5,0,32,0.0863679,0.0883714
+"model 2, training subset",0.5,0,33,0.0860443,0.0881043
+"model 2, training subset",0.5,0,34,0.085742,0.087848
+"model 2, training subset",0.5,0,35,0.0854484,0.0875815
+"model 2, training subset",0.5,0,36,0.0851899,0.0873991
+"model 2, training subset",0.5,0,37,0.0849363,0.087197
+"model 2, training subset",0.5,0,38,0.0846984,0.0869935
+"model 2, training subset",0.5,0,39,0.0844703,0.0868397
+"model 2, training subset",0.5,0,40,0.0842483,0.0866798
+"model 2, training subset",0.5,0,41,0.0840405,0.0865307
+"model 2, training subset",0.5,0,42,0.0838617,0.0863901
+"model 2, training subset",0.5,0,43,0.0836551,0.0862501
+"model 2, training subset",0.5,0,44,0.0834524,0.0861534
+"model 2, training subset",0.5,0,45,0.0832831,0.0860425
+"model 2, training subset",0.5,0,46,0.0830855,0.0858807
+"model 2, training subset",0.5,0,47,0.0829323,0.0857874
+"model 2, training subset",0.5,0,48,0.082767,0.0856983
+"model 2, training subset",0.5,0,49,0.0826117,0.0856045
+"model 2, training subset",0.5,0,50,0.0824738,0.0855177
+"model 2, training subset",0.5,0,51,0.0823273,0.0854831
+"model 2, training subset",0.5,0,52,0.0821843,0.0854479
+"model 2, training subset",0.5,0,53,0.0820582,0.0853783
+"model 2, training subset",0.5,0,54,0.0819488,0.0853707
+"model 2, training subset",0.5,0,55,0.0818234,0.085324
+"model 2, training subset",0.5,0,56,0.0816881,0.08526
+"model 2, training subset",0.5,0,57,0.0815633,0.0851959
+"model 2, training subset",0.5,0,58,0.0814451,0.0851607
+"model 2, training subset",0.5,0,59,0.0813198,0.0851083
+"model 2, training subset",0.5,0,60,0.0812071,0.0850568
+"model 2, training subset",0.5,0,61,0.0810891,0.0850093
+"model 2, training subset",0.5,0,62,0.0809957,0.0850238
+"model 2, training subset",0.5,0,63,0.0808837,0.0849824
+"model 2, training subset",0.5,0,64,0.0807964,0.0850335
+"model 2, training subset",0.5,0,65,0.0806761,0.0850143
+"model 2, training subset",0.5,0,66,0.0805727,0.0850005
+"model 2, training subset",0.5,0,67,0.080473,0.0849479
+"model 2, training subset",0.5,0,68,0.0803659,0.0849078
+"model 2, training subset",0.5,0,69,0.0802468,0.0848688
+"model 2, training subset",0.5,0,70,0.0801305,0.0848252
+"model 2, training subset",0.5,0,71,0.0800384,0.0847818
+"model 2, training subset",0.5,0,72,0.0799307,0.084752
+"model 2, training subset",0.5,0,73,0.0798333,0.0848321
+"model 2, training subset",0.5,0,74,0.0797472,0.0848464
+"model 2, training subset",0.5,0,75,0.0796382,0.0848243
+"model 2, training subset",0.5,0,76,0.0795425,0.084794
+"model 2, training subset",0.5,0,77,0.0794531,0.0847719
+"model 2, training subset",0.5,0,78,0.0793554,0.0847564
+"model 2, training subset",0.5,0,79,0.0792653,0.0847589
+"model 2, training subset",0.5,0,80,0.0791789,0.084725
+"model 2, training subset",0.5,0,81,0.0790997,0.08472
+"model 2, training subset",0.5,0,82,0.0789925,0.0847101
+"model 2, training subset",0.5,0,83,0.0789332,0.0847275
+"model 2, training subset",0.5,0,84,0.0788442,0.0847223
+"model 2, training subset",0.5,0,85,0.0788241,0.0847613
+"model 2, training subset",0.5,0,86,0.0787321,0.0847626
+"model 2, training subset",0.5,0,87,0.0789346,0.0850642
+"model 2, training subset",0.5,0,88,0.0795595,0.0847632
+"model 2, training subset",0.5,0,89,0.0794432,0.0847485
+"model 2, training subset",0.5,0,90,0.0793702,0.0847432
+"model 2, training subset",0.5,0,91,0.0798116,0.0854973
+"model 2, training subset",0.5,0,92,0.0793585,0.0851438
+"model 2, training subset",0.5,1,0,0.245031,0.24503
+"model 2, training subset",0.5,1,1,0.187122,0.187032
+"model 2, training subset",0.5,1,2,0.168465,0.168389
+"model 2, training subset",0.5,1,3,0.155322,0.155291
+"model 2, training subset",0.5,1,4,0.145193,0.14518
+"model 2, training subset",0.5,1,5,0.13703,0.137027
+"model 2, training subset",0.5,1,6,0.130278,0.130291
+"model 2, training subset",0.5,1,7,0.124604,0.124648
+"model 2, training subset",0.5,1,8,0.119778,0.119831
+"model 2, training subset",0.5,1,9,0.115619,0.115684
+"model 2, training subset",0.5,1,10,0.112022,0.112116
+"model 2, training subset",0.5,1,11,0.108887,0.109022
+"model 2, training subset",0.5,1,12,0.106147,0.106305
+"model 2, training subset",0.5,1,13,0.103744,0.103946
+"model 2, training subset",0.5,1,14,0.101652,0.101881
+"model 2, training subset",0.5,1,15,0.0997783,0.100052
+"model 2, training subset",0.5,1,16,0.0981315,0.09844
+"model 2, training subset",0.5,1,17,0.0966824,0.0970347
+"model 2, training subset",0.5,1,18,0.0953956,0.0957718
+"model 2, training subset",0.5,1,19,0.094228,0.0946465
+"model 2, training subset",0.5,1,20,0.0931835,0.0936431
+"model 2, training subset",0.5,1,21,0.0922287,0.0927335
+"model 2, training subset",0.5,1,22,0.0914002,0.0919512
+"model 2, training subset",0.5,1,23,0.09065,0.0912496
+"model 2, training subset",0.5,1,24,0.0899759,0.0906201
+"model 2, training subset",0.5,1,25,0.0893628,0.0900659
+"model 2, training subset",0.5,1,26,0.0887938,0.0895309
+"model 2, training subset",0.5,1,27,0.0882757,0.0890534
+"model 2, training subset",0.5,1,28,0.0878129,0.0886257
+"model 2, training subset",0.5,1,29,0.0873709,0.0881992
+"model 2, training subset",0.5,1,30,0.0869701,0.087804
+"model 2, training subset",0.5,1,31,0.086587,0.0874621
+"model 2, training subset",0.5,1,32,0.0862318,0.0871539
+"model 2, training subset",0.5,1,33,0.0859168,0.0868613
+"model 2, training subset",0.5,1,34,0.0856069,0.0866186
+"model 2, training subset",0.5,1,35,0.0853129,0.0863581
+"model 2, training subset",0.5,1,36,0.0850512,0.0861411
+"model 2, training subset",0.5,1,37,0.0848074,0.0859443
+"model 2, training subset",0.5,1,38,0.0845663,0.0857808
+"model 2, training subset",0.5,1,39,0.0843609,0.0856298
+"model 2, training subset",0.5,1,40,0.0841588,0.0855075
+"model 2, training subset",0.5,1,41,0.083948,0.0853394
+"model 2, training subset",0.5,1,42,0.0837448,0.0852083
+"model 2, training subset",0.5,1,43,0.0835621,0.0850778
+"model 2, training subset",0.5,1,44,0.0833929,0.084964
+"model 2, training subset",0.5,1,45,0.0832332,0.0848774
+"model 2, training subset",0.5,1,46,0.0830793,0.0847845
+"model 2, training subset",0.5,1,47,0.0829235,0.084679
+"model 2, training subset",0.5,1,48,0.0827485,0.0846039
+"model 2, training subset",0.5,1,49,0.0825818,0.0845241
+"model 2, training subset",0.5,1,50,0.0824311,0.0844224
+"model 2, training subset",0.5,1,51,0.0822929,0.0843362
+"model 2, training subset",0.5,1,52,0.0821741,0.0843287
+"model 2, training subset",0.5,1,53,0.0820279,0.0842612
+"model 2, training subset",0.5,1,54,0.081907,0.0841817
+"model 2, training subset",0.5,1,55,0.0817828,0.0841035
+"model 2, training subset",0.5,1,56,0.0816463,0.0840538
+"model 2, training subset",0.5,1,57,0.0814925,0.0839771
+"model 2, training subset",0.5,1,58,0.0813865,0.0839512
+"model 2, training subset",0.5,1,59,0.0812837,0.0839265
+"model 2, training subset",0.5,1,60,0.0811792,0.0839179
+"model 2, training subset",0.5,1,61,0.0810632,0.0838908
+"model 2, training subset",0.5,1,62,0.0809532,0.0838266
+"model 2, training subset",0.5,1,63,0.0808315,0.0837899
+"model 2, training subset",0.5,1,64,0.0807364,0.0838356
+"model 2, training subset",0.5,1,65,0.0806274,0.0837893
+"model 2, training subset",0.5,1,66,0.0805054,0.083746
+"model 2, training subset",0.5,1,67,0.0804051,0.0837474
+"model 2, training subset",0.5,1,68,0.0803209,0.083738
+"model 2, training subset",0.5,1,69,0.080282,0.0837902
+"model 2, training subset",0.5,1,70,0.0801867,0.0837216
+"model 2, training subset",0.5,1,71,0.0800989,0.0836954
+"model 2, training subset",0.5,1,72,0.0800115,0.0836906
+"model 2, training subset",0.5,1,73,0.0798972,0.0836331
+"model 2, training subset",0.5,1,74,0.0797922,0.0836269
+"model 2, training subset",0.5,1,75,0.0797076,0.0836287
+"model 2, training subset",0.5,1,76,0.0796313,0.0836022
+"model 2, training subset",0.5,1,77,0.0795553,0.0835931
+"model 2, training subset",0.5,1,78,0.0796441,0.0836983
+"model 2, training subset",0.5,1,79,0.0795823,0.0835374
+"model 2, training subset",0.5,1,80,0.0794792,0.0835217
+"model 2, training subset",0.5,1,81,0.0799334,0.0840353
+"model 2, training subset",0.5,1,82,0.0799123,0.0837522
+"model 2, training subset",0.5,1,83,0.0800499,0.0841147
+"model 2, training subset",0.5,1,84,0.0797773,0.0839228
+"model 2, training subset",0.5,1,85,0.0799118,0.0842376
+"model 2, training subset",0.5,1,86,0.0808396,0.0866965
+"model 2, training subset",0.5,1,87,0.079942,0.0864652
+"model 2, training subset",0.5,1,88,0.0795423,0.0859584
+"model 2, training subset",0.5,1,89,0.0795633,0.0860115
+"model 2, training subset",0.5,1,90,0.0793367,0.0859217
+"model 2, training subset",0.5,2,0,0.246233,0.246239
+"model 2, training subset",0.5,2,1,0.188033,0.18823
+"model 2, training subset",0.5,2,2,0.169119,0.169483
+"model 2, training subset",0.5,2,3,0.155844,0.156324
+"model 2, training subset",0.5,2,4,0.145613,0.146196
+"model 2, training subset",0.5,2,5,0.137393,0.138059
+"model 2, training subset",0.5,2,6,0.130603,0.131354
+"model 2, training subset",0.5,2,7,0.124871,0.125713
+"model 2, training subset",0.5,2,8,0.120004,0.120917
+"model 2, training subset",0.5,2,9,0.115819,0.116814
+"model 2, training subset",0.5,2,10,0.112205,0.113264
+"model 2, training subset",0.5,2,11,0.109042,0.110177
+"model 2, training subset",0.5,2,12,0.10627,0.107488
+"model 2, training subset",0.5,2,13,0.10385,0.10515
+"model 2, training subset",0.5,2,14,0.10169,0.103051
+"model 2, training subset",0.5,2,15,0.0998066,0.101224
+"model 2, training subset",0.5,2,16,0.098136,0.0996026
+"model 2, training subset",0.5,2,17,0.0966473,0.0981601
+"model 2, training subset",0.5,2,18,0.0953364,0.0969
+"model 2, training subset",0.5,2,19,0.0941707,0.0957987
+"model 2, training subset",0.5,2,20,0.0931177,0.0948215
+"model 2, training subset",0.5,2,21,0.0921752,0.0939481
+"model 2, training subset",0.5,2,22,0.0913237,0.0931268
+"model 2, training subset",0.5,2,23,0.0905633,0.0924435
+"model 2, training subset",0.5,2,24,0.0898853,0.0918174
+"model 2, training subset",0.5,2,25,0.089273,0.0912451
+"model 2, training subset",0.5,2,26,0.0886945,0.0907128
+"model 2, training subset",0.5,2,27,0.0881809,0.0902409
+"model 2, training subset",0.5,2,28,0.0877192,0.089818
+"model 2, training subset",0.5,2,29,0.087268,0.0894155
+"model 2, training subset",0.5,2,30,0.0868704,0.0890582
+"model 2, training subset",0.5,2,31,0.0865058,0.0887446
+"model 2, training subset",0.5,2,32,0.0861478,0.0884429
+"model 2, training subset",0.5,2,33,0.0858469,0.0881823
+"model 2, training subset",0.5,2,34,0.0855378,0.0879334
+"model 2, training subset",0.5,2,35,0.0852367,0.087684
+"model 2, training subset",0.5,2,36,0.0849458,0.0874631
+"model 2, training subset",0.5,2,37,0.0846776,0.0872364
+"model 2, training subset",0.5,2,38,0.0844424,0.0870727
+"model 2, training subset",0.5,2,39,0.0842222,0.0869145
+"model 2, training subset",0.5,2,40,0.0839941,0.0867418
+"model 2, training subset",0.5,2,41,0.0837716,0.0866188
+"model 2, training subset",0.5,2,42,0.0835675,0.0865051
+"model 2, training subset",0.5,2,43,0.083375,0.0863739
+"model 2, training subset",0.5,2,44,0.0831873,0.0862301
+"model 2, training subset",0.5,2,45,0.0830057,0.0860938
+"model 2, training subset",0.5,2,46,0.0828391,0.0860138
+"model 2, training subset",0.5,2,47,0.0826757,0.0859122
+"model 2, training subset",0.5,2,48,0.0825211,0.0858009
+"model 2, training subset",0.5,2,49,0.082367,0.0857524
+"model 2, training subset",0.5,2,50,0.0822188,0.0856461
+"model 2, training subset",0.5,2,51,0.0820781,0.0855665
+"model 2, training subset",0.5,2,52,0.0819392,0.0855696
+"model 2, training subset",0.5,2,53,0.0818051,0.0855465
+"model 2, training subset",0.5,2,54,0.0816751,0.0855145
+"model 2, training subset",0.5,2,55,0.081553,0.0854578
+"model 2, training subset",0.5,2,56,0.0814262,0.0853951
+"model 2, training subset",0.5,2,57,0.0813137,0.0853454
+"model 2, training subset",0.5,2,58,0.0811932,0.0853087
+"model 2, training subset",0.5,2,59,0.0810853,0.0852683
+"model 2, training subset",0.5,2,60,0.080952,0.0852151
+"model 2, training subset",0.5,2,61,0.0808274,0.0851748
+"model 2, training subset",0.5,2,62,0.0807305,0.0851653
+"model 2, training subset",0.5,2,63,0.0806294,0.08513
+"model 2, training subset",0.5,2,64,0.0804952,0.0850785
+"model 2, training subset",0.5,2,65,0.0804174,0.0850749
+"model 2, training subset",0.5,2,66,0.0802963,0.0850229
+"model 2, training subset",0.5,2,67,0.0801991,0.0849806
+"model 2, training subset",0.5,2,68,0.0800807,0.0849559
+"model 2, training subset",0.5,2,69,0.079973,0.0849518
+"model 2, training subset",0.5,2,70,0.0798735,0.0849039
+"model 2, training subset",0.5,2,71,0.0797896,0.0848882
+"model 2, training subset",0.5,2,72,0.0796799,0.0848562
+"model 2, training subset",0.5,2,73,0.0795879,0.0848468
+"model 2, training subset",0.5,2,74,0.0794989,0.0848419
+"model 2, training subset",0.5,2,75,0.0793894,0.0848217
+"model 2, training subset",0.5,2,76,0.0792869,0.0847939
+"model 2, training subset",0.5,2,77,0.0791986,0.0848014
+"model 2, training subset",0.5,2,78,0.0791114,0.0847917
+"model 2, training subset",0.5,2,79,0.0790231,0.0847579
+"model 2, training subset",0.5,2,80,0.0789213,0.0847379
+"model 2, training subset",0.5,2,81,0.0789562,0.0848142
+"model 2, training subset",0.5,2,82,0.0789,0.084859
+"model 2, training subset",0.5,2,83,0.0787437,0.0848381
+"model 2, training subset",0.5,2,84,0.0786531,0.0848332
+"model 2, training subset",0.5,2,85,0.0785926,0.0848369
+"model 2, training subset",0.5,2,86,0.0785352,0.0848186
+"model 2, training subset",0.5,2,87,0.0784902,0.0849233
+"model 2, training subset",0.5,2,88,0.0783533,0.0849566
+"model 2, training subset",0.5,2,89,0.0782552,0.0849337
+"model 2, training subset",0.5,2,90,0.0785564,0.0851867
