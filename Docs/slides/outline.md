@@ -88,17 +88,21 @@ to trust when the weather turns bad."
 **On the slide:** `../figures/phase3/architecture.svg`, full width (identical to Fig. 1 in Overleaf). No
 bullets.
 
+The diagram (v2) uses real frames and real numbers. Follow one rain-at-night frame through it.
+
 **Say (left to right):**
-- "The camera frame goes through the frozen YOLOv8x once. That part is unchanged.
-- New: we also keep its per-box outputs, meaning the class probabilities, how sure each box edge is, and the
-  neck feature.
-- A feature builder adds context such as size, rank, overlaps and crowding. A boosted-tree model turns that
-  into the chance the box is real.
-- The dial keeps boxes above 1/(1+λ). λ is set by the use case, or from an F-score weight β.
-- Out come the kept boxes, plus an estimate of their false alarms that needs no labels.
+- "Here is one real frame, rain at night. The frozen YOLOv8x runs once and proposes 201 candidate boxes.
+  That part is unchanged.
+- New: for each box we also keep YOLOv8x's own outputs, meaning all 80 class probabilities, how sure each box
+  edge is, and the neck feature. This box scores only 0.09, below the default 0.25.
+- A boosted-tree model turns those, plus context such as size, rank and overlaps, into a calibrated chance
+  that the box is real. The curve shows it is calibrated; this box gets 0.17.
+- The dial keeps boxes whose chance is at least 1/(1+λ). At λ = 10 that is 9.1%, so this box is kept.
+- On this frame that means 9 of 10 objects found with 3 false alarms, where 0.25 finds 6. I picked this frame
+  to illustrate; the typical gain is the cost ratio at the bottom right, 0.90 to 0.96 times one threshold.
 - Everything in green is fitted once on BDD100K train and graded on val and DAWN.
-- The grey lane is the baseline, kept for comparison. The blue box is Phase 4: CRC over λ, to certify a
-  miss budget per condition."
+- The grey lane is the baseline: one cut per weather bin, costing 1.6 to 117 false alarms per image. The blue
+  box is Phase 4: CRC over λ, to certify a miss budget per condition."
 
 ---
 

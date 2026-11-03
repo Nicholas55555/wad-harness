@@ -31,7 +31,7 @@ result files, through docs 02, 05 and 08. The Overleaf text is in `latex/`, the 
 | `latex/refs_methodology.bib` | 9 new BibTeX entries plus 2 optional ones: Elkan 2001, Zhao 2013, Lipton 2014, Guo 2017, Friedman 2001, LightGBM, scikit-learn, GFL/DFL, Efron–Tibshirani | append to `refs.bib` |
 | `latex/methodology_standalone.tex` / `.pdf` | compile test with the literature review's exact preamble | check before uploading |
 | `latex/build_slide_algorithms.py` → `algorithms_for_slides.tex/.pdf` | the algorithm environments copied verbatim from `methodology.tex`, one per small page | pixel-exact pseudocode, if you prefer it over the PNGs |
-| `figures/phase3/architecture.svg` (+ `.pdf`, `.png`, `make_architecture.py`) | the pipeline diagram; the generator checks that every text line fits | **slide 4** (SVG) and the Overleaf figure (PDF) |
+| `figures/phase3/architecture.svg` (+ `.pdf`, `.png`, `make_architecture.py`, `architecture_assets.json`) | the pipeline diagram, v2 (2026-10-29), drawn with real frames, boxes and curves from the project (§5); the generator checks that every text line fits; the text-only v1 is kept as `architecture_v1.*` | **slide 4** (SVG) and the Overleaf figure (PDF) |
 | `figures/phase3/pseudocode_alg1.svg`, `pseudocode_alg2.svg`, `pseudocode_equations.svg` (each also `.png`; + `make_pseudocode.py`) | Algorithms 1–2 and the key equations, line for line as in `methodology.tex` | **slide 5** |
 | `figures/phase3/baseline_price.svg` (also `.png`; + `make_baseline_price.py`) | false alarms per image that per-bin CRC needs to hold α = 0.2, per condition | **slide 2** |
 | `slides/outline.md` | slide-by-slide content, visuals, timing, speaker notes, backup slides | building the deck |
@@ -96,21 +96,50 @@ result files, through docs 02, 05 and 08. The Overleaf text is in `latex/`, the 
 
 ![Architecture](figures/phase3/architecture.png)
 
+**Version 2 (2026-10-29) is drawn with real data.** Every photo and number comes from the project's caches
+and result tables:
+- **Inputs:** example frames for day, night, rain at night and DAWN fog.
+- **Candidates:** one BDD100K val rain-at-night frame with all 201 YOLOv8x candidates, drawn brighter for
+  higher scores.
+- **Per-box outputs:** one box the dial recovers (score 0.09, below the default 0.25), with its 80 class
+  probabilities on a log scale and its four box-edge (DFL) distributions.
+- **Chance real:** the calibration curve on BDD100K val, ECE 0.11 points; that box gets p = 0.17.
+- **Dial:** a λ gauge set at 10.
+- **Kept boxes:** the same frame at λ = 10 finds 9 of 10 objects with 3 false alarms, against 6 found at the
+  default 0.25.
+- **Offline:** six BDD100K train thumbnails; a train frame with its labels and matched boxes; the cost curves
+  whose minima give τ(λ); the β → λ_eq map; the graded cost at λ = 10 for six conditions.
+
+The example frame was **chosen to illustrate**, because the dial visibly recovers objects there. Say so if
+asked; the typical effect is the cost ratio in the bottom-right panel (0.90–0.96× at λ = 10). The text-only
+version 1 is kept as `figures/phase3/architecture_v1.*`.
+
 **How to talk through it, left to right, in about 40 s**
-1. A camera frame, any weather, goes through the **unchanged, frozen YOLOv8x**: one pass, floor 0.001.
-2. **New:** we keep its per-box outputs h(d). These are the class probabilities, how sure each box edge is (DFL),
-   the neck feature and the pyramid level.
-3. **New:** the feature builder adds context (score, size, rank, overlaps, crowding). A calibrated
-   boosted-tree model turns this into p(d), the chance that the box is real.
-4. **New:** the λ dial keeps a box iff p(d) ≥ 1/(1+λ). λ comes from the use case, or from β.
-5. Out come the kept boxes, plus an estimate of their false alarms that needs no labels.
-6. **Offline (green band):** everything is fitted once on BDD100K train and graded on val and DAWN.
-7. **Grey lane:** what the baseline does instead.
+1. A camera frame, any weather, goes through the **unchanged, frozen YOLOv8x**. One pass at floor 0.001
+   gives 201 candidate boxes on this frame.
+2. **New:** we keep each box's own YOLOv8x outputs, h(d): all 80 class probabilities, how sure each box edge
+   is (DFL), the neck feature and the pyramid level. This box scores only 0.09.
+3. **New:** these, plus 20 context features, go into a calibrated boosted-tree model. Its p(d) means what it
+   says, as the calibration curve shows. This box gets p = 0.17.
+4. **New:** the λ dial keeps a box iff p(d) ≥ 1/(1+λ). At λ = 10 the cut is 9.1%, so this box is kept. λ comes
+   from the use case, or from β.
+5. Out come the kept boxes: here 9 of 10 objects with 3 false alarms, where 0.25 finds 6. The estimate of their
+   false alarms needs no labels.
+6. **Offline (green band):** everything is fitted once on BDD100K train and graded on val and DAWN. Per
+   detection costs 0.90–0.96× one threshold at λ = 10; the default costs 1.18–1.31×.
+7. **Grey lane:** what the baseline does instead: one cut per weather bin, with a price of 1.6 to 117 false
+   alarms per image.
 8. **Blue box:** what Phase 4 adds, CRC over λ.
 
-**Editing:** change the text in `make_architecture.py` and re-run it. The script refuses lines that would
-overflow their box. Then re-render the PDF and PNG with Edge (doc 04 §9) so Overleaf and the slide stay
-identical.
+**Editing:**
+1. Run `python make_architecture.py --prepare` (needs the harness caches). It writes
+   `architecture_assets.json`: thumbnails, boxes, the example box's outputs, the curves.
+2. Run `python make_architecture.py` to build the SVG from that JSON. Text and layout changes need only this
+   step. The script refuses any line that would overflow its box.
+3. Run `.\render_architecture.ps1` to re-render the PDF and PNG, so Overleaf and the slide stay identical.
+
+The figure is dense. In print it reads best full-width or on a landscape page (`rotating`'s
+`sidewaysfigure`); on a slide it fills the screen.
 
 ## 6. Algorithm, equations and losses (slide 5, §3.4)
 

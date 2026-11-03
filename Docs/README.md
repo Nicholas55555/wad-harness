@@ -46,7 +46,7 @@ re-run to make them.
 
 | folder | contents |
 |---|---|
-| [`figures/phase3/`](figures/phase3/) | `architecture.svg/.pdf/.png`, `pseudocode_alg1/alg2/equations.svg/.png`, `baseline_price.svg/.png`, and their generators: `make_architecture.py`, `render_architecture.ps1`, `make_pseudocode.py`, `make_baseline_price.py` |
+| [`figures/phase3/`](figures/phase3/) | `architecture.svg/.pdf/.png` (v2, drawn with real frames and data; its inputs are in `architecture_assets.json`; the text-only v1 is kept as `architecture_v1.*`), `pseudocode_alg1/alg2/equations.svg/.png`, `baseline_price.svg/.png`, and their generators: `make_architecture.py` (`--prepare` extracts the assets from the harness caches), `render_architecture.ps1`, `make_pseudocode.py`, `make_baseline_price.py` |
 | [`figures/o1_o2_run1/`](figures/o1_o2_run1/) | fig1–fig5: run 1 curves, go/no-go, main CRC figure, hazard (O3-A), α sweep |
 | [`figures/o2_run2/`](figures/o2_run2/) | fig6–fig9: BDD100K clear vs hazard (two detectors), run-2 detectors, tiers, recoverable recall |
 | [`figures/o3_visibility/`](figures/o3_visibility/) | fig10 (v2, v3) and the example / night-gap contact sheets |
@@ -69,7 +69,8 @@ re-run to make them.
   within predicted bins.
 - **Known-bad report sections** (doc 12 §2): do not cite `results.md` §6.3 or the go/no-go table in `run2.md`.
 - **Regenerating Phase 3 assets:**
-  - `python make_architecture.py`, then `.\render_architecture.ps1`, in `figures/phase3/`;
+  - `python make_architecture.py` (run it with `--prepare` first to re-extract the photos and numbers from the
+    harness caches), then `.\render_architecture.ps1`, in `figures/phase3/`;
   - `python make_pseudocode.py` and `python make_baseline_price.py`;
   - `tectonic methodology_standalone.tex` in `latex/` (tectonic is in `Downloads\weather adaptive lit review\tools\`).
 - **Team:** Nicholas Taylor and Zander Picon. **Missing facts** (group name, syllabus dates) are marked **TODO**

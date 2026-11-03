@@ -74,12 +74,21 @@ A gradient-boosted model maps $\varphi(d)$ to $p(d)$, and the dial keeps or drop
 frozen detector is run once over BDD100K train, boxes are labelled by matching, and the dial is fitted, checked
 and then graded on data never used for fitting.
 
+% The figure is dense; for print it also works on a landscape page (\usepackage{rotating}, sidewaysfigure,
+% width=\textheight). The slides use the identical architecture.svg.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{architecture}
-  \caption{Architecture. New components are orange, unchanged ones grey; the dashed grey lane is the Phase-1
-  baseline, kept for comparison, and the dashed blue box is planned for Phase~4. Fitting (green band) uses only
-  BDD100K train; grading uses BDD100K val and DAWN.}
+  \caption{Architecture, drawn with real data. Online (top): a camera frame (here BDD100K val, rain at night)
+  goes through the frozen YOLOv8x, which returns 201 candidate boxes. The new part (orange) keeps each box's
+  YOLOv8x outputs (all 80 class probabilities, the box-edge DFL distributions, the neck feature) and combines
+  them with 20 context features into a calibrated chance $p(d)$. The box is kept iff $p(d) \ge 1/(1+\lambda)$.
+  At $\lambda = 10$ this frame keeps 9 of its 10 objects with 3 false alarms (green real, red false, orange
+  dashed missed); the default threshold 0.25 finds 6. The frame was chosen to illustrate; typical effect sizes
+  are in the result tables. Grey boxes are unchanged. The dashed grey lane is the Phase-1 baseline, kept for
+  comparison, and the dashed blue box is planned for Phase~4. Offline (green band), the dial is fitted once on
+  BDD100K train and graded on BDD100K val and DAWN; the plots show the cost curves behind $\tau(\lambda)$, the
+  $\beta \to \lambda$ map, the calibration, and the graded cost at $\lambda = 10$.}
   \label{fig:architecture}
 \end{figure}
 
