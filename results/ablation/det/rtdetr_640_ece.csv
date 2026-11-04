@@ -1,0 +1,16 @@
+dataset,group,model,ece,detector
+BDD100K,clear,model 1,0.000857132,rtdetr_640
+BDD100K,clear_night,model 1,0.00229657,rtdetr_640
+BDD100K,cloudy,model 1,0.000701927,rtdetr_640
+BDD100K,rain,model 1,0.00139339,rtdetr_640
+BDD100K,rain_night,model 1,0.00174121,rtdetr_640
+BDD100K,snow,model 1,0.00202336,rtdetr_640
+BDD100K,snow_night,model 1,0.00186022,rtdetr_640
+BDD100K,day,model 1,0.000597416,rtdetr_640
+BDD100K,night,model 1,0.00210011,rtdetr_640
+BDD100K,all,model 1,0.000891403,rtdetr_640
+DAWN,fog,model 1,0.00172573,rtdetr_640
+DAWN,rain,model 1,0.00471911,rtdetr_640
+DAWN,sand,model 1,0.00165914,rtdetr_640
+DAWN,snow,model 1,0.00453607,rtdetr_640
+DAWN,all,model 1,0.00203469,rtdetr_640

@@ -27,7 +27,9 @@ objectives not yet done.*
     the laptop;
   - 6, per-frame timing;
   - 7, tables and figures.
-- **Still open:** training on all 70,000 BDD100K train frames (needs about 3 GB more of BDD100K images).
+  - training on all BDD100K train frames (`wad/full_train.py`): 0.990x the adopted model's cost on BDD100K val, no
+    change on DAWN; the adopted model stays the subset's.
+- **Still open:** two-stage detectors (ablation d covered YOLOv8 sizes and resolutions and RT-DETR).
 
 | # | item | detail | effort |
 |---|---|---|---|

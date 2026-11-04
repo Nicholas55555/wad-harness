@@ -1,0 +1,1 @@
+scan: 70000 frames, 69998 kept (exact duplicates dropped), 861718 objects, 2908 s; per bin: {'clear': 12476, 'clear_night': 22929, 'cloudy': 11828, 'cloudy_night': 121, 'dusk': 5018, 'fog': 130, 'rain': 2532, 'rain_night': 2209, 'snow': 2873, 'snow_night': 2259, 'undefined_time': 139, 'undefined_weather': 7484}

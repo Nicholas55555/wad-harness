@@ -29,8 +29,10 @@ of all project docs, [`Docs/README.md`](Docs/README.md).
     [`results/ablation/dial_ablation.md`](results/ablation/dial_ablation.md);
   - per-condition recalibration (b):
     [`results/ablation/dial_recalibration.md`](results/ablation/dial_recalibration.md);
-  - other detectors and resolutions (d), YOLOv8x @640 and YOLOv8s @640 / @1280:
+  - other detectors, resolutions and families (d), YOLOv8x @640, YOLOv8s @640 / @1280 and RT-DETR-l @640:
     [`results/ablation/detector_ablation.md`](results/ablation/detector_ablation.md).
+  - training on all 69,998 BDD100K train frames instead of the 21,831-frame subset:
+    [`results/ablation/full_train.md`](results/ablation/full_train.md).
 - **The paper's tables and figures:** made by `python -m wad.phase4_paper` into `Docs/latex/phase4/`.
 - **Write-up:** [`Docs/14_phase4_experiments.md`](Docs/14_phase4_experiments.md).
 - **Trained components and run logs:** [`checkpoints/`](checkpoints/) and [`logs/`](logs/).
@@ -40,6 +42,8 @@ of all project docs, [`Docs/README.md`](Docs/README.md).
 .venv/Scripts/python.exe -m wad.dial_ablation        # refits of the per-detection model (CPU, ~45 min)
 .venv/Scripts/python.exe -m wad.dial_recalibration   # ablation (b): per-condition isotonic maps, 200 splits (CPU, ~15 min)
 bash scripts/run_detector_ablation.sh                # ablation (d): detection + per-box passes (GPU), fits, report
+.venv/Scripts/python.exe -m wad.full_train names     # all BDD100K train frames: list, then fetch (scripts/get_bdd100k.py)
+bash scripts/run_full_train.sh                       #   scan, GPU passes for the new frames, fit and grading
 .venv/Scripts/python.exe -m wad.phase4_paper         # LaTeX tables and figures of the Experiments section
 ```
 
@@ -496,7 +500,7 @@ Windows 11, AMD Ryzen 7 4800H, CPU-only torch:
 | `run_all.py --from-cache` | 69 s |
 | `run_all.py --smoke` (20 images) | 76 s |
 | `python -m wad.sensitivity` (YOLOv8s at imgsz 1280, detection included) | ~7 min |
-| `pytest tests` (91 tests at run 1; 167 now, about 2 min) | 3 s |
+| `pytest tests` (91 tests at run 1; 168 now, about 2 min) | 3 s |
 
 Per-phase timings of the last run are in `results/run_timing.json`. Detection is
 deterministic: a forced rerun reproduced `detections.parquet` bit for bit, and two
@@ -528,8 +532,9 @@ wad/dial_demo.py     the interactive dial page (template wad/assets/dial_demo.ht
 wad/crc_lambda.py    Phase 4: CRC over the dial λ vs per-weather CRC over the score, same 200 splits (PREREG_crc_lambda.md)
 wad/dial_ablation.py Phase 4: refits of the per-detection model (feature groups, training-set size)
 wad/dial_recalibration.py  Phase 4 ablation (b): per-condition isotonic recalibration of the chance, 200 splits
-wad/detector_ablation.py   Phase 4 ablation (d): the whole dial pipeline for YOLOv8x @640, YOLOv8s @640 and @1280
+wad/detector_ablation.py   Phase 4 ablation (d): the whole dial pipeline for YOLOv8x @640, YOLOv8s @640 / @1280, RT-DETR-l
 wad/dial_runtime.py  Phase 4: per-frame timing of the per-detection rule
+wad/full_train.py    Phase 4: the per-detection model refitted on all BDD100K train frames (training-data check)
 wad/phase4_paper.py  Phase 4: the Experiments section's LaTeX tables and figures (Docs/latex/phase4/)
 checkpoints/         the trained per-detection models and dial tables (copies of weights/), with a README
 logs/                logs of the GPU passes (BDD100K train detection, per-box outputs, the detector ablation)
@@ -544,7 +549,7 @@ wad/threshold_headroom.py, threshold_budget.py, threshold_noise.py, graded_respo
 scripts/run_all.py   one command, cache -> results
 scripts/get_dawn.py  verified DAWN download
 scripts/get_bdd100k.py  the parts of BDD100K this project uses, from the official host
-tests/               pytest suite, 167 tests (matching, loss monotonicity, CRC rule, curves, hazard isolation, the dial, CRC over λ, ablations b and d)
+tests/               pytest suite, 168 tests (matching, loss monotonicity, CRC rule, curves, hazard isolation, the dial, CRC over λ, ablations b and d, the all-frames run)
 ```
 
 `data/`, `cache/` and `weights/` are git-ignored, as the brief specifies. The cache is small

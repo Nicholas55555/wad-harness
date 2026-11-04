@@ -108,3 +108,11 @@ Exploratory (PREREG_crc_lambda.md). Run 2's 200 calibration/test splits; maps fi
 | DAWN | rain | train | 0.0133 | 0.088 / 0.087 | 0.248 / 0.239 |
 | DAWN | sand | train | 0.0100 | 0.090 / 0.158 | 0.249 / 0.298 |
 | DAWN | snow | train | 0.0106 | 0.086 / 0.113 | 0.255 / 0.342 |
+
+## CRC over lambda after recalibration (alpha 0.2, per bin, first 10 splits)
+
+- pooled false alarms, condition map / raw: 1.069 (per split 1.035-1.129); objects found: 1.0064
+- per bin and split: median false-alarm ratio 1.072; higher in 82% of 110
+- mean held-out miss, raw 0.203 at most, condition map 0.200 at most
+- the map's flat steps tie neighbouring boxes, so the conformal cut can only move in coarser blocks and stops
+  earlier: the same guarantee for more false alarms.

@@ -147,11 +147,14 @@ def tab_detectors() -> str:
     r = pd.read_csv(ABL / "detector_ablation_ratio.csv")
     d = pd.read_csv(ABL / "detector_ablation_data.csv").set_index(["detector", "set"])
     m = pd.read_csv(ABL / "detector_ablation_min_alpha.csv")
-    labels = {ADOPTED["det_id"]: "YOLOv8x @1280 (adopted)", **{k: v["label"] for k, v in DETS.items()}}
+    labels = {ADOPTED["det_id"]: "YOLOv8x @1280 (adopted)",
+              **{k: v["label"] + ("" if v.get("per_box", True) else r"$^\dagger$") for k, v in DETS.items()}}
     out = []
     for det in [ADOPTED["det_id"]] + [k for k in DETS if k in set(e.index.get_level_values(0))]:
-        def cost(ds, grp, pol="per detection (model 2)", ci=True):
-            x = e.loc[(det, ds, grp, pol)]
+        per_box = DETS.get(det, {}).get("per_box", True)  # without per-box outputs the per-detection rule is model 1
+
+        def cost(ds, grp, pol=None, ci=True):
+            x = e.loc[(det, ds, grp, pol or ("per detection (model 2)" if per_box else "per detection (model 1)"))]
             return f"{x.cost_vs_one:.3f}" + (f" ({x.ci_lo:.3f}--{x.ci_hi:.3f})" if ci else "")
         one = e.loc[(det, "BDD100K", "all", "one threshold (train)")].cost_vs_adopted_one
         ss = s[(s.detector == det) & (s.scope == "per_bin")]
@@ -176,7 +179,26 @@ def tab_data() -> str:
         "fog 130, dawn/dusk 1{,}996; night: clear 4{,}300, rain 2{,}000, snow 2{,}000 \\\\",
         "BDD100K val & test & 8{,}090 & 97{,}745 & 1{,}178{,}828 & clear 1{,}764, cloudy 1{,}676, rain 395, snow 422; night: clear 3{,}274, "
         "rain 286, snow 273 \\\\",
-        "DAWN (clean labels) & test & 889 & 6{,}952 & 49{,}814 & fog 256, rain 187, sand 243, snow 203 \\\\"])
+        "DAWN (clean labels) & test & 889 & 6{,}952 & 49{,}814 & fog 256, rain 187, sand 243, snow 203 \\\\"]
+        + _full_train_row())
+
+
+def _full_train_row() -> list:
+    """All BDD100K train frames (wad.full_train), once that run has finished: counts from its results and scan."""
+    import json
+
+    if not (ABL / "full_train_data.csv").exists():
+        return []
+    d = pd.read_csv(ABL / "full_train_data.csv", header=None, index_col=0)[1]
+    b = json.loads((REPO / "cache" / "thresh_full" / "data_report.json").read_text(encoding="utf-8"))["images_per_bin_kept"]
+
+    def n(x):
+        return f"{int(x):,}".replace(",", "{,}")
+    bins = (f"clear {n(b['clear'])}, cloudy {n(b['cloudy'])}, rain {n(b['rain'])}, snow {n(b['snow'])}, fog {n(b['fog'])}, "
+            f"dawn/dusk {n(b['dusk'])}, weather undefined {n(b['undefined_weather'])}; night: clear {n(b['clear_night'])}, "
+            f"rain {n(b['rain_night'])}, snow {n(b['snow_night'])}, cloudy {n(b['cloudy_night'])}; time undefined "
+            f"{n(b['undefined_time'])}")
+    return [f"BDD100K train (all frames) & check & {n(d['frames'])} & {n(d['objects'])} & {n(d['detections'])} & {bins} \\\\"]
 
 
 # ------------------------------------------------------------------------------------------------ figures
@@ -251,15 +273,27 @@ def fig_training():
     full = a[(a.fraction == 1) & a.variant.str.startswith("model 2 (adopted")]
     rows = pd.concat([a[a.fraction < 1], full])
     xs = rows.groupby("fraction").train_images.mean()
+    full_train = None
+    if (ABL / "full_train_eval.csv").exists():  # all BDD100K train frames (wad.full_train), same reference threshold
+        ft = pd.read_csv(ABL / "full_train_eval.csv")
+        ft = ft[(ft.lam == 10) & (ft.group == "all") & (ft.one_threshold_from == "adopted (subset)")
+                & (ft.policy == "per detection (model 2, all train)")].set_index("dataset").cost_vs_one
+        frames = pd.read_csv(ABL / "full_train_data.csv", header=None, index_col=0)[1]["frames"]
+        full_train = (float(frames), ft)
     for key, col, lab in (("BDD100K_all_lam10_cost", "#2F6FDB", "BDD100K val"), ("DAWN_all_lam10_cost", "#2BA36B", "DAWN")):
         g = rows.groupby("fraction")[key].mean()
         a2.plot(xs.loc[g.index], g.values, "-o", color=col, ms=3, lw=1.2, label=lab)
         a2.scatter(rows.train_images, rows[key], s=6, color=col, alpha=0.45, lw=0)
+        if full_train is not None:
+            y = full_train[1][key.split("_")[0]]
+            a2.plot([xs.loc[1.0], full_train[0]], [g.loc[1.0], y], ":", color=col, lw=1.0)
+            a2.plot([full_train[0]], [y], "D", mfc="white", mec=col, ms=3.5, mew=1.0)
     a2.set_xscale("log")
-    a2.set_xticks(xs.values, [f"{v / 1000:.1f}k" if v < 10000 else f"{v / 1000:.0f}k" for v in xs.values])
+    ticks = list(xs.values) + ([full_train[0]] if full_train is not None else [])
+    a2.set_xticks(ticks, [f"{v / 1000:.1f}k" if v < 10000 else f"{v / 1000:.0f}k" for v in ticks])
     a2.minorticks_off()
     a2.axhline(1, color=GREY, lw=0.8, ls="--")
-    a2.set_xlabel("train images (10, 25, 50, 100%)")
+    a2.set_xlabel("train images (10, 25, 50, 100%" + (r"; all $\diamond$)" if full_train is not None else ")"))
     a2.set_ylabel("cost vs one threshold")
     a2.set_title("(b) learning curve, $\\lambda$ = 10", pad=3)
     a2.legend(frameon=False, loc="upper right")
@@ -354,11 +388,19 @@ def fig_logs():
             cells = [c.strip() for c in l.strip("|").split("|")]
             crc.append(f"{cells[0]} -> {cells[1]} -> {cells[2]}")
     det = [l for l in read(ABL / "detector_ablation.log")
-           if (" detections, " in l and " real, " in l) or " model 2: " in l or "check passed" in l or ": done, " in l]
+           if (" detections, " in l and " real, " in l) or " model 2: " in l or "check passed" in l or ": done, " in l
+           or (l.startswith("rtdetr") and " model 1: " in l)]
     blocks = [("python -m wad.per_detection --features yolo   (training the per-detection model)", train),
               ("python -m wad.dial_ablation   (ablations: refits on BDD100K train, graded on BDD100K val / DAWN)", abl),
               ("python -m wad.crc_lambda   (pre-registered: CRC over lambda vs the per-weather baseline, 200 splits)", crc),
-              ("python -m wad.detector_ablation fit   (ablation d: the pipeline refitted for three other detectors)", det)]
+              ("python -m wad.detector_ablation fit   (ablation d: the pipeline refitted for four other detectors)", det)]
+    if (ABL / "full_train.log").exists():  # training on all BDD100K train frames: the passes, then the (last) fit
+        ft = read(ABL / "full_train.log")
+        last = max(i for i, l in enumerate(ft) if l.startswith("features:"))
+        keep = [l.split("; per bin")[0] for l in ft[:last] if l.startswith(("scan:", "detection done", "per-box outputs done"))]
+        keep += [l for l in ft[last:] if l.startswith(("features:", "model 1:", "model 2:", "BDD100K: graded", "DAWN: graded",
+                                                      "- pooled false-alarm", "done,"))]
+        blocks.append(("python -m wad.full_train scan / gpu / fit   (the model refitted on all 69,998 BDD100K train frames)", keep))
     text = []
     for title, lines in blocks:
         text.append("$ " + title)

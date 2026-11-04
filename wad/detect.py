@@ -65,9 +65,11 @@ def sha256_file(path: Path) -> str:
 
 
 def load_model(cfg: Cfg):
-    from ultralytics import YOLO
+    from ultralytics import RTDETR, YOLO
 
-    return YOLO(str(ensure_weights(cfg)))
+    # RT-DETR (Phase 4 ablation d) needs its own predictor: set prediction, no NMS (nms_iou and max_det unused)
+    cls = RTDETR if cfg.detector.name.startswith("rtdetr") else YOLO
+    return cls(str(ensure_weights(cfg)))
 
 
 def predict_one(model, cfg: Cfg, image_id: str, path: str, device: str) -> tuple[pd.DataFrame, tuple[int, int]]:

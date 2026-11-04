@@ -14,7 +14,8 @@ frames).
 | `per_detection.joblib` | model 1, the 20 context features only (the ablation baseline) | `python -m wad.per_detection --features context` |
 | `one_threshold_table.csv` | option A: the exact switch points λ → threshold (258 rows) | `python -m wad.one_threshold` |
 | `fbeta_table.csv` | the F-score map β → λ_eq for both options | `python -m wad.fbeta_dial` |
-| `det_ablation/v8x_640.joblib`, `v8s_640.joblib`, `v8s_1280.joblib` | ablation (d): model 1 and model 2 refitted for YOLOv8x @640, YOLOv8s @640 and YOLOv8s @1280 (dict with `models` = {name: (model, columns)}, the neck PCA and the detector settings). YOLOv8s weights: `yolov8s.pt`, SHA-256 `1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a` | `python -m wad.detector_ablation fit` |
+| `per_detection_yolo_full.joblib` | model 2 (and model 1, as `model1`) refitted on all 69,998 BDD100K train frames (10.3 M detections, 142 iterations); a training-data check, not the adopted model | `python -m wad.full_train fit` |
+| `det_ablation/v8x_640.joblib`, `v8s_640.joblib`, `v8s_1280.joblib`, `rtdetr_640.joblib` | ablation (d): model 1 and model 2 refitted for YOLOv8x @640, YOLOv8s @640 and YOLOv8s @1280, and model 1 for RT-DETR-l @640 (dict with `models` = {name: (model, columns)}, the neck PCA and the detector settings). Weights: `yolov8s.pt`, SHA-256 `1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a`; `rtdetr-l.pt`, SHA-256 `6de60b10d4bc566f00cda0f5b4d64afe4b66d48dc9695d2171effb7859d8e73f` | `python -m wad.detector_ablation fit` |
 
 **Using them:**
 1. Copy the files into `weights/`, which is where the code looks.
@@ -25,7 +26,8 @@ frames).
 - `results/threshold/per_detection_yolo.log`: training model 2.
 - `results/ablation/dial_ablation.log`: the Phase 4 refits.
 - `results/ablation/dial_recalibration.log`: ablation (b), per-condition recalibration.
-- `results/ablation/detector_ablation.log`: ablation (d), the three other detectors.
+- `results/ablation/detector_ablation.log`: ablation (d), the four other detectors.
+- `results/ablation/full_train.log`: training on all BDD100K train frames.
 - `results/crc_lambda/crc_lambda.log`: the Phase 4 CRC comparison.
 - `logs/`: the GPU passes (detection and per-box outputs), including `detector_ablation_gpu.log`.
 

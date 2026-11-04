@@ -52,3 +52,18 @@ def test_detector_ablation_never_writes_into_run2_or_adopted_caches():
             assert v.detector.name == DETS[d]["name"] and v.detector.imgsz == DETS[d]["imgsz"]
             assert "v8x_1280" not in str(v.paths.detections)
         assert cf["DAWN"].paths.detections == REPO / "cache" / "det" / d  # never run 1's CPU pass (cache/)
+
+
+def test_full_train_keeps_subset_ids_and_its_own_caches():
+    from wad.full_train import CACHE, cfg
+    from wad.thresh_net import TRAIN_BINS
+    from wad.thresh_net import cfg as subset_cfg
+
+    v, s = cfg(), subset_cfg()
+    for b, spec in TRAIN_BINS.items():  # same bins, so the subset's frames keep their image ids (and detections)
+        assert v.data.bins[b] == spec
+    keys = [(w, t) for spec in v.data.bins.values() for w in spec["weather"] for t in spec["timeofday"]]
+    assert len(keys) == len(set(keys)) == 7 * 4  # every BDD100K weather x time-of-day pair, each in one bin
+    for k in ("cache", "detections", "data_cache"):
+        assert CACHE in [v.paths[k], *v.paths[k].parents] and v.paths[k] != s.paths[k]
+    assert v.detector == s.detector

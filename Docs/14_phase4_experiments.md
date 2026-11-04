@@ -43,7 +43,7 @@ trained and tested against the Phase 1 baseline on the same test data. Everythin
 | training evidence: a loss curve or log | Fig. `fig_p4_training` (log-loss per iteration, learning curve); Fig. `fig_p4_logs` (log excerpts) | §V-E |
 | a qualitative figure | Fig. `fig_p4_qualitative` (4 conditions × baseline / ours) | §V-F |
 | discussion: what worked, what didn't, why | | §V-I |
-| ablation (optional) | all five planned ablations: Table `tab:ablation` (feature groups, training-set size), Table `tab:recal` (per-condition recalibration), Table `tab:detectors` (YOLOv8x @640, YOLOv8s @640 / @1280), and the CRC comparison itself (e) | §V-G |
+| ablation (optional) | all five planned ablations, plus training on all BDD100K train frames (`fig_p4_training` and the last row of Table `tab:data`): Table `tab:ablation` (feature groups, training-set size), Table `tab:recal` (per-condition recalibration), Table `tab:detectors` (YOLOv8x @640, YOLOv8s @640 / @1280), and the CRC comparison itself (e) | §V-G |
 | GitHub repo with training and evaluation code; logs and checkpoints | https://github.com/Nicholas55555/wad-harness, with `checkpoints/`, `logs/` and `results/*/*.log` | text box (§8) |
 
 ## 2. Data and splits
@@ -200,8 +200,36 @@ the adopted model exactly (identical probabilities). Each cell is the cost at λ
 - **DFL entropies and the pyramid level add nothing measurable.**
 - **The neck components help on BDD100K but hurt on DAWN** (they encode BDD100K's cameras). A model for new cameras
   may be better off without them.
-- **More data still helps,** and the curve has not flattened. Training on all 70,000 BDD100K train frames is the
-  obvious next step.
+- **More data still helps,** and the curve has not flattened. Training on all BDD100K train frames, below,
+  confirms it on BDD100K.
+
+### Training on all BDD100K train frames (ablation c, extended)
+
+The adopted model was fitted on a 21,831-frame subset. Here the same model is refitted on all 69,998 usable
+train frames, 10.3 M detections. The run is `python -m wad.full_train names`, the fetch script, then
+`bash scripts/run_full_train.sh`. Results are in `results/ablation/full_train.md`.
+
+Compute:
+- a 2.8 GB download of the 48,169 missing frames;
+- a 48 min scan;
+- 4.9 h of GPU time for detection and per-box outputs. The subset's 21,829 frames were copied, not recomputed,
+  and every new box matched;
+- 26 min of CPU to fit and grade.
+
+The adopted model and all pre-registered results stay the subset's.
+
+| | all train frames | subset (adopted) |
+|---|---|---|
+| model 2 boosting iterations | 142 | 107 |
+| BDD100K val, cost vs one threshold (λ = 10) | **0.901** (0.896–0.905) | 0.910 (0.906–0.915) |
+| BDD100K val, cost vs the adopted model (λ = 10) | 0.990 (0.987–0.992), below 1 at every λ | 1 |
+| BDD100K val, ECE (points) | 0.07 | 0.11 |
+| DAWN, cost vs the adopted model (λ = 10) | 1.007 (0.995–1.020) | 1 |
+| CRC over λ, pooled FA ratio vs baseline (α = 0.2) | 0.587 (0.567–0.615), 11 of 11 hold | 0.610 (0.589–0.633) |
+
+**Reading:** three times more BDD100K frames lowers the cost on BDD100K val by 1% and tightens calibration, as the
+learning curve predicted. It does nothing for DAWN: more frames from BDD100K's cameras do not help with another
+camera, which matches ablation (b).
 
 ### Ablation (b): per-condition recalibration
 
@@ -236,13 +264,19 @@ interval. The last column shows the boxes near the cut, as mean chance / share r
 - **BDD100K is unchanged.** There p is already calibrated, and the maps give 0.99–1.01 in every bin and setting.
 - **Maps fitted on BDD100K train do not fix fog** (0.984, still 15.7% real near the cut). The shift comes from
   DAWN's camera, not from the weather label.
-- **So recalibration needs labelled frames from the new condition.** CRC over λ uses the same frames and does not
-  need recalibration: its cut depends on p only through the order of the chances within a condition, and a monotone
-  map keeps that order. An isotonic map can only tie neighbouring boxes.
+- **So recalibration needs labelled frames from the new condition.** CRC over λ already uses those frames.
+- **Recalibration does not help CRC over λ; it slightly hurts it.** CRC's cut depends on p only through the order of
+  the chances within a condition.
+  - An isotonic map keeps that order, but its flat steps tie neighbouring boxes, so the conformal cut moves in
+    coarser blocks.
+  - On the first 10 splits, recalibrating first cost 6.9% more false alarms (3.5–12.9% per split) for 0.6% more
+    objects, with the same guarantee.
+  - The check is `python -m wad.dial_recalibration crc`.
 
-### Ablation (d): other detectors and resolutions
+### Ablation (d): other detectors, resolutions and families
 
-The whole pipeline is rerun for YOLOv8x @640, YOLOv8s @640 and YOLOv8s @1280; only the detector changes. Each
+The whole pipeline is rerun for YOLOv8x @640, YOLOv8s @640, YOLOv8s @1280 and RT-DETR-l @640; only the detector
+changes. RT-DETR is a transformer detector of another family: it predicts a set of boxes and has no NMS. Each
 detector gets:
 - detection on the same frames;
 - grouped matching;
@@ -252,7 +286,10 @@ detector gets:
 - CRC over λ vs the per-weather baseline on run 2's 200 splits.
 
 The run is `bash scripts/run_detector_ablation.sh`:
-- **GPU:** 3.7 h for the detection and per-box passes, 57–92 min per detector.
+- **GPU:** 5.1 h in total. The YOLOv8 variants took 57–92 min each for detection and per-box passes. RT-DETR took
+  84 min, detection only, because its head has no anchor-level outputs.
+- **RT-DETR therefore runs with model 1 only (the 20 context features)**, for both the per-detection rule and CRC.
+  Its COCO weights (`rtdetr-l.pt`, 63 MB) come from Ultralytics' release page.
 - **CPU:** 17–18 min per detector for matching, fitting, grading and CRC.
 
 Results are in `results/ablation/detector_ablation.md`.
@@ -273,16 +310,24 @@ The table columns:
 | YOLOv8x @640 | 76.6% | 1.062 | 0.948 (0.945–0.951) | 0.947 | 0.913 (0.892–0.933) | 0.960 | 0.25 | 0.75 (0.73–0.78) | 0.164–0.245 |
 | YOLOv8s @640 | 70.0% | 1.317 | 0.956 (0.954–0.958) | 0.947 | 0.945 (0.932–0.959) | 0.963 | 0.35 | 0.70 (0.67–0.72) | 0.222–0.311 |
 | YOLOv8s @1280 | 83.3% | 1.130 | 0.927 (0.924–0.931) | 0.915 | 0.951 (0.938–0.965) | 0.945 | 0.25 | 0.61 (0.59–0.64) | 0.128–0.215 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | 86.3% | 1.114 | 0.860 (0.856–0.864) | 0.867 | 0.787 (0.762–0.811) | 0.860 | 0.20 | 0.53 (0.51–0.56) | 0.090–0.181 |
 
 **Reading:**
 - **The per-detection gain transfers.** For every detector, per detection beats its own one threshold at every graded
-  λ (1, 3, 10, 30): 0.90–0.96×, every interval below 1.
-  - Model 2 is at least as good as model 1 everywhere.
-  - Calibration holds: ECE 0.11–0.28 points on BDD100K val, 0.56–1.32 on DAWN.
-  - The gain on BDD100K is largest at 1280 px, where there are far more weak boxes to sort: 3.3–3.4 M train
-    detections against 1.4–1.9 M at 640 px.
+  λ (1, 3, 10, 30), with every interval below 1: 0.90–0.96× for the YOLOv8 variants, 0.78–0.92× for RT-DETR.
+  - For the YOLOv8 variants, model 2 is at least as good as model 1 everywhere.
+  - Calibration holds: ECE 0.09–0.28 points on BDD100K val, 0.20–1.32 on DAWN.
+  - Among the YOLOv8 variants, the gain on BDD100K is largest at 1280 px, where there are far more weak boxes to
+    sort: 3.3–3.4 M train detections against 1.4–1.9 M at 640 px.
+- **The other family gains the most.** RT-DETR's set prediction leaves near-copies of stronger boxes that NMS would
+  have removed.
+  - 52% of its boxes overlap a stronger box of the same group (IoU ≥ 0.5), and only 0.6% of those are real. After
+    YOLOv8x's NMS, such boxes are 2.6%.
+  - The context features flag the copies; one threshold cannot.
+  - With the per-detection rule, RT-DETR-l costs 0.96× YOLOv8x's one threshold on BDD100K val (0.95× on DAWN),
+    although its own one threshold costs 1.11× (1.20×).
 - **CRC over λ transfers.** For every detector it keeps the miss budget wherever the baseline does, and certifies it
-  with 0.61–0.75× the baseline's false alarms. The median ratio is below 1 in all 11 conditions.
+  with 0.53–0.75× the baseline's false alarms. At the table's α the median ratio is below 1 in all 11 conditions.
 - **The detector sets the floor.** Smaller or lower-resolution detectors never propose 17–30% of the BDD100K
   objects, against 14% for the adopted one.
   - So α = 0.2 can no longer be certified everywhere, whatever the keep rule.
@@ -314,15 +359,22 @@ the part to vectorize.
 - `main.tex` (new abstract; Experiments section included);
 - `sections/experiments.tex` (new);
 - `sections/tables/*.tex` (new);
-- `sections/methodology.tex` and `sections/introduction.tex` (small edits);
-- `figures/fig_p4_*.pdf` (new).
+- `sections/methodology.tex`, `sections/introduction.tex`, `sections/related_work.tex` and
+  `sections/experimental_setup.tex` (small edits);
+- `figures/fig_p4_*.pdf` (new);
+- `Per_Phase_Sections/Phase4_Experiments/` (new standalone Phase 4 document and its PDF).
+
+The zip `..\overleaf_phase4.zip` holds all of these; `PHASE4_UPLOAD.md` inside it lists every change.
 
 **Option 1:** compile on Overleaf and upload the PDF. The local preview `overleaf_phase4/main.pdf` is built with
 XeTeX, so its fonts differ from Overleaf's pdfLaTeX.
 
 **Text box:**
 - Overleaf link (editor access for the instructor).
-- GitHub: https://github.com/Nicholas55555/wad-harness, with training and evaluation code (`wad/per_detection.py`,
-  `wad/crc_lambda.py`, `wad/dial_ablation.py`), `checkpoints/` (trained models) and logs (`results/*/*.log`,
-  `logs/`).
+- GitHub: https://github.com/Nicholas55555/wad-harness, with:
+  - training and evaluation code: `wad/per_detection.py`, `wad/crc_lambda.py`, `wad/dial_ablation.py`,
+    `wad/dial_recalibration.py`, `wad/detector_ablation.py`;
+  - `checkpoints/`: the trained models, including the detector-ablation models in `checkpoints/det_ablation/`;
+  - logs: `results/*/*.log` and `logs/`.
+  - **Push the local commits first** so the link shows this code.
 - Phase 1 baseline reproduction: https://github.com/Nicholas55555/seqcrc-baseline.

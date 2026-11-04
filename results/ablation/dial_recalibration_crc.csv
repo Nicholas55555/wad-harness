@@ -1,0 +1,221 @@
+dataset,seed,bin,chance,image_loss,kept_real,false_alarms
+BDD100K,0,clear,raw,0.195179,9509,6969
+BDD100K,0,cloudy,raw,0.20716,9454,4384
+BDD100K,0,rain,raw,0.186482,1929,2018
+BDD100K,0,snow,raw,0.21342,2178,1374
+BDD100K,0,clear_night,raw,0.207012,13132,54021
+BDD100K,0,rain_night,raw,0.175438,1088,10626
+BDD100K,0,snow_night,raw,0.213272,1085,3370
+BDD100K,0,clear,condition map,0.185773,9636,8394
+BDD100K,0,cloudy,condition map,0.206409,9462,4439
+BDD100K,0,rain,condition map,0.18604,1931,2030
+BDD100K,0,snow,condition map,0.203795,2204,1620
+BDD100K,0,clear_night,condition map,0.206052,13149,55065
+BDD100K,0,rain_night,condition map,0.171713,1095,11397
+BDD100K,0,snow_night,condition map,0.205468,1095,3632
+BDD100K,1,clear,raw,0.205216,9230,6163
+BDD100K,1,cloudy,raw,0.203101,9383,4643
+BDD100K,1,rain,raw,0.241082,1837,1331
+BDD100K,1,snow,raw,0.210464,2079,1388
+BDD100K,1,clear_night,raw,0.186157,13503,64745
+BDD100K,1,rain_night,raw,0.151274,1130,14517
+BDD100K,1,snow_night,raw,0.170669,1114,4223
+BDD100K,1,clear,condition map,0.191053,9404,7984
+BDD100K,1,cloudy,condition map,0.201545,9405,4801
+BDD100K,1,rain,condition map,0.240052,1840,1348
+BDD100K,1,snow,condition map,0.211276,2076,1353
+BDD100K,1,clear_night,condition map,0.178885,13610,73793
+BDD100K,1,rain_night,condition map,0.150638,1131,15206
+BDD100K,1,snow_night,condition map,0.16602,1123,4959
+BDD100K,2,clear,raw,0.191469,9397,7046
+BDD100K,2,cloudy,raw,0.19008,9464,5020
+BDD100K,2,rain,raw,0.198653,1916,1903
+BDD100K,2,snow,raw,0.218953,2170,1263
+BDD100K,2,clear_night,raw,0.195582,13393,58221
+BDD100K,2,rain_night,raw,0.17488,1087,10601
+BDD100K,2,snow_night,raw,0.228818,995,2631
+BDD100K,2,clear,condition map,0.181496,9521,8322
+BDD100K,2,cloudy,condition map,0.188086,9491,5157
+BDD100K,2,rain,condition map,0.198653,1916,1910
+BDD100K,2,snow,condition map,0.211187,2196,1536
+BDD100K,2,clear_night,condition map,0.195067,13402,58880
+BDD100K,2,rain_night,condition map,0.170807,1094,11331
+BDD100K,2,snow_night,condition map,0.229305,994,2622
+BDD100K,3,clear,raw,0.205349,9149,6170
+BDD100K,3,cloudy,raw,0.204155,9190,4504
+BDD100K,3,rain,raw,0.16622,1997,2479
+BDD100K,3,snow,raw,0.206133,2158,1434
+BDD100K,3,clear_night,raw,0.200783,13187,56189
+BDD100K,3,rain_night,raw,0.14951,1215,15629
+BDD100K,3,snow_night,raw,0.194458,1087,3569
+BDD100K,3,clear,condition map,0.195133,9273,7461
+BDD100K,3,cloudy,condition map,0.202052,9218,4654
+BDD100K,3,rain,condition map,0.163972,2005,2700
+BDD100K,3,snow,condition map,0.201168,2172,1623
+BDD100K,3,clear_night,condition map,0.198068,13231,58516
+BDD100K,3,rain_night,condition map,0.14951,1215,15645
+BDD100K,3,snow_night,condition map,0.187216,1096,4099
+BDD100K,4,clear,raw,0.183489,9553,7626
+BDD100K,4,cloudy,raw,0.206911,9496,4454
+BDD100K,4,rain,raw,0.202739,2008,1777
+BDD100K,4,snow,raw,0.210266,2247,1482
+BDD100K,4,clear_night,raw,0.204213,13466,55482
+BDD100K,4,rain_night,raw,0.1651,1127,11039
+BDD100K,4,snow_night,raw,0.23135,1029,2651
+BDD100K,4,clear,condition map,0.179365,9599,8160
+BDD100K,4,cloudy,condition map,0.203978,9537,4748
+BDD100K,4,rain,condition map,0.203727,2005,1732
+BDD100K,4,snow,condition map,0.206267,2259,1592
+BDD100K,4,clear_night,condition map,0.197362,13580,61564
+BDD100K,4,rain_night,condition map,0.159614,1135,13065
+BDD100K,4,snow_night,condition map,0.227247,1039,3350
+BDD100K,5,clear,raw,0.213889,9397,5918
+BDD100K,5,cloudy,raw,0.202768,9446,4435
+BDD100K,5,rain,raw,0.198514,1981,1871
+BDD100K,5,snow,raw,0.19536,2158,1556
+BDD100K,5,clear_night,raw,0.207484,13183,54067
+BDD100K,5,rain_night,raw,0.236287,1053,6974
+BDD100K,5,snow_night,raw,0.194983,1078,3725
+BDD100K,5,clear,condition map,0.211134,9433,6194
+BDD100K,5,cloudy,condition map,0.19398,9557,5101
+BDD100K,5,rain,condition map,0.190996,2002,2118
+BDD100K,5,snow,condition map,0.191724,2169,1655
+BDD100K,5,clear_night,condition map,0.207484,13183,54150
+BDD100K,5,rain_night,condition map,0.218604,1077,8252
+BDD100K,5,snow_night,condition map,0.194112,1080,3885
+BDD100K,6,clear,raw,0.193912,9612,7276
+BDD100K,6,cloudy,raw,0.204195,9334,4444
+BDD100K,6,rain,raw,0.228879,1888,1417
+BDD100K,6,snow,raw,0.179592,2288,1819
+BDD100K,6,clear_night,raw,0.200146,13532,57440
+BDD100K,6,rain_night,raw,0.188268,1079,9482
+BDD100K,6,snow_night,raw,0.162133,1113,4874
+BDD100K,6,clear,condition map,0.183049,9753,8833
+BDD100K,6,cloudy,condition map,0.205377,9320,4322
+BDD100K,6,rain,condition map,0.225788,1897,1532
+BDD100K,6,snow,condition map,0.168986,2315,2130
+BDD100K,6,clear_night,condition map,0.195138,13615,61987
+BDD100K,6,rain_night,condition map,0.182007,1090,10683
+BDD100K,6,snow_night,condition map,0.158908,1118,5330
+BDD100K,7,clear,raw,0.19062,9401,7095
+BDD100K,7,cloudy,raw,0.203811,9488,4624
+BDD100K,7,rain,raw,0.20404,1858,1737
+BDD100K,7,snow,raw,0.187287,2230,1583
+BDD100K,7,clear_night,raw,0.218469,12854,47891
+BDD100K,7,rain_night,raw,0.196505,1113,9343
+BDD100K,7,snow_night,raw,0.196349,1066,3495
+BDD100K,7,clear,condition map,0.179165,9540,8379
+BDD100K,7,cloudy,condition map,0.205237,9470,4496
+BDD100K,7,rain,condition map,0.202346,1863,1817
+BDD100K,7,snow,condition map,0.187081,2231,1594
+BDD100K,7,clear_night,condition map,0.21596,12908,49887
+BDD100K,7,rain_night,condition map,0.18565,1126,10808
+BDD100K,7,snow_night,condition map,0.196911,1065,3459
+BDD100K,8,clear,raw,0.191642,9506,7278
+BDD100K,8,cloudy,raw,0.191127,9247,4873
+BDD100K,8,rain,raw,0.193966,1989,1975
+BDD100K,8,snow,raw,0.219008,2204,1318
+BDD100K,8,clear_night,raw,0.199269,13616,58370
+BDD100K,8,rain_night,raw,0.203327,1092,8019
+BDD100K,8,snow_night,raw,0.223821,975,2715
+BDD100K,8,clear,condition map,0.180554,9644,8594
+BDD100K,8,cloudy,condition map,0.188826,9280,5158
+BDD100K,8,rain,condition map,0.189478,1998,2142
+BDD100K,8,snow,condition map,0.208453,2237,1584
+BDD100K,8,clear_night,condition map,0.199526,13611,58147
+BDD100K,8,rain_night,condition map,0.188717,1111,10525
+BDD100K,8,snow_night,condition map,0.201916,1005,3774
+BDD100K,9,clear,raw,0.198373,9577,6808
+BDD100K,9,cloudy,raw,0.190988,9167,4915
+BDD100K,9,rain,raw,0.206606,1859,1675
+BDD100K,9,snow,raw,0.183957,2219,1708
+BDD100K,9,clear_night,raw,0.196943,13250,58749
+BDD100K,9,rain_night,raw,0.164603,1124,11604
+BDD100K,9,snow_night,raw,0.217035,1016,3043
+BDD100K,9,clear,condition map,0.184696,9756,8618
+BDD100K,9,cloudy,condition map,0.189084,9189,5060
+BDD100K,9,rain,condition map,0.203803,1867,1807
+BDD100K,9,snow,condition map,0.185068,2216,1684
+BDD100K,9,clear_night,condition map,0.196222,13262,59421
+BDD100K,9,rain_night,condition map,0.164603,1124,11809
+BDD100K,9,snow_night,condition map,0.206917,1031,3543
+DAWN,0,fog,raw,0.151235,756,1004
+DAWN,0,rain,raw,0.181554,644,226
+DAWN,0,sand,raw,0.167618,766,232
+DAWN,0,snow,raw,0.171409,811,148
+DAWN,0,fog,condition map,0.142685,762,1163
+DAWN,0,rain,condition map,0.168165,668,321
+DAWN,0,sand,condition map,0.150327,790,346
+DAWN,0,snow,condition map,0.168818,816,156
+DAWN,1,fog,raw,0.157049,676,873
+DAWN,1,rain,raw,0.123545,751,300
+DAWN,1,sand,raw,0.20573,638,132
+DAWN,1,snow,raw,0.180129,725,139
+DAWN,1,fog,condition map,0.148976,682,1073
+DAWN,1,rain,condition map,0.122919,752,324
+DAWN,1,sand,condition map,0.194734,654,163
+DAWN,1,snow,condition map,0.176482,730,149
+DAWN,2,fog,raw,0.210999,706,323
+DAWN,2,rain,raw,0.142358,720,328
+DAWN,2,sand,raw,0.167582,647,223
+DAWN,2,snow,raw,0.220998,713,107
+DAWN,2,fog,condition map,0.211312,705,315
+DAWN,2,rain,condition map,0.141852,721,329
+DAWN,2,sand,condition map,0.166411,648,231
+DAWN,2,snow,condition map,0.213874,723,123
+DAWN,3,fog,raw,0.11915,765,1675
+DAWN,3,rain,raw,0.142971,640,256
+DAWN,3,sand,raw,0.169233,654,222
+DAWN,3,snow,raw,0.12563,823,234
+DAWN,3,fog,condition map,0.11915,765,1667
+DAWN,3,rain,condition map,0.141595,642,268
+DAWN,3,sand,condition map,0.169233,654,220
+DAWN,3,snow,condition map,0.130887,820,226
+DAWN,4,fog,raw,0.183182,807,606
+DAWN,4,rain,raw,0.244515,564,109
+DAWN,4,sand,raw,0.148023,721,291
+DAWN,4,snow,raw,0.184903,639,133
+DAWN,4,fog,condition map,0.182835,809,694
+DAWN,4,rain,condition map,0.244106,565,112
+DAWN,4,sand,condition map,0.132697,740,362
+DAWN,4,snow,condition map,0.167706,667,171
+DAWN,5,fog,raw,0.226731,679,278
+DAWN,5,rain,raw,0.21491,621,164
+DAWN,5,sand,raw,0.165551,704,241
+DAWN,5,snow,raw,0.16055,757,163
+DAWN,5,fog,condition map,0.226731,679,279
+DAWN,5,rain,condition map,0.20165,627,191
+DAWN,5,sand,condition map,0.166637,702,236
+DAWN,5,snow,condition map,0.137483,803,250
+DAWN,6,fog,raw,0.192113,732,485
+DAWN,6,rain,raw,0.263076,516,89
+DAWN,6,sand,raw,0.210341,641,141
+DAWN,6,snow,raw,0.177128,771,158
+DAWN,6,fog,condition map,0.192113,732,483
+DAWN,6,rain,condition map,0.253016,523,107
+DAWN,6,sand,condition map,0.210341,641,139
+DAWN,6,snow,condition map,0.178044,768,155
+DAWN,7,fog,raw,0.273651,662,193
+DAWN,7,rain,raw,0.231627,535,123
+DAWN,7,sand,raw,0.213102,696,155
+DAWN,7,snow,raw,0.207472,718,124
+DAWN,7,fog,condition map,0.273651,662,192
+DAWN,7,rain,condition map,0.23359,533,122
+DAWN,7,sand,condition map,0.195147,725,205
+DAWN,7,snow,condition map,0.181879,761,189
+DAWN,8,fog,raw,0.168456,820,906
+DAWN,8,rain,raw,0.137354,680,305
+DAWN,8,sand,raw,0.17802,792,202
+DAWN,8,snow,raw,0.186552,774,148
+DAWN,8,fog,condition map,0.165603,823,1135
+DAWN,8,rain,condition map,0.137354,680,306
+DAWN,8,sand,condition map,0.17802,792,205
+DAWN,8,snow,condition map,0.179225,793,168
+DAWN,9,fog,raw,0.20097,665,389
+DAWN,9,rain,raw,0.223671,572,112
+DAWN,9,sand,raw,0.216546,610,119
+DAWN,9,snow,raw,0.27887,683,58
+DAWN,9,fog,condition map,0.20097,665,386
+DAWN,9,rain,condition map,0.223993,571,112
+DAWN,9,sand,condition map,0.206861,621,156
+DAWN,9,snow,condition map,0.269911,695,69

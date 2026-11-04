@@ -1,7 +1,9 @@
 """Ablation (d) of Phase 4 (exploratory; PREREG_crc_lambda.md lists it): does the dial transfer to other
-detectors and input resolutions?
+detectors, input resolutions and detector families?
 
-For YOLOv8x @640, YOLOv8s @640 and YOLOv8s @1280 the adopted pipeline is rerun with only the detector changed:
+For YOLOv8x @640, YOLOv8s @640, YOLOv8s @1280 and RT-DETR-l @640 (a transformer detector with set prediction and no
+NMS; it has no anchor-level head outputs, so it runs with model 1 only) the adopted pipeline is rerun with only the
+detector changed:
   detection   the 21,831 BDD100K train frames, all 8,090 BDD100K val frames and the DAWN images, with wad.detect's
               settings (floor 0.001, NMS IoU 0.5, at most 300 boxes, the six classes, GPU)
   matching    grouped matching at IoU 0.5, as for YOLOv8x @1280
@@ -41,7 +43,10 @@ from wad.config import REPO, THRESH_CACHE, cache_path, det_path
 
 DETS = {"v8x_640": dict(name="yolov8x.pt", imgsz=640, label="YOLOv8x @640"),
         "v8s_640": dict(name="yolov8s.pt", imgsz=640, label="YOLOv8s @640"),
-        "v8s_1280": dict(name="yolov8s.pt", imgsz=1280, label="YOLOv8s @1280")}
+        "v8s_1280": dict(name="yolov8s.pt", imgsz=1280, label="YOLOv8s @1280"),
+        # another family: a transformer detector with set prediction (no NMS, no DFL, no anchor-level neck vector),
+        # so no per-box outputs: its per-detection rule and CRC use model 1 (the 20 context features)
+        "rtdetr_640": dict(name="rtdetr-l.pt", imgsz=640, label="RT-DETR-l @640", per_box=False)}
 ADOPTED = dict(det_id="v8x_1280", label="YOLOv8x @1280 (adopted)")
 CACHE = REPO / "cache" / "det_ablation"
 OUT = REPO / "results" / "ablation"
@@ -110,6 +115,8 @@ def gpu(det_id: str) -> None:
             say(f"{det_id} {name}: detecting ({v.detector.name} @{v.detector.imgsz})")
             detect.run(v)
             say(f"{det_id} {name}: detected, {time.perf_counter() - t0:.0f} s")
+        if not DETS[det_id].get("per_box", True):
+            continue
         extract(name, det_id, cf["train"])
         say(f"{det_id} {name}: per-box features done, {time.perf_counter() - t0:.0f} s")
         torch.cuda.empty_cache()
@@ -153,13 +160,15 @@ def fit(det_id: str) -> None:
     cf = match(det_id)
     ct = Cache(cf["train"])
     tr = labelled_features(ct, det_file(det_id, "train"))
-    pca = fit_pca(det_id=det_id)
-    tr = add_box_columns(tr, "train", pca, det_id=det_id)
+    per_box = DETS[det_id].get("per_box", True)
+    pca = fit_pca(det_id=det_id) if per_box else None
+    if per_box:
+        tr = add_box_columns(tr, "train", pca, det_id=det_id)
     data = [dict(detector=det_id, set="train", images=ct.n_img, objects=int(ct.n_gt(ALL).sum()), detections=len(tr),
                  real=int(tr.tp.sum()), objects_ever_detected=float(np.isfinite(ct.gt_score).mean()))]
     say(f"{det_id} train: {len(tr)} detections, {int(tr.tp.sum())} real, {time.perf_counter() - t0:.0f} s")
     models = {}
-    for name, cols in (("model 1", FULL), ("model 2", FULL + YOLO_COLS)):
+    for name, cols in (("model 1", FULL), ("model 2", FULL + YOLO_COLS))[:2 if per_box else 1]:
         models[name] = (train_model(tr, cols), cols)
         say(f"{det_id} {name}: {models[name][0].n_iter_} iterations, {time.perf_counter() - t0:.0f} s")
     WEIGHTS.mkdir(parents=True, exist_ok=True)
@@ -170,24 +179,27 @@ def fit(det_id: str) -> None:
     ev, cal, crc, mins = [], [], [], []
     for ds in ("BDD100K", "DAWN"):
         c = Cache(cf[ds])
-        f = add_box_columns(labelled_features(c, det_file(det_id, ds)), BOX_SET[ds], pca, det_id=det_id)
+        f = labelled_features(c, det_file(det_id, ds))
+        if per_box:
+            f = add_box_columns(f, BOX_SET[ds], pca, det_id=det_id)
         ps = {name: m.predict_proba(f[cols].to_numpy())[:, 1] for name, (m, cols) in models.items()}
         pd.DataFrame(dict(image_id=c.image_ids[f.img.to_numpy()], score=f.score.to_numpy(), tp=f.tp.to_numpy(),
-                          p1=ps["model 1"], p2=ps["model 2"])).to_parquet(CACHE / f"pred_{det_id}_{KEY[ds]}.parquet", index=False)
+                          p1=ps["model 1"], p2=ps.get("model 2", np.full(len(f), np.nan)))).to_parquet(CACHE / f"pred_{det_id}_{KEY[ds]}.parquet", index=False)
         data.append(dict(detector=det_id, set=ds, images=c.n_img, objects=int(c.n_gt(ALL).sum()), detections=len(f),
                          real=int(f.tp.sum()), objects_ever_detected=float(np.isfinite(c.gt_score).mean())))
         for name, p in ps.items():
             g = grade(ds, c, f, p, tau, LAMS)
             g.loc[g.policy == "per detection", "policy"] = f"per detection ({name})"
-            ev.append(g if name == "model 2" else g[g.policy.str.startswith("per detection")])
+            ev.append(g if name == list(models)[-1] else g[g.policy.str.startswith("per detection")])
             w_det, y = c.weather[f.img.to_numpy()], f.tp.to_numpy().astype(bool)
             for grp, ws in groups_of(ds, c.weather).items():
                 m = np.isin(w_det, ws)
                 cal.append(dict(dataset=ds, group=grp, model=name, ece=calibration(p[m], y[m])[1]))
         say(f"{det_id} {ds}: graded, {time.perf_counter() - t0:.0f} s")
-        e = evaluate(ds, cf[ds], ps["model 2"], alphas=ALPHAS)
+        main = ps["model 2" if per_box else "model 1"]  # the chance CRC over lam cuts
+        e = evaluate(ds, cf[ds], main, alphas=ALPHAS)
         crc.append(e)
-        mins.append(min_alpha(ds, cf[ds], ps["model 2"]))
+        mins.append(min_alpha(ds, cf[ds], main))
         say(f"{det_id} {ds}: CRC over 200 splits, {time.perf_counter() - t0:.0f} s")
     sub = OUT / "det"
     sub.mkdir(parents=True, exist_ok=True)
@@ -214,7 +226,8 @@ def crc(det_id: str, alphas) -> None:
         pr, c = pd.read_parquet(CACHE / f"pred_{det_id}_{KEY[ds]}.parquet"), Cache(cf[ds])
         if not (np.array_equal(pr.image_id.to_numpy(), c.pred.image_id.to_numpy()) and np.allclose(pr.score, c.pred.score)):
             raise ValueError(f"{det_id} {ds}: saved chances are not aligned with the cached predictions")
-        new.append(evaluate(ds, cf[ds], pr.p2.to_numpy(), alphas=alphas).assign(detector=det_id))
+        main = pr.p2 if pr.p2.notna().all() else pr.p1
+        new.append(evaluate(ds, cf[ds], main.to_numpy(), alphas=alphas).assign(detector=det_id))
         say(f"{det_id} {ds}: CRC at alpha {alphas}, {time.perf_counter() - t0:.0f} s")
     keep = ~old.alpha.round(4).isin([round(a, 4) for a in alphas])
     pd.concat([old[keep]] + new, ignore_index=True).to_csv(sub / f"{det_id}_crc_eval.csv", index=False, float_format="%.6g")
@@ -271,7 +284,8 @@ def report() -> str:
     ece = pd.concat([pd.read_csv(sub / f"{d}_ece.csv") for d in done], ignore_index=True) if done else pd.DataFrame()
     data = pd.concat([adopted_data()] + [pd.read_csv(sub / f"{d}_data.csv") for d in done], ignore_index=True)
     order = [ADOPTED["det_id"]] + done
-    labels = {ADOPTED["det_id"]: ADOPTED["label"], **{k: v["label"] for k, v in DETS.items()}}
+    labels = {ADOPTED["det_id"]: ADOPTED["label"],
+              **{k: v["label"] + ("" if v.get("per_box", True) else " (model 1 in the model 2 columns)") for k, v in DETS.items()}}
     # cost per image against YOLOv8x @1280's one threshold (same images and objects)
     ref = ev[(ev.detector == ADOPTED["det_id"]) & (ev.policy == "one threshold (train)")].set_index(["dataset", "group", "lam"]).cost_per_img
     ev["cost_vs_adopted_one"] = ev.cost_per_img.to_numpy() / ref.reindex(pd.MultiIndex.from_frame(ev[["dataset", "group", "lam"]])).to_numpy()
@@ -304,7 +318,8 @@ def report() -> str:
                 e = ev[(ev.detector == d) & (ev.dataset == ds) & (ev.group == grp) & (ev.lam == lam)].set_index("policy")
                 if e.empty:
                     continue
-                m2, m1, one = e.loc["per detection (model 2)"], e.loc["per detection (model 1)"], e.loc["one threshold (train)"]
+                m1, one = e.loc["per detection (model 1)"], e.loc["one threshold (train)"]
+                m2 = e.loc["per detection (model 2)"] if "per detection (model 2)" in e.index else m1
                 lines.append(f"| {labels[d]} | {ds} | {grp} | {lam:g} | {m2.cost_vs_one:.3f} | {m2.ci_lo:.3f}-{m2.ci_hi:.3f} | "
                              f"{m1.cost_vs_one:.3f} | {one.cost_vs_adopted_one:.3f} | {m2.cost_vs_adopted_one:.3f} |")
     lines += ["", "## CRC over lambda vs per-weather CRC over the score (200 splits, per bin)", "",

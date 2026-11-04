@@ -188,8 +188,79 @@ def report(summ: pd.DataFrame, calib: pd.DataFrame) -> str:
     return "\n".join(lines) + "\n"
 
 
+def crc_check(n_splits=10, alpha=0.2) -> pd.DataFrame:
+    """Does recalibration change CRC over lam? On the first n_splits of run 2's splits: CRC over lam (per bin) on the raw
+    chance and on the condition-map chance (map fitted on that split's calibration half), graded on the test half."""
+    from wad.config import bins, tau_grid
+    from wad.crc import fit_threshold, make_splits
+    from wad.crc_lambda import chance_cache
+    from wad.curves import ALL, Cache, summarize
+    from wad.one_threshold import eval_configs
+    from wad.per_detection import pred_path
+
+    rows = []
+    for ds, cfg in eval_configs().items():
+        c = Cache(cfg)
+        pr = pd.read_parquet(pred_path("bdd" if ds == "BDD100K" else "dawn", "yolo"))
+        if not np.array_equal(pr.image_id.to_numpy(), c.pred.image_id.to_numpy()):
+            raise ValueError(f"{ds}: chances are not aligned with the cached predictions")
+        p, y = pr.p.to_numpy(), pr.tp.to_numpy().astype(bool)
+        w_det = c.weather[pr.image_id.map(c.idx).to_numpy()]
+        grid, floor = tau_grid(cfg), cfg.detector.conf_floor
+        v = copy.deepcopy(cfg)
+        v.splits["n_repeats"] = n_splits
+        raw = chance_cache(c, p)
+        raw_loss = raw.loss_grid(grid, ALL)
+        for seed, sp in make_splits(v, c.images).groupby("seed", sort=True):
+            cal_img = (sp.set_index("image_id").loc[c.image_ids].half == "cal").to_numpy()
+            cal = cal_img[pr.image_id.map(c.idx).to_numpy()]
+            q = np.empty_like(p)
+            for b in np.unique(w_det):
+                m = w_det == b
+                q[m] = iso(p[m & cal], y[m & cal]).predict(p[m])
+            rec = chance_cache(c, q)
+            for name, cc, loss in (("raw", raw, raw_loss), ("condition map", rec, rec.loss_grid(grid, ALL))):
+                cut = np.full(c.n_img, np.nan)
+                for b in bins(cfg):
+                    cut[c.weather == b] = fit_threshold(loss[cal_img & (c.weather == b)], grid, alpha, floor)["tau_hat"]
+                counts = cc.at_thresholds(cut, ALL)
+                for b in bins(cfg):
+                    r = np.nonzero(~cal_img & (c.weather == b))[0]
+                    s = summarize(counts, r, per_class=False)
+                    rows.append(dict(dataset=ds, seed=int(seed), bin=b, chance=name, image_loss=s["image_loss"],
+                                     kept_real=float((counts["n_gt"][r] - counts["n_missed"][r]).sum()),
+                                     false_alarms=float(counts["n_fp"][r].sum())))
+    return pd.DataFrame(rows)
+
+
+def crc_report(d: pd.DataFrame) -> str:
+    w = d.pivot_table(index=["dataset", "seed", "bin"], columns="chance", values=["false_alarms", "kept_real", "image_loss"])
+    fa = w["false_alarms"]["condition map"] / w["false_alarms"]["raw"]
+    tot = d.groupby("chance")[["false_alarms", "kept_real"]].sum()
+    per_seed = d.groupby(["seed", "chance"]).false_alarms.sum().unstack()
+    r = per_seed["condition map"] / per_seed["raw"]
+    loss = d.groupby(["dataset", "bin", "chance"]).image_loss.mean().unstack()
+    return "\n".join([
+        "", "## CRC over lambda after recalibration (alpha 0.2, per bin, first 10 splits)", "",
+        f"- pooled false alarms, condition map / raw: {tot.false_alarms['condition map'] / tot.false_alarms['raw']:.3f} "
+        f"(per split {r.min():.3f}-{r.max():.3f}); objects found: {tot.kept_real['condition map'] / tot.kept_real['raw']:.4f}",
+        f"- per bin and split: median false-alarm ratio {fa.median():.3f}; higher in {(fa > 1).mean():.0%} of {len(fa)}",
+        f"- mean held-out miss, raw {loss['raw'].max():.3f} at most, condition map {loss['condition map'].max():.3f} at most",
+        "- the map's flat steps tie neighbouring boxes, so the conformal cut can only move in coarser blocks and stops",
+        "  earlier: the same guarantee for more false alarms."]) + "\n"
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if len(sys.argv) > 1 and sys.argv[1] == "crc":  # python -m wad.dial_recalibration crc: only the CRC check
+        d = crc_check()
+        d.to_csv(OUT / "dial_recalibration_crc.csv", index=False, float_format="%.6g")
+        md = crc_report(d)
+        p = OUT / "dial_recalibration.md"
+        text = p.read_text(encoding="utf-8").split("\n## CRC over lambda after recalibration")[0].rstrip("\n") + "\n"
+        p.write_text(text + md, encoding="utf-8")
+        print(md)
+        return
     from wad.one_threshold import TRAIN, eval_configs, train_curve, train_threshold
     from wad.per_detection import pred_path
 

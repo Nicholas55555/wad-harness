@@ -34,10 +34,12 @@ from wad.config import REPO, THRESH_CACHE
 
 OUT = THRESH_CACHE / "yolo_box"
 DET_ID = "v8x_1280"  # the dial's detector; other detectors (ablation d) live in OUT / det_id
-DET_DIRS = {"train": "cache/thresh/det", "bdd": "cache/bdd/det", "dawn": "cache/det"}
+DET_DIRS = {"train": "cache/thresh/det", "bdd": "cache/bdd/det", "dawn": "cache/det", "train_full": "cache/thresh_full/det"}
 SETS = {"train": ("cache/thresh/images.parquet", "cache/thresh/det/v8x_1280/detections.parquet"),
         "bdd": ("cache/bdd/images.parquet", "cache/bdd/det/v8x_1280/detections.parquet"),
-        "dawn": ("cache/images.parquet", "cache/det/v8x_1280/detections.parquet")}
+        "dawn": ("cache/images.parquet", "cache/det/v8x_1280/detections.parquet"),
+        # all 70,000 BDD100K train frames (wad/full_train.py; not part of the adopted model)
+        "train_full": ("cache/thresh_full/images.parquet", "cache/thresh_full/det/v8x_1280/detections.parquet")}
 PARTS = {"cls": (80, np.float16), "dfl": (64, np.float16), "neck": (320, np.float16), "level": (None, np.uint8)}
 
 
@@ -148,8 +150,10 @@ class Detector:
         return det, per_box(self.cap), (src.shape[1], src.shape[0])
 
 
-def extract(name: str, det_id: str = DET_ID, v=None, flush_every=500) -> None:
-    """v: the detector's config (detector settings and classes; default the dial's YOLOv8x @1280)."""
+def extract(name: str, det_id: str = DET_ID, v=None, flush_every=500, reuse: str | None = None) -> None:
+    """v: the detector's config (detector settings and classes; default the dial's YOLOv8x @1280). reuse: a set of the
+    same detector whose arrays already hold some of these images (their rows are copied when the image's boxes are
+    the same; wad/full_train.py reuses the train subset)."""
     from wad.detect import coco_to_name, load_model
     from wad.imageio import load_bgr
     from wad.thresh_yolo import detector_cfg
@@ -177,53 +181,70 @@ def extract(name: str, det_id: str = DET_ID, v=None, flush_every=500) -> None:
     cap = Capture()
     args = dict(imgsz=v.detector.imgsz, conf=v.detector.conf_floor, iou=v.detector.nms_iou, max_det=v.detector.max_det,
                 classes=list(v.classes.values()), device="cuda:0", verbose=False)
-    hooked, mismatch, unmatched, t0 = False, 0, 0, time.perf_counter()
+    src_box = src_rows = None
+    if reuse:  # another set of this detector whose arrays already hold some of these images (same detection pass)
+        src_box = load(reuse, det_id)
+        sd = pd.read_parquet(REPO / detections_file(reuse, det_id), columns=["image_id", "score"])
+        sids = sd.image_id.to_numpy()
+        sst = np.flatnonzero(np.r_[True, sids[1:] != sids[:-1]])
+        src_rows, src_score = dict(zip(sids[sst], zip(sst, np.r_[sst[1:], len(sd)]))), sd.score.to_numpy()
+    score = det.score.to_numpy()
+    hooked, mismatch, unmatched, reused, t0 = False, 0, 0, 0, time.perf_counter()
     for i in range(start, len(order)):
         iid, a, z = order[i], starts[i], ends[i]
-        src = load_bgr(im.loc[iid, "path"], v.data.exif_orientation)
-        r = model.predict(source=src, **args)[0]
-        if not hooked:  # the predictor builds (and fuses) its model on the first call
-            model.predictor.model.model.model[-1].register_forward_hook(cap.hook)
-            hooked = True
+        hit = src_rows.get(iid) if src_rows else None
+        if hit is not None and hit[1] - hit[0] == z - a and np.array_equal(src_score[hit[0]:hit[1]], score[a:z]):
+            if arr is None:
+                arr = {k: np.lib.format.open_memmap(paths(name, det_id)[k], mode="w+", dtype=dt,
+                                                    shape=(len(det),) + src_box[k].shape[1:]) for k, (w, dt) in PARTS.items()}
+            for k in PARTS:  # same image, same boxes in the same order: copy instead of recomputing
+                arr[k][a:z] = src_box[k][hit[0]:hit[1]]
+            reused += 1
+        else:
+            src = load_bgr(im.loc[iid, "path"], v.data.exif_orientation)
             r = model.predict(source=src, **args)[0]
-        f = per_box(cap)
-        if arr is None:
-            arr = {k: np.lib.format.open_memmap(paths(name, det_id)[k], mode="w+", dtype=dt,
-                                                shape=(len(det),) if w is None else (len(det), f[k].shape[1]))
-                   for k, (w, dt) in PARTS.items()}
-        c = det.iloc[a:z]
-        got_cls = np.array([names[int(k)] for k in r.boxes.cls.cpu().numpy()])
-        same = (len(c) == len(r.boxes) and (c.cls.to_numpy() == got_cls).all()
-                and np.abs(c.score.to_numpy() - r.boxes.conf.cpu().numpy()).max() < 1e-5
-                and np.abs(c[["x1", "y1", "x2", "y2"]].to_numpy() - r.boxes.xyxy.cpu().numpy()).max() < 1e-2)
-        if same:
-            take = np.arange(len(c))
-        else:  # match box by box (class, score, box)
-            mismatch += 1
-            got_s, got_b = r.boxes.conf.cpu().numpy(), r.boxes.xyxy.cpu().numpy()
-            take = np.full(len(c), -1)
-            for j, row in enumerate(c.itertuples()):
-                ok = np.flatnonzero((got_cls == row.cls) & (np.abs(got_s - row.score) < 1e-4)
-                                    & (np.abs(got_b - [row.x1, row.y1, row.x2, row.y2]).max(1) < 0.5))
-                if len(ok):
-                    take[j] = ok[0]
-            unmatched += int((take < 0).sum())
-        for k in PARTS:
-            block = np.full((len(c),) + arr[k].shape[1:], np.nan if k != "level" else 255, dtype=np.float64)
-            block[take >= 0] = f[k][take[take >= 0]]
-            arr[k][a:z] = block.astype(arr[k].dtype)
+            if not hooked:  # the predictor builds (and fuses) its model on the first call
+                model.predictor.model.model.model[-1].register_forward_hook(cap.hook)
+                hooked = True
+                r = model.predict(source=src, **args)[0]
+            f = per_box(cap)
+            if arr is None:
+                arr = {k: np.lib.format.open_memmap(paths(name, det_id)[k], mode="w+", dtype=dt,
+                                                    shape=(len(det),) if w is None else (len(det), f[k].shape[1]))
+                       for k, (w, dt) in PARTS.items()}
+            c = det.iloc[a:z]
+            got_cls = np.array([names[int(k)] for k in r.boxes.cls.cpu().numpy()])
+            same = (len(c) == len(r.boxes) and (c.cls.to_numpy() == got_cls).all()
+                    and np.abs(c.score.to_numpy() - r.boxes.conf.cpu().numpy()).max() < 1e-5
+                    and np.abs(c[["x1", "y1", "x2", "y2"]].to_numpy() - r.boxes.xyxy.cpu().numpy()).max() < 1e-2)
+            if same:
+                take = np.arange(len(c))
+            else:  # match box by box (class, score, box)
+                mismatch += 1
+                got_s, got_b = r.boxes.conf.cpu().numpy(), r.boxes.xyxy.cpu().numpy()
+                take = np.full(len(c), -1)
+                for j, row in enumerate(c.itertuples()):
+                    ok = np.flatnonzero((got_cls == row.cls) & (np.abs(got_s - row.score) < 1e-4)
+                                        & (np.abs(got_b - [row.x1, row.y1, row.x2, row.y2]).max(1) < 0.5))
+                    if len(ok):
+                        take[j] = ok[0]
+                unmatched += int((take < 0).sum())
+            for k in PARTS:
+                block = np.full((len(c),) + arr[k].shape[1:], np.nan if k != "level" else 255, dtype=np.float64)
+                block[take >= 0] = f[k][take[take >= 0]]
+                arr[k][a:z] = block.astype(arr[k].dtype)
         if (i + 1) % flush_every == 0 or i == len(order) - 1:
             for x in arr.values():
                 x.flush()
             done_f.write_text(str(i + 1))
             print(f"  {name} {i + 1}/{len(order)}, {time.perf_counter() - t0:.0f} s, images re-matched box by box: {mismatch}, "
-                  f"rows unmatched: {unmatched}", flush=True)
+                  f"rows unmatched: {unmatched}" + (f", images copied from {reuse}: {reused}" if reuse else ""), flush=True)
     del arr
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--sets", nargs="+", default=list(SETS), choices=list(SETS))
+    ap.add_argument("--sets", nargs="+", default=["train", "bdd", "dawn"], choices=list(SETS))
     for name in ap.parse_args(argv).sets:
         extract(name)
 

@@ -71,6 +71,21 @@ one threshold).
 | YOLOv8s @1280 | DAWN | fog | 1 | 0.918 | 0.884-0.952 | 0.951 | 1.288 | 1.182 |
 | YOLOv8s @1280 | DAWN | fog | 10 | 0.957 | 0.929-0.981 | 0.970 | 1.413 | 1.352 |
 | YOLOv8s @1280 | DAWN | fog | 30 | 0.965 | 0.929-0.999 | 0.976 | 1.488 | 1.436 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | all | 1 | 0.886 | 0.882-0.890 | 0.886 | 1.105 | 0.980 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | all | 10 | 0.860 | 0.856-0.864 | 0.860 | 1.114 | 0.958 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | all | 30 | 0.857 | 0.852-0.861 | 0.857 | 1.093 | 0.936 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | day | 1 | 0.858 | 0.852-0.865 | 0.858 | 1.188 | 1.020 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | day | 10 | 0.854 | 0.849-0.860 | 0.854 | 1.206 | 1.031 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | day | 30 | 0.860 | 0.854-0.866 | 0.860 | 1.161 | 0.998 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | night | 1 | 0.918 | 0.912-0.924 | 0.918 | 1.023 | 0.939 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | night | 10 | 0.867 | 0.860-0.872 | 0.867 | 1.029 | 0.892 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | BDD100K | night | 30 | 0.853 | 0.847-0.859 | 0.853 | 1.029 | 0.878 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | DAWN | all | 1 | 0.915 | 0.891-0.938 | 0.915 | 1.085 | 0.993 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | DAWN | all | 10 | 0.787 | 0.762-0.811 | 0.787 | 1.202 | 0.946 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | DAWN | all | 30 | 0.776 | 0.753-0.801 | 0.776 | 1.139 | 0.884 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | DAWN | fog | 1 | 0.888 | 0.850-0.929 | 0.888 | 1.055 | 0.937 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | DAWN | fog | 10 | 0.781 | 0.741-0.820 | 0.781 | 1.082 | 0.845 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | DAWN | fog | 30 | 0.812 | 0.769-0.853 | 0.812 | 0.974 | 0.791 |
 
 ## CRC over lambda vs per-weather CRC over the score (200 splits, per bin)
 
@@ -91,6 +106,10 @@ one threshold).
 | YOLOv8s @1280 | 0.25 | 11 of 11 | 0.248 | 0.610 (0.587-0.638) | 11 of 11 |
 | YOLOv8s @1280 | 0.3 | 11 of 11 | 0.298 | 0.619 (0.595-0.640) | 11 of 11 |
 | YOLOv8s @1280 | 0.35 | 11 of 11 | 0.348 | 0.639 (0.616-0.664) | 11 of 11 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | 0.2 | 11 of 11 | 0.198 | 0.534 (0.506-0.558) | 11 of 11 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | 0.25 | 11 of 11 | 0.248 | 0.523 (0.504-0.548) | 10 of 11 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | 0.3 | 11 of 11 | 0.298 | 0.511 (0.488-0.534) | 9 of 11 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | 0.35 | 11 of 11 | 0.347 | 0.510 (0.479-0.533) | 7 of 11 |
 
 ## Smallest certifiable alpha (mean over calibration halves)
 
@@ -104,6 +123,8 @@ one threshold).
 | YOLOv8s @640 | ours | 0.222-0.311 | 0.077-0.174 |
 | YOLOv8s @1280 | baseline | 0.128-0.215 | 0.104-0.230 |
 | YOLOv8s @1280 | ours | 0.128-0.215 | 0.104-0.232 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | baseline | 0.090-0.181 | 0.030-0.045 |
+| RT-DETR-l @640 (model 1 in the model 2 columns) | ours | 0.092-0.183 | 0.031-0.050 |
 
 ## Data per detector
 
@@ -121,11 +142,19 @@ one threshold).
 | v8s_1280 | train | 21831 | 261699 | 3401999 | 219682 | 0.8394 |
 | v8s_1280 | BDD100K | 8090 | 97745 | 1232827 | 81465 | 0.8334 |
 | v8s_1280 | DAWN | 889 | 6952 | 70149 | 6010 | 0.8645 |
+| rtdetr_640 | train | 21831 | 261699 | 4497938 | 226756 | 0.8665 |
+| rtdetr_640 | BDD100K | 8090 | 97745 | 1664490 | 84322 | 0.8627 |
+| rtdetr_640 | DAWN | 889 | 6952 | 194817 | 6608 | 0.9505 |
 
 ## Calibration error (ECE)
 
 | detector | dataset | group | model 1 | model 2 |
 |---|---|---|---|---|
+| rtdetr_640 | BDD100K | all | 0.0008914 | nan |
+| rtdetr_640 | BDD100K | day | 0.0005974 | nan |
+| rtdetr_640 | BDD100K | night | 0.0021 | nan |
+| rtdetr_640 | DAWN | all | 0.002035 | nan |
+| rtdetr_640 | DAWN | fog | 0.001726 | nan |
 | v8s_1280 | BDD100K | all | 0.001482 | 0.001258 |
 | v8s_1280 | BDD100K | day | 0.001734 | 0.001064 |
 | v8s_1280 | BDD100K | night | 0.002389 | 0.001937 |

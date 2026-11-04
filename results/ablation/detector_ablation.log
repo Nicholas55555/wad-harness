@@ -61,3 +61,19 @@ v8s_1280 BDD100K: CRC over 200 splits, 985 s
 v8s_1280 DAWN: graded, 988 s
 v8s_1280 DAWN: CRC over 200 splits, 1020 s
 v8s_1280: done, 1020 s
+rtdetr_640 train: detecting (rtdetr-l.pt @640)
+rtdetr_640 train: detected, 3694 s
+rtdetr_640 bdd: detecting (rtdetr-l.pt @640)
+rtdetr_640 bdd: detected, 4816 s
+rtdetr_640 dawn: detecting (rtdetr-l.pt @640)
+rtdetr_640 dawn: detected, 5011 s
+rtdetr_640 train: matched, 296 s
+rtdetr_640 BDD100K: matched, 105 s
+rtdetr_640 DAWN: matched, 11 s
+rtdetr_640 train: 4497938 detections, 226756 real, 632 s
+rtdetr_640 model 1: 72 iterations, 780 s
+rtdetr_640 BDD100K: graded, 880 s
+rtdetr_640 BDD100K: CRC over 200 splits, 1440 s
+rtdetr_640 DAWN: graded, 1452 s
+rtdetr_640 DAWN: CRC over 200 splits, 1523 s
+rtdetr_640: done, 1524 s
