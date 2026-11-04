@@ -1,0 +1,63 @@
+v8x_640 train: detecting (yolov8x.pt @640)
+v8x_640 train: detected, 2256 s
+v8x_640 train: per-box features done, 4070 s
+v8x_640 bdd: detecting (yolov8x.pt @640)
+v8x_640 bdd: detected, 4768 s
+v8x_640 bdd: per-box features done, 5420 s
+v8x_640 dawn: detections cached (C:\Users\nicho\Downloads\Weather Adaptive Autonomous Driving\wad-harness\cache\det\v8x_640\detections.parquet)
+v8x_640 dawn: per-box features done, 5518 s
+v8s_640 train: detecting (yolov8s.pt @640)
+v8x_640 train: matched, 242 s
+v8x_640 BDD100K: matched, 103 s
+v8x_640 DAWN: matched, 10 s
+v8x_640 train: 1384171 detections, 202367 real, 442 s
+v8x_640 model 1: 108 iterations, 478 s
+v8x_640 model 2: 108 iterations, 568 s
+v8x_640 BDD100K: graded, 622 s
+v8x_640 BDD100K: CRC over 200 splits, 988 s
+v8x_640 DAWN: graded, 991 s
+v8x_640 DAWN: CRC over 200 splits, 1032 s
+v8x_640: done, 1032 s
+v8s_640 train: detected, 1529 s
+v8s_640 train: per-box features done, 2815 s
+v8s_640 bdd: detections cached (C:\Users\nicho\Downloads\Weather Adaptive Autonomous Driving\wad-harness\cache\bdd\det\v8s_640\detections.parquet)
+v8s_640 bdd: per-box features done, 3293 s
+v8s_640 dawn: detecting (yolov8s.pt @640)
+v8s_640 dawn: detected, 3354 s
+v8s_640 dawn: per-box features done, 3418 s
+v8s_1280 train: detecting (yolov8s.pt @1280)
+v8s_640 train: matched, 261 s
+v8s_640 BDD100K: matched, 98 s
+v8s_640 DAWN: matched, 9 s
+v8s_640 BDD100K: matching identical to run 2's cache (check passed)
+v8s_640 train: 1887887 detections, 185916 real, 467 s
+v8s_640 model 1: 123 iterations, 520 s
+v8s_640 model 2: 105 iterations, 626 s
+v8s_640 BDD100K: graded, 671 s
+v8s_640 BDD100K: CRC over 200 splits, 1054 s
+v8s_640 DAWN: graded, 1058 s
+v8s_640 DAWN: CRC over 200 splits, 1099 s
+v8s_640: done, 1100 s
+v8s_640 BDD100K: CRC at alpha [0.35], 183 s
+v8s_640 DAWN: CRC at alpha [0.35], 202 s
+v8x_640 BDD100K: CRC at alpha [0.35], 160 s
+v8x_640 DAWN: CRC at alpha [0.35], 175 s
+v8s_1280 train: detected, 1603 s
+v8s_1280 train: per-box features done, 3099 s
+v8s_1280 bdd: detecting (yolov8s.pt @1280)
+v8s_1280 bdd: detected, 3592 s
+v8s_1280 bdd: per-box features done, 4098 s
+v8s_1280 dawn: detecting (yolov8s.pt @1280)
+v8s_1280 dawn: detected, 4167 s
+v8s_1280 dawn: per-box features done, 4241 s
+v8s_1280 train: matched, 187 s
+v8s_1280 BDD100K: matched, 68 s
+v8s_1280 DAWN: matched, 7 s
+v8s_1280 train: 3401999 detections, 219682 real, 392 s
+v8s_1280 model 1: 89 iterations, 445 s
+v8s_1280 model 2: 97 iterations, 587 s
+v8s_1280 BDD100K: graded, 648 s
+v8s_1280 BDD100K: CRC over 200 splits, 985 s
+v8s_1280 DAWN: graded, 988 s
+v8s_1280 DAWN: CRC over 200 splits, 1020 s
+v8s_1280: done, 1020 s

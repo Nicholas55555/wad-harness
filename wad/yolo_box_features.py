@@ -17,6 +17,10 @@ unmatched (2026-10-15: 38 of 30.9k images re-matched, 0 rows unmatched).
 Outputs: cache/thresh/yolo_box/{train,bdd,dawn}_{cls,dfl,neck,level}.npy (float16 / uint8), with a
 .done file per set for resuming. Run: python -m wad.yolo_box_features [--sets train bdd dawn]
 (GPU, about 85 minutes for all three sets).
+
+Other detectors (Phase 4 ablation d, wad/detector_ablation.py): extract(name, det_id, v) reads that detector's
+detections (cache/{thresh/det,bdd/det,det}/<det_id>/) and writes cache/thresh/yolo_box/<det_id>/. The neck
+vector is mean-reduced to the smallest level's width, as get_obj_feats does: 320 for YOLOv8x, 128 for YOLOv8s.
 """
 from __future__ import annotations
 
@@ -29,23 +33,33 @@ import pandas as pd
 from wad.config import REPO, THRESH_CACHE
 
 OUT = THRESH_CACHE / "yolo_box"
+DET_ID = "v8x_1280"  # the dial's detector; other detectors (ablation d) live in OUT / det_id
+DET_DIRS = {"train": "cache/thresh/det", "bdd": "cache/bdd/det", "dawn": "cache/det"}
 SETS = {"train": ("cache/thresh/images.parquet", "cache/thresh/det/v8x_1280/detections.parquet"),
         "bdd": ("cache/bdd/images.parquet", "cache/bdd/det/v8x_1280/detections.parquet"),
         "dawn": ("cache/images.parquet", "cache/det/v8x_1280/detections.parquet")}
 PARTS = {"cls": (80, np.float16), "dfl": (64, np.float16), "neck": (320, np.float16), "level": (None, np.uint8)}
 
 
-def paths(name: str) -> dict:
-    return {k: OUT / f"{name}_{k}.npy" for k in PARTS}
+def out_dir(det_id: str = DET_ID):
+    return OUT if det_id == DET_ID else OUT / det_id
 
 
-def load(name: str) -> dict:
+def detections_file(name: str, det_id: str = DET_ID) -> str:
+    return f"{DET_DIRS[name]}/{det_id}/detections.parquet"
+
+
+def paths(name: str, det_id: str = DET_ID) -> dict:
+    return {k: out_dir(det_id) / f"{name}_{k}.npy" for k in PARTS}
+
+
+def load(name: str, det_id: str = DET_ID) -> dict:
     """The features of a set, rows in the order of its detections.parquet."""
-    done = OUT / f"{name}.done"
+    done = out_dir(det_id) / f"{name}.done"
     n_img = int(done.read_text()) if done.exists() else 0
-    want = pd.read_parquet(REPO / SETS[name][1], columns=["image_id"]).image_id.nunique()
-    assert n_img == want, f"{name}: extraction incomplete ({n_img} of {want} images)"
-    return {k: np.load(p, mmap_mode="r") for k, p in paths(name).items()}
+    want = pd.read_parquet(REPO / detections_file(name, det_id), columns=["image_id"]).image_id.nunique()
+    assert n_img == want, f"{name} ({det_id}): extraction incomplete ({n_img} of {want} images)"
+    return {k: np.load(p, mmap_mode="r") for k, p in paths(name, det_id).items()}
 
 
 class Capture:
@@ -80,9 +94,10 @@ def per_box(cap: Capture) -> dict:
     feats = raw["feats"]
     sizes = [f.shape[2] * f.shape[3] for f in feats]
     starts = np.cumsum([0] + sizes)
+    width = min(f.shape[1] for f in feats)  # 320 for YOLOv8x, 128 for YOLOv8s
     cls = raw["scores"][0][:, idx].sigmoid().T  # (k, 80)
     dfl = raw["boxes"][0][:, idx].view(4, 16, -1).softmax(1).permute(2, 0, 1).reshape(-1, 64)  # (k, 64)
-    neck = torch.empty((len(idx), 320), device=cls.device)
+    neck = torch.empty((len(idx), width), device=cls.device)
     level = torch.empty(len(idx), dtype=torch.uint8)
     for l, f in enumerate(feats):
         sel = (idx >= starts[l]) & (idx < starts[l + 1])
@@ -90,7 +105,7 @@ def per_box(cap: Capture) -> dict:
             continue
         pos = idx[sel] - starts[l]
         v = f[0].reshape(f.shape[1], -1)[:, pos].T  # (k_l, C)
-        neck[sel] = v.reshape(len(pos), 320, f.shape[1] // 320).mean(-1)  # channel groups, as get_obj_feats
+        neck[sel] = v.reshape(len(pos), width, f.shape[1] // width).mean(-1)  # channel groups, as get_obj_feats
         level[sel.cpu()] = l
     return dict(cls=cls.float().cpu().numpy(), dfl=dfl.float().cpu().numpy(), neck=neck.float().cpu().numpy(),
                 level=level.numpy())
@@ -133,32 +148,31 @@ class Detector:
         return det, per_box(self.cap), (src.shape[1], src.shape[0])
 
 
-def extract(name: str, flush_every=500) -> None:
+def extract(name: str, det_id: str = DET_ID, v=None, flush_every=500) -> None:
+    """v: the detector's config (detector settings and classes; default the dial's YOLOv8x @1280)."""
     from wad.detect import coco_to_name, load_model
     from wad.imageio import load_bgr
     from wad.thresh_yolo import detector_cfg
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    v = detector_cfg()
+    out = out_dir(det_id)
+    out.mkdir(parents=True, exist_ok=True)
+    v = v or detector_cfg()
     names = coco_to_name(v)
     im = pd.read_parquet(REPO / SETS[name][0]).set_index("image_id")
-    det = pd.read_parquet(REPO / SETS[name][1])
+    det = pd.read_parquet(REPO / detections_file(name, det_id))
     ids = det.image_id.to_numpy()
     starts = np.flatnonzero(np.r_[True, ids[1:] != ids[:-1]])
     assert len(starts) == len(set(ids)), f"{name}: each image's detections must be consecutive"
     ends = np.r_[starts[1:], len(det)]
     order = ids[starts]
-    done_f = OUT / f"{name}.done"
+    done_f = out / f"{name}.done"
     start = int(done_f.read_text()) if done_f.exists() else 0
     if start >= len(order):
         print(f"{name}: complete ({len(order)} images)", flush=True)
         return
-    (OUT / f"{name}.ids.txt").write_text("".join(f"{x}\n" for x in order), encoding="utf-8")
-    arr = {}
-    for k, (w, dt) in PARTS.items():
-        shape = (len(det),) if w is None else (len(det), w)
-        p = paths(name)[k]
-        arr[k] = np.load(p, mmap_mode="r+") if start > 0 else np.lib.format.open_memmap(p, mode="w+", dtype=dt, shape=shape)
+    (out / f"{name}.ids.txt").write_text("".join(f"{x}\n" for x in order), encoding="utf-8")
+    # created after the first image when starting afresh: the neck width depends on the detector
+    arr = {k: np.load(p, mmap_mode="r+") for k, p in paths(name, det_id).items()} if start > 0 else None
     model = load_model(v)
     cap = Capture()
     args = dict(imgsz=v.detector.imgsz, conf=v.detector.conf_floor, iou=v.detector.nms_iou, max_det=v.detector.max_det,
@@ -173,6 +187,10 @@ def extract(name: str, flush_every=500) -> None:
             hooked = True
             r = model.predict(source=src, **args)[0]
         f = per_box(cap)
+        if arr is None:
+            arr = {k: np.lib.format.open_memmap(paths(name, det_id)[k], mode="w+", dtype=dt,
+                                                shape=(len(det),) if w is None else (len(det), f[k].shape[1]))
+                   for k, (w, dt) in PARTS.items()}
         c = det.iloc[a:z]
         got_cls = np.array([names[int(k)] for k in r.boxes.cls.cpu().numpy()])
         same = (len(c) == len(r.boxes) and (c.cls.to_numpy() == got_cls).all()

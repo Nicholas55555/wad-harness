@@ -1,8 +1,9 @@
 """Phase 4 paper assets: the LaTeX tables and figures of the Experiments section, generated from result files.
 
-Reads results/crc_lambda (wad.crc_lambda), results/ablation (wad.dial_ablation), results/threshold
-(per_detection_yolo_eval.csv, the training log) and the adopted model, and writes Docs/latex/phase4/:
-  tables/tab_data.tex, tab_crc.tex, tab_dial.tex, tab_ablation.tex
+Reads results/crc_lambda (wad.crc_lambda), results/ablation (wad.dial_ablation, wad.dial_recalibration,
+wad.detector_ablation), results/threshold (per_detection_yolo_eval.csv, the training log) and the adopted model, and
+writes Docs/latex/phase4/:
+  tables/tab_data.tex, tab_crc.tex, tab_crc_floor.tex, tab_dial.tex, tab_ablation.tex, tab_recal.tex, tab_detectors.tex
   figures/fig_p4_price.pdf/.png        CRC over lam vs the per-weather baseline: false alarms at alpha 0.2, ratio vs alpha
   figures/fig_p4_training.pdf/.png     training evidence: log-loss per boosting iteration, learning curve
   figures/fig_p4_qualitative.pdf/.png  baseline vs ours on held-out frames (split 0, alpha 0.2)
@@ -105,6 +106,68 @@ def tab_ablation() -> str:
                    f"{ms('BDD100K_all_lam10_cost')} & {ms('BDD100K_night_lam10_cost')} & {ms('DAWN_all_lam10_cost')} & "
                    f"{g.BDD100K_ece_points.mean():.2f} / {g.DAWN_ece_points.mean():.2f} \\\\")
     return "\n".join(out).replace("%", "\\%")
+
+
+def tab_recal() -> str:
+    """Ablation (b): cost at lam = 10 of the recalibrated rule / raw chance (median over the 200 splits, 95% interval),
+    and the share of real boxes near the 9.1% cut before and after the per-condition map."""
+    s = pd.read_csv(ABL / "dial_recalibration.csv")
+    s = s[s.lam == 10].set_index(["dataset", "condition", "variant"])
+    c = pd.read_csv(ABL / "dial_recalibration_calibration.csv").groupby(["dataset", "condition", "variant"]).mean(numeric_only=True)
+    rows = ([("BDD100K", "all", "BDD100K val, all")] + [x for x in COND if x[0] == "BDD100K"]
+            + [("DAWN", "all", "DAWN, all")] + [x for x in COND if x[0] == "DAWN"])
+    out = []
+    for ds, cond, lab in rows:
+        def cell(v):
+            r = s.loc[(ds, cond, v)]
+            return f"{r.vs_raw_median:.3f} ({r.vs_raw_q025:.3f}--{r.vs_raw_q975:.3f})"
+        raw = s.loc[(ds, cond, "raw")]
+        if cond == "all":
+            near = "-- & --"
+        else:
+            a, b = c.loc[(ds, cond, "raw")], c.loc[(ds, cond, "condition")]
+            near = f"{pct(a.mean_chance_near_10)} / {pct(a.share_real_near_10)} & {pct(b.mean_chance_near_10)} / {pct(b.share_real_near_10)}"
+        out.append(f"{lab} & {raw.vs_one_median:.3f} & {cell('condition')} & {cell('pooled')} & {cell('train')} & {near} \\\\")
+        if (ds, cond) in (("BDD100K", "all"), ("DAWN", "all")):
+            out.append("\\addlinespace[2pt]")
+        if (ds, cond) == ("BDD100K", "snow_night"):
+            out.append("\\midrule")
+    return "\n".join(out)
+
+
+def tab_detectors() -> str:
+    """Ablation (d): per detector, the share of objects it ever proposes, its one threshold's cost against the adopted
+    detector's, the per-detection rule against its own one threshold (lam = 10), and CRC over lam against
+    per-weather CRC over its score (pooled false-alarm ratio at the first alpha every condition can certify)."""
+    from wad.detector_ablation import ADOPTED, DETS
+
+    e = pd.read_csv(ABL / "detector_ablation_eval.csv")
+    e = e[e.lam == 10].set_index(["detector", "dataset", "group", "policy"])
+    s = pd.read_csv(ABL / "detector_ablation_crc.csv")
+    r = pd.read_csv(ABL / "detector_ablation_ratio.csv")
+    d = pd.read_csv(ABL / "detector_ablation_data.csv").set_index(["detector", "set"])
+    m = pd.read_csv(ABL / "detector_ablation_min_alpha.csv")
+    labels = {ADOPTED["det_id"]: "YOLOv8x @1280 (adopted)", **{k: v["label"] for k, v in DETS.items()}}
+    out = []
+    for det in [ADOPTED["det_id"]] + [k for k in DETS if k in set(e.index.get_level_values(0))]:
+        def cost(ds, grp, pol="per detection (model 2)", ci=True):
+            x = e.loc[(det, ds, grp, pol)]
+            return f"{x.cost_vs_one:.3f}" + (f" ({x.ci_lo:.3f}--{x.ci_hi:.3f})" if ci else "")
+        one = e.loc[(det, "BDD100K", "all", "one threshold (train)")].cost_vs_adopted_one
+        ss = s[(s.detector == det) & (s.scope == "per_bin")]
+        floor = m[(m.detector == det) & (m.method == "baseline")].min_alpha.max()  # every condition certifiable above it
+        feasible = [a for a in sorted(ss.alpha.unique()) if a >= floor]
+        if feasible:
+            a = feasible[0]
+            rr = r[(r.detector == det) & (r.scope == "per_bin") & (r.alpha == a) & (r.dataset == "both") & (r.bin == "all")].iloc[0]
+            crc = f"{a:.2f} & {rr.ratio_median:.2f} ({rr.ratio_q025:.2f}--{rr.ratio_q975:.2f})"
+        else:
+            crc = "-- & --"
+        mb = m[(m.detector == det) & (m.method == "baseline") & (m.dataset == "BDD100K")].min_alpha
+        out.append(f"{labels[det]} & {pct(d.loc[(det, 'BDD100K')].objects_ever_detected)} & {one:.3f} & {cost('BDD100K', 'all')} & "
+                   f"{cost('BDD100K', 'night', ci=False)} & {cost('DAWN', 'all')} & {cost('BDD100K', 'all', 'per detection (model 1)', ci=False)} & "
+                   f"{crc} & {mb.min():.3f}--{mb.max():.3f} \\\\")
+    return "\n".join(out)
 
 
 def tab_data() -> str:
@@ -290,9 +353,12 @@ def fig_logs():
         elif l.startswith("| C"):
             cells = [c.strip() for c in l.strip("|").split("|")]
             crc.append(f"{cells[0]} -> {cells[1]} -> {cells[2]}")
+    det = [l for l in read(ABL / "detector_ablation.log")
+           if (" detections, " in l and " real, " in l) or " model 2: " in l or "check passed" in l or ": done, " in l]
     blocks = [("python -m wad.per_detection --features yolo   (training the per-detection model)", train),
               ("python -m wad.dial_ablation   (ablations: refits on BDD100K train, graded on BDD100K val / DAWN)", abl),
-              ("python -m wad.crc_lambda   (pre-registered: CRC over lambda vs the per-weather baseline, 200 splits)", crc)]
+              ("python -m wad.crc_lambda   (pre-registered: CRC over lambda vs the per-weather baseline, 200 splits)", crc),
+              ("python -m wad.detector_ablation fit   (ablation d: the pipeline refitted for three other detectors)", det)]
     text = []
     for title, lines in blocks:
         text.append("$ " + title)
@@ -309,8 +375,11 @@ def fig_logs():
 def main():
     (OUT / "tables").mkdir(parents=True, exist_ok=True)
     (OUT / "figures").mkdir(parents=True, exist_ok=True)
-    for name, fn in (("tab_crc", tab_crc), ("tab_crc_floor", tab_crc_floor), ("tab_dial", tab_dial),
-                     ("tab_ablation", tab_ablation), ("tab_data", tab_data)):
+    tables = [("tab_crc", tab_crc), ("tab_crc_floor", tab_crc_floor), ("tab_dial", tab_dial), ("tab_ablation", tab_ablation),
+              ("tab_data", tab_data), ("tab_recal", tab_recal)]
+    if (ABL / "detector_ablation_eval.csv").exists():
+        tables.append(("tab_detectors", tab_detectors))
+    for name, fn in tables:
         (OUT / "tables" / f"{name}.tex").write_text(fn() + "\n", encoding="utf-8")
     fig_price()
     fig_training()

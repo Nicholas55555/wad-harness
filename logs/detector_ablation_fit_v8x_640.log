@@ -1,0 +1,11 @@
+v8x_640 train: matched, 242 s
+v8x_640 BDD100K: matched, 103 s
+v8x_640 DAWN: matched, 10 s
+v8x_640 train: 1384171 detections, 202367 real, 442 s
+v8x_640 model 1: 108 iterations, 478 s
+v8x_640 model 2: 108 iterations, 568 s
+v8x_640 BDD100K: graded, 622 s
+v8x_640 BDD100K: CRC over 200 splits, 988 s
+v8x_640 DAWN: graded, 991 s
+v8x_640 DAWN: CRC over 200 splits, 1032 s
+v8x_640: done, 1032 s

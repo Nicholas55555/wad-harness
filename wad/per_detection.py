@@ -231,22 +231,22 @@ def box_columns(cls: np.ndarray, dfl: np.ndarray, neck: np.ndarray, level: np.nd
     return pd.DataFrame(out)
 
 
-def fit_pca(seed=0, n=200_000):
+def fit_pca(seed=0, n=200_000, det_id="v8x_1280"):
     """PCA of the neck vectors, fitted on a random 200,000 train detections."""
     from sklearn.decomposition import PCA
 
     from wad.yolo_box_features import load as load_box
 
-    neck = load_box("train")["neck"]
+    neck = load_box("train", det_id)["neck"]
     rows = np.sort(np.random.default_rng(seed).choice(len(neck), n, replace=False))
     return PCA(n_components=N_PC, random_state=seed).fit(np.asarray(neck[rows], np.float32))
 
 
-def add_box_columns(f: pd.DataFrame, box_set: str, pca, chunk=400_000) -> pd.DataFrame:
+def add_box_columns(f: pd.DataFrame, box_set: str, pca, chunk=400_000, det_id="v8x_1280") -> pd.DataFrame:
     """Join model 2's per-box columns to labelled features (by the detections-file row)."""
     from wad.yolo_box_features import load as load_box
 
-    b = load_box(box_set)
+    b = load_box(box_set, det_id)
     rows = f.row.to_numpy()
     parts = [box_columns(b["cls"][rows[i:i + chunk]], b["dfl"][rows[i:i + chunk]], b["neck"][rows[i:i + chunk]],
                          b["level"][rows[i:i + chunk]], pca) for i in range(0, len(rows), chunk)]

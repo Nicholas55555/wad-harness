@@ -1,0 +1,11 @@
+v8s_1280 train: matched, 187 s
+v8s_1280 BDD100K: matched, 68 s
+v8s_1280 DAWN: matched, 7 s
+v8s_1280 train: 3401999 detections, 219682 real, 392 s
+v8s_1280 model 1: 89 iterations, 445 s
+v8s_1280 model 2: 97 iterations, 587 s
+v8s_1280 BDD100K: graded, 648 s
+v8s_1280 BDD100K: CRC over 200 splits, 985 s
+v8s_1280 DAWN: graded, 988 s
+v8s_1280 DAWN: CRC over 200 splits, 1020 s
+v8s_1280: done, 1020 s

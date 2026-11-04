@@ -19,13 +19,15 @@ objectives not yet done.*
 **Status 2026-11-03:**
 - **Done (doc 14):**
   - 1, CRC over λ (pre-registered, all criteria met);
+  - 2, per-condition recalibration (ablation b, `wad/dial_recalibration.py`): fixes DAWN fog's under-stated
+    chances only with labelled frames from the condition; no effect on BDD100K;
   - 3, feature-group ablation;
   - 4, training-size curve (10 / 25 / 50 / 100%);
+  - 5, detector transfer (ablation d, `wad/detector_ablation.py`): YOLOv8x @640, YOLOv8s @640 and @1280, run on
+    the laptop;
   - 6, per-frame timing;
   - 7, tables and figures.
-- **Still open, for the final paper:**
-  - 2, per-condition recalibration;
-  - 5, detector transfer.
+- **Still open:** training on all 70,000 BDD100K train frames (needs about 3 GB more of BDD100K images).
 
 | # | item | detail | effort |
 |---|---|---|---|

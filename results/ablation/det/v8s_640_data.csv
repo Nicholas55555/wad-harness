@@ -1,0 +1,4 @@
+detector,set,images,objects,detections,real,objects_ever_detected
+v8s_640,train,21831,261699,1887887,185916,0.710419
+v8s_640,BDD100K,8090,97745,678126,68409,0.699872
+v8s_640,DAWN,889,6952,51662,6048,0.869965
